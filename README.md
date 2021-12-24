@@ -28,8 +28,8 @@
         - findIndexOfSequence
         - includesAll
         - filterByOccurences
-        - group
-        - chunk
+        - groupArray
+        - chunkArray
         - contentsAreEqual
         - filterIndeces
         - findDifferingIndeces
