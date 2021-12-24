@@ -128,12 +128,12 @@ export function contentsAreEqual (array, value = array[0]) {
 
 
 /**
- * Filters indeces by callback
+ * Filters indices by callback
  * @param {any[]} array 
  * @param {Function} callback 
  * @returns {number[]}
  */
-export function filterIndeces (array, callback) {
+export function filterIndices (array, callback) {
 	const result = [];
 	for (let i = 0; i < array.length; i++) {
 		if (callback(array[i], i)) {
@@ -145,13 +145,13 @@ export function filterIndeces (array, callback) {
 
 
 /**
- * Finds differing indeces between two arrays
+ * Finds differing indices between two arrays
  * @param {any[]} array1 
  * @param {any[]} array2 
  * @returns {number[]}
  */
-export function findDifferingIndeces(array1, array2) {
-	return filterIndeces(array1, (item, index) => !deepCompare(item, array2[index]));
+export function findDifferingIndices(array1, array2) {
+	return filterIndices(array1, (item, index) => !deepCompare(item, array2[index]));
 }
 
 
@@ -167,37 +167,37 @@ export function findDifference (array1, array2) {
 
 
 /**
- * Finds missing indeces in array
+ * Finds missing indices in array
  * @param {any[]} array 
  * @returns {number[]}
  */
-export function findMissingIndeces (array) {
-	return filterIndeces(array, (_, index) => !array.hasOwnProperty(index));
+export function findMissingIndices (array) {
+	return filterIndices(array, (_, index) => !array.hasOwnProperty(index));
 }
 
 
 /**
- * Checks if array has missing indeces, or is sparse
+ * Checks if array has missing indices, or is sparse
  * @param {any[]} array 
  * @returns {boolean}
  */
 export function isSparse (array) {
-	return findMissingIndeces(array).length > 0;
+	return findMissingIndices(array).length > 0;
 }
 
 
 /**
- * Swaps items by indeces
+ * Swaps items by indices
  * @param {any[]} array 
- * @param  {...any} indeces 
+ * @param  {...any} indices 
  * @returns {any[]}
  */
-export function swapIndeces (array, ...indeces) {
-	for (let i = 0; i < indeces.length - 1; i++) {
-		const index = indeces[i];
+export function swapIndices (array, ...indices) {
+	for (let i = 0; i < indices.length - 1; i++) {
+		const index = indices[i];
 		const temp = array[index];
-		array[index] = array[indeces.at(i - 1)];
-		array[indeces.at(i - 1)] = temp;
+		array[index] = array[indices.at(i - 1)];
+		array[indices.at(i - 1)] = temp;
 	}
 	return array;
 }

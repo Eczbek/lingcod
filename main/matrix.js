@@ -9,11 +9,11 @@ import { typeOf } from './misc.js';
  * @returns {any[]}
  */
 export function createMatrix (dimensions, fill) {
-	function loop (dims = dimensions, indeces = []) {
+	function loop (dims = dimensions, indices = []) {
 		const matrix = [];
 		const dimension = dims.shift();
 		for (let i = 0; i < dimension; i++) {
-			const next = [...indeces, i];
+			const next = [...indices, i];
 			matrix.push(dims.length > 0 ? loop([...dims], next) : typeOf(fill) === 'Function' ? fill(next) : fill);
 		}
 		return matrix;
