@@ -21,7 +21,7 @@
         - deepExtract
         - deepRemove
         - deepRecurse
-        - deepFindIndeces
+        - deepFindIndices
     - array.js
         - createArray
         - arrayFrom
@@ -31,12 +31,12 @@
         - groupArray
         - chunkArray
         - contentsAreEqual
-        - filterIndeces
-        - findDifferingIndeces
+        - filterIndices
+        - findDifferingIndices
         - findDifference
-        - findMissingIndeces
+        - findMissingIndices
         - isSparse
-        - swapIndeces
+        - swapIndices
         - shuffleArray
     - matrix.js
         - createMatrix

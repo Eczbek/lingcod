@@ -192,12 +192,12 @@ export function deepRecurse (target, callback, check = () => true) {
 
 
 /**
- * Finds indeces of all matches of value
+ * Finds indices of all matches of value
  * @param {any} target 
  * @param {any} value 
  * @returns {any[][]}
  */
-export function deepFindIndeces (target, value) {
+export function deepFindIndices (target, value) {
 	const result = [];
 	function loop (trgt = target, keys = []) {
 		if (typeOf(value) === 'Function' ? value(trgt, keys) : Deep.compare(trgt, value)) {
