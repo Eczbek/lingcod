@@ -84,7 +84,7 @@ export function filterByOccurences (array, count) {
  * @param {Function} getValue optional
  * @returns {Map}
  */
-export function group (array, getGroup, getValue = (x) => x) {
+export function groupArray (array, getGroup, getValue = (x) => x) {
 	return array.reduce((map, item, index) => {
 		const group = getGroup(item, index);
 		if (!map.has(group)) {
@@ -103,7 +103,7 @@ export function group (array, getGroup, getValue = (x) => x) {
  * @param {boolean} overflow optional
  * @returns {any[][]}
  */
-export function chunk (array, size, overflow = true) {
+export function chunkArray (array, size, overflow = true) {
 	const result = [];
 	while (true) {
 		const s = typeOf(size) === 'Function' ? size(array[result.length], result.length, array) : size;
