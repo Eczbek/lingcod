@@ -51,9 +51,7 @@ export class Line {
 	static areIntersecting (...lines) {
 		return lines.some((line1) => lines.some((line2) => {
 			const det = (line1.end.x - line1.start.x) * (line1.end.y - line1.start.y) * (line2.end.x - line2.start.x) * (line2.end.y - line2.start.y);
-			if (det === 0) {
-				return;
-			}
+			if (det === 0) return false;
 			const lambda = ((line2.end.y - line2.start.y) * (line2.end.x - line1.start.x) + (line2.start.x - line2.end.x) * (line2.end.y - line1.start.y)) / det;
 			const gamma = ((line1.start.y - line1.end.y) * (line2.end.x - line1.start.x) + (line1.end.x - line1.start.x) * (line2.end.y - line1.start.y)) / det;
 			return lambda > 0 && lambda < 1 && gamma > 0 && gamma < 1;

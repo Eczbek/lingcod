@@ -12,11 +12,11 @@ export default class WebSocketServer extends EventEmitter {
 	 * Creates and starts server
 	 * @param {string} config optional
 	 */
-	constructor ({ CLIENT_DIR, PORT }) {
+	constructor (clientDir, port) {
 		super();
 
-		this.use(CLIENT_DIR);
-		this.port = PORT;
+		this.use(clientDir);
+		this.port = port;
 	}
 
 	#app = express();
@@ -31,10 +31,8 @@ export default class WebSocketServer extends EventEmitter {
 	 * @param {string} clientDir 
 	 */
 	use (clientDir) {
-		if (!clientDir) {
-			return;
-		}
-		this.#clientDir = clientDir;
+		if (!clientDir) return;
+
 		this.#app.use(express.static(clientDir));
 	}
 
@@ -44,9 +42,7 @@ export default class WebSocketServer extends EventEmitter {
 	 * @param {number} port 
 	 */
 	listen (port = this.port) {
-		if (!port) {
-			return;
-		}
+		if (!port) return;
 
 		this.#httpServer.listen(port);
 
@@ -76,14 +72,5 @@ export default class WebSocketServer extends EventEmitter {
 	 */
 	send (id, data) {
 		this.sockets[id]?.send(JSON.stringify(data));
-	}
-
-
-	/**
-	 * Gets port
-	 * @returns {number}
-	 */
-	getPort () {
-		return this.#port;
 	}
 }
