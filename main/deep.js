@@ -33,9 +33,7 @@ export function deepCompare (...values) {
 	const type = typeOf(first);
 	for (let i = 1; i < values.length; i++) {
 		const value = values[i];
-		if (type !== typeOf(value)) {
-			return false;
-		}
+		if (type !== typeOf(value)) return false;
 		switch (type) {
 			case 'Object':
 				return Object.entries(first).every(([key, val]) => deepCompare(val, value[key]));
@@ -61,9 +59,7 @@ export function deepCompare (...values) {
 export function deepExtend (target, ...extensions) {
 	const type = typeOf(target);
 	for (const extension of extensions) {
-		if (type !== typeOf(extension)) {
-			continue;
-		}
+		if (type !== typeOf(extension)) continue;
 		switch (type) {
 			case 'Object':
 			case 'Array':
@@ -95,9 +91,7 @@ export function deepExtend (target, ...extensions) {
 export function deepExtract (target, ...paths) {
 	const result = [];
 	for (const keys of paths.map((path) => arrayFrom(deepCopy(path)))) {
-		if (keys.length < 1) {
-			result.push(target);
-		}
+		if (keys.length < 1) result.push(target);
 		const key = keys.shift();
 		switch (typeOf(target)) {
 			case 'Object':
@@ -161,12 +155,8 @@ export function deepRecurse (target, callback, check = () => true) {
 			const next = [...keys, key];
 			if (check(value, next)) {
 				const callbackResult = callback(value, next);
-				if (!isNullish(callbackResult)) {
-					result.push(callbackResult);
-				}
-				if (!stop) {
-					result.push(...loop(value, next));
-				}
+				if (!isNullish(callbackResult)) result.push(callbackResult);
+				if (!stop) result.push(...loop(value, next));
 			}
 		}
 		switch (typeOf(trgt)) {
@@ -200,15 +190,11 @@ export function deepRecurse (target, callback, check = () => true) {
 export function deepFindIndices (target, value) {
 	const result = [];
 	function loop (trgt = target, keys = []) {
-		if (typeOf(value) === 'Function' ? value(trgt, keys) : Deep.compare(trgt, value)) {
-			result.push(keys);
-		}
+		if (typeOf(value) === 'Function' ? value(trgt, keys) : Deep.compare(trgt, value)) result.push(keys);
 		function handle (key, value) {
 			const nextKeys = [...keys, key];
 			const nextLoop = loop(value, nextKeys);
-			if (typeOf(nextLoop) === 'Array') {
-				return nextLoop;
-			}
+			if (typeOf(nextLoop) === 'Array') return nextLoop;
 		}
 		switch (typeOf(trgt)) {
 			case 'Object':

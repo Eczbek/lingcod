@@ -1,10 +1,12 @@
-class WebSocketClient extends EventEmitter {
+import EventEmitter from './eventemitter.js';
+
+
+
+export default class WebSocketClient extends EventEmitter {
 	constructor (url) {
 		super();
 
-		if (url) {
-			this.connect(url);
-		}
+		if (url) this.connect(url);
 	}
 
 	#socket;

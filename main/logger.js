@@ -77,9 +77,7 @@ export default class Logger {
 	 * @param {string} id 
 	 */
 	timeEnd (id) {
-		if (!this.#timers.has(id)) {
-			return;
-		}
+		if (!this.#timers.has(id)) return;
 		this.log(`ended ${id}, difference: ${new Date().getTime() - this.#timers.get(id)} ms`, 'timer');
 		this.#timers.delete(id);
 	}

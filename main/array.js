@@ -87,9 +87,7 @@ export function filterByOccurences (array, count) {
 export function groupArray (array, getGroup, getValue = (x) => x) {
 	return array.reduce((map, item, index) => {
 		const group = getGroup(item, index);
-		if (!map.has(group)) {
-			map.set(group, []);
-		}
+		if (!map.has(group)) map.set(group, []);
 		map.get(group).push(getValue(item, index));
 		return map;
 	}, new Map());
@@ -107,11 +105,8 @@ export function chunkArray (array, size, overflow = true) {
 	const result = [];
 	while (true) {
 		const s = typeOf(size) === 'Function' ? size(array[result.length], result.length, array) : size;
-		if (array.length >= s || overflow && array.length > 0) {
-			result.push(array.splice(0, s));
-		} else {
-			return result;
-		}
+		if (array.length >= s || overflow && array.length > 0) result.push(array.splice(0, s));
+		else return result;
 	}
 }
 
@@ -136,11 +131,31 @@ export function contentsAreEqual (array, value = array[0]) {
 export function filterIndices (array, callback) {
 	const result = [];
 	for (let i = 0; i < array.length; i++) {
-		if (callback(array[i], i)) {
-			result.push(i);
-		}
+		if (callback(array[i], i)) result.push(i);
 	}
 	return result;
+}
+
+
+/**
+ * Finds indices of matches between two arrays
+ * @param {any[]} array1 
+ * @param {any[]} array2 
+ * @returns {any[]}
+ */
+export function findMatchingIndices (array1, array2) {
+	return filterIndices(array1, (item, index) => deepCompare(item, array2[index]));
+}
+
+
+/**
+ * Finds matches between two arrays
+ * @param {any[]} array1 
+ * @param {any[]} array2 
+ * @returns {any[]}
+ */
+export function findMatches (array1, array2) {
+	return array1.filter((item, index) => deepCompare(item, array2[index]));
 }
 
 
@@ -150,7 +165,7 @@ export function filterIndices (array, callback) {
  * @param {any[]} array2 
  * @returns {number[]}
  */
-export function findDifferingIndices(array1, array2) {
+export function findDifferingIndices (array1, array2) {
 	return filterIndices(array1, (item, index) => !deepCompare(item, array2[index]));
 }
 
@@ -161,7 +176,7 @@ export function findDifferingIndices(array1, array2) {
  * @param {any[]} array2 
  * @returns 
  */
-export function findDifference (array1, array2) {
+export function findDifferences (array1, array2) {
 	return array1.filter((item, index) => !deepCompare(item, array2[index]));
 }
 

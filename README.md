@@ -73,18 +73,8 @@
             - error
             - timeStart
             - timeEnd
-    - geometry.js
-        - Point
-            - constructor
-            - areEqual
-        - Line
-            - constructor
-            - getLength
-            - areIntersecting
-        - Polygon
-            - constructor
-            - getArea
-            - areOverlapping
+    - math.js
+        - WHATEVER
 - server
     - websocketserver.js
         - WebSocketServer

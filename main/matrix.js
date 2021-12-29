@@ -40,8 +40,25 @@ export function wrapMatrix (array, sizes, overflow = true) {
  */
 export function getDimensions (matrix) {
 	const dimensions = [matrix.length];
-	if (typeOf(matrix[0]) === 'Array' && _Array.contentsAreEqual(matrix.map(({ length }) => length))) {
-		dimensions.push(...getDimensions(matrix[0]));
-	}
+	if (typeOf(matrix[0]) === 'Array' && _Array.contentsAreEqual(matrix.map(({ length }) => length))) dimensions.push(...getDimensions(matrix[0]));
 	return dimensions;
+}
+
+
+/**
+ * Rotates a 2D matrix clockwise
+ * @param {any[][]} matrix 
+ * @param {number} count 
+ * @returns {any[][]}
+ */
+export function rotateMatrix (matrix, count) {
+	for (let i = 0; i < count % 4; i++) {
+		matrix = matrix[0].map((_, index) => matrix.map((item) => item[index]).reverse());
+	}
+	return matrix;
+}
+
+
+export function chunkMatrix (matrix, ) {
+
 }
