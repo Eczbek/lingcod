@@ -62,10 +62,12 @@ export function deepExtend (target, ...extensions) {
 		if (type !== typeOf(extension)) continue;
 		switch (type) {
 			case 'Object':
-			case 'Array':
 				for (const [key, val] of Object.entries(extension)) {
 					target[key] = target.hasOwnProperty(key) ? deepExtend(target[key], val) : val;
 				}
+				break;
+			case 'Array':
+				target.push(extension);
 				break;
 			case 'Map':
 				for (const [key, val] of [...extension]) {
