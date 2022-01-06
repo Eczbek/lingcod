@@ -1,6 +1,3 @@
-export const PRIMITIVES = ['String', 'Number', 'BigInt', 'Boolean', 'Symbol', 'undefined', 'null'];
-
-
 /**
  * Gets the class/type of a value
  * @param {any} value 
@@ -12,12 +9,12 @@ export function typeOf (value) {
 
 
 /**
- * Checks if value is nullish
+ * Checks if value is iterable
  * @param {any} value 
  * @returns {boolean}
  */
-export function isNullish (value) {
-	return [undefined, null].includes(value);
+export function isIterable (value) {
+	return typeOf(value?.[Symbol.iterator]) === 'Function';
 }
 
 
@@ -27,7 +24,7 @@ export function isNullish (value) {
  * @returns {boolean}
  */
 export function isPrimitive  (value) {
-	return PRIMITIVES.includes(typeOf(value));
+	return Object(value) !== value;
 }
 
 
@@ -42,7 +39,7 @@ export function attempt (callback, other, ...args) {
 	try {
 		return callback(...args);
 	} catch {
-		return typeOf(other) === 'Function' ? other(...args) : other;
+		return other;
 	}
 }
 

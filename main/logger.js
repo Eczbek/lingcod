@@ -67,7 +67,7 @@ export default class Logger {
 	 * Creates a new timer with ID
 	 * @param {string} id 
 	 */
-	timeStart (id) {
+	startTimer (id) {
 		this.#timers.set(id, new Date().getTime());
 		this.log(`started ${id}`, 'timer');
 	}
@@ -76,7 +76,7 @@ export default class Logger {
 	 * Stops timer by ID, logs difference
 	 * @param {string} id 
 	 */
-	timeEnd (id) {
+	endTimer (id) {
 		if (!this.#timers.has(id)) return;
 		this.log(`ended ${id}, difference: ${new Date().getTime() - this.#timers.get(id)} ms`, 'timer');
 		this.#timers.delete(id);

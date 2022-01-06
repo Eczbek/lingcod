@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-import { createServer } from 'http';
+import { createServer as createHTTPServer } from 'http';
 import { randomUUID } from 'crypto';
 
 import express from 'express';
@@ -8,32 +8,19 @@ import { WebSocketServer as InternalWebSocketServer } from 'ws';
 
 
 export default class WebSocketServer extends EventEmitter {
-	/**
-	 * Creates and starts server
-	 * @param {string} config optional
-	 */
-	constructor (clientDir, port) {
-		super();
-
-		this.use(clientDir);
-		this.port = port;
-	}
-
-	#app = express();
-	#httpServer = createServer(this.#app);
-	#webSocketServer = new InternalWebSocketServer({ server: this.#httpServer });
+	#expressApp = express();
+	#httpServer = createHTTPServer(this.#expressApp);
+	#internalWebSocketServer = new InternalWebSocketServer({ server: this.#httpServer });
 	port;
-	sockets = [];
+	sockets = {};
 
 
 	/**
-	 * Sets public directory
+	 * Adds usable public directory
 	 * @param {string} clientDir 
 	 */
-	use (clientDir) {
-		if (!clientDir) return;
-
-		this.#app.use(express.static(clientDir));
+	use (dir) {
+		if (dir) this.#expressApp.use(express.static(dir));
 	}
 
 
@@ -44,21 +31,20 @@ export default class WebSocketServer extends EventEmitter {
 	listen (port = this.port) {
 		if (!port) return;
 
+		this.port = port;
 		this.#httpServer.listen(port);
 
-		this.#webSocketServer.on('connection', (sock) => {
+		this.#internalWebSocketServer.on('connection', (sock) => {
 			const id = randomUUID();
 			this.sockets[id] = sock;
 			this.emit('open', id);
-
 			sock.on('close', () => {
 				delete this.sockets[id];
 				this.emit('close', id);
 			});
-
-			sock.on('message', (data) => {
+			sock.on('message', (buffer) => {
 				try {
-					this.emit('data', id, JSON.parse(data));
+					this.emit('data', id, JSON.parse(buffer));
 				} catch {}
 			});
 		});
@@ -71,6 +57,8 @@ export default class WebSocketServer extends EventEmitter {
 	 * @param {object} data 
 	 */
 	send (id, data) {
-		this.sockets[id]?.send(JSON.stringify(data));
+		try {
+			this.sockets[id].send(JSON.stringify(data));
+		} catch {}
 	}
 }

@@ -1,5 +1,4 @@
-import { typeOf, isNullish } from './misc.js';
-import { arrayFrom } from './array.js';
+import { typeOf, isPrimitive } from './misc.js';
 
 
 
@@ -8,18 +7,24 @@ import { arrayFrom } from './array.js';
  * @param {any} target 
  * @returns {any}
  */
-export function deepCopy (target) {
-	switch (typeOf(target)) {
-		case 'Object':
-			return Object.fromEntries(Object.entries(target).map(([key, val]) => [key, deepCopy(val)]));
-		case 'Array':
-			return target.map((val) => deepCopy(val));
-		case 'Map':
-			return new Map([...target].map(([key, val]) => [key, deepCopy(val)]));
-		case 'Set':
-			return new Set([...target].map((val) => deepCopy(val)));
-	}
-	return target;
+ function deepCopy (target) {
+	return (function copy (obj = target, hash = new WeakMap()) {
+		if (isPrimitive(obj)) return obj;
+		if (hash.has(obj)) return hash.get(obj);
+		const result = obj instanceof Set
+			? new Set(obj)
+			: obj instanceof Map
+				? new Map(Array.from(obj, ([key, val]) => [key, copy(val, hash)]))
+				: obj instanceof Date
+					? new Date(obj)
+					: obj instanceof RegExp
+						? new RegExp(obj.source, obj.flags)
+						: obj.constructor
+							? new obj.constructor()
+							: Object.create(null);
+		hash.set(obj, result);
+		return Object.assign(result, ...Object.entries(obj).map(([key, val]) => ({ [key]: copy(val, hash) })));
+	})();
 }
 
 
@@ -43,9 +48,8 @@ export function deepCompare (...values) {
 				return [...first].every(([key, val]) => deepCompare(val, value.get(key)));
 			case 'Set':
 				return [...first].every(([key, val]) => deepCompare(val, [...value][key]));
-			default:
-				return first === value;
 		}
+		return first === value;
 	}
 }
 
@@ -62,10 +66,12 @@ export function deepExtend (target, ...extensions) {
 		if (type !== typeOf(extension)) continue;
 		switch (type) {
 			case 'Object':
-			case 'Array':
 				for (const [key, val] of Object.entries(extension)) {
 					target[key] = target.hasOwnProperty(key) ? deepExtend(target[key], val) : val;
 				}
+				break;
+			case 'Array':
+				target.push(extension);
 				break;
 			case 'Map':
 				for (const [key, val] of [...extension]) {
@@ -90,7 +96,7 @@ export function deepExtend (target, ...extensions) {
  */
 export function deepExtract (target, ...paths) {
 	const result = [];
-	for (const keys of paths.map((path) => arrayFrom(deepCopy(path)))) {
+	for (const keys of deepCopy(paths)) {
 		if (keys.length < 1) result.push(target);
 		const key = keys.shift();
 		switch (typeOf(target)) {
@@ -117,7 +123,7 @@ export function deepExtract (target, ...paths) {
  */
 export function deepRemove (target, ...paths) {
 	const removed = new Map();
-	for (const keys of paths.map((path) => arrayFrom(path))) {
+	for (const keys of deepCopy(paths)) {
 		const key = keys.pop();
 		const value = deepExtract(target, ...keys);
 		switch (typeOf(value)) {
@@ -155,7 +161,7 @@ export function deepRecurse (target, callback, check = () => true) {
 			const next = [...keys, key];
 			if (check(value, next)) {
 				const callbackResult = callback(value, next);
-				if (!isNullish(callbackResult)) result.push(callbackResult);
+				if (callbackResult == null) result.push(callbackResult);
 				if (!stop) result.push(...loop(value, next));
 			}
 		}
