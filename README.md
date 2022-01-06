@@ -2,17 +2,16 @@
 
 - main:
     - misc.js
-        - PRIMITIVES
         - typeOf
-        - isNullish
+        - isIterable
         - isPrimitive
         - attempt
         - noop
         - sleep
     - time.js
         - WEEK_DAYS
-        - MONTH_NAMES
-        - TIME_FROM_ORIGIN
+        - MONTHS
+        - MILLIS_FROM_ORIGIN
         - formatTime
     - deep.js
         - deepCopy
@@ -23,8 +22,8 @@
         - deepRecurse
         - deepFindIndices
     - array.js
-        - createArray
-        - arrayFrom
+        - createDenseArray
+        - denseArrayFrom
         - findIndexOfSequence
         - includesAll
         - filterByOccurences
@@ -71,10 +70,8 @@
             - debug
             - warn
             - error
-            - timeStart
-            - timeEnd
-    - math.js
-        - WHATEVER
+            - startTimer
+            - endTimer
 - server
     - websocketserver.js
         - WebSocketServer

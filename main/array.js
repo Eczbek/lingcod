@@ -8,7 +8,7 @@ import { deepCompare } from './deep.js';
  * @param {number} length 
  * @returns {undefined[]}
  */
-export function createArray (length) {
+export function createDenseArray (length) {
 	const array = [];
 	for (let i = 0; i < length; i++) {
 		array.push(undefined);
@@ -22,7 +22,7 @@ export function createArray (length) {
  * @param  {...any} items 
  * @returns {any[]}
  */
-export function arrayFrom (...items) {
+export function denseArrayFrom (...items) {
 	if (items.length === 1) {
 		switch (typeOf(items[0])) {
 			case 'Object':

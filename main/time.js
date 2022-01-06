@@ -1,7 +1,7 @@
 export const WEEK_DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-export const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+export const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-export const TIME_FROM_ORIGIN = 62168428800000; // Time before January 1, 1970
+export const MILLIS_FROM_ORIGIN = 62168428800000; // Time before January 1, 1970
 
 
 
@@ -12,7 +12,7 @@ export function formatTime (format, words = false, date = new Date(), prefix = '
 	}
 	const time = {
 		year: getVal('FullYear'),
-		mon: getVal('Month', 2, 1, MONTH_NAMES),
+		mon: getVal('Month', 2, 1, MONTHS),
 		date: getVal('Date'),
 		day: getVal('Day', 1, 0, WEEK_DAYS),
 		hour: getVal('Hours'),
@@ -20,7 +20,7 @@ export function formatTime (format, words = false, date = new Date(), prefix = '
 		sec: getVal('Seconds'),
 		ms: getVal('Milliseconds', 4),
 		utcyear: getVal('UTCFullYear'),
-		utcmon: getVal('UTCMonth', 2, 1, MONTH_NAMES),
+		utcmon: getVal('UTCMonth', 2, 1, MONTHS),
 		utcdate: getVal('UTCDate'),
 		utcday: getVal('UTCDay', 1, 0, WEEK_DAYS),
 		utchour: getVal('UTCHours'),
