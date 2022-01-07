@@ -44,7 +44,9 @@ export function randomItem (array) {
 export function randomAssortment (length, array) {
 	const result = [];
 	for (let i = 0; i < length; i++) {
-		result.push(randomItem(typeOf(array) === 'Function' ? array(i) : array));
+		result.push(randomItem(typeOf(array) === 'Function'
+			? array(i)
+			: array));
 	}
 	return result;
 }

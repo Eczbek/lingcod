@@ -8,7 +8,9 @@ export const MILLIS_FROM_ORIGIN = 62168428800000; // Time before January 1, 1970
 export function formatTime (format, words = false, date = new Date(), prefix = '\\$') {
 	function getVal (val, pad = 2, add = 0, arr) {
 		const num = date[`get${val}`]();
-		return words && arr ? arr[num] : String(num + add).padStart(pad, 0);
+		return words && arr
+			? arr[num]
+			: String(num + add).padStart(pad, 0);
 	}
 	const time = {
 		year: getVal('FullYear'),

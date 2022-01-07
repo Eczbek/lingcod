@@ -67,7 +67,9 @@ export function deepExtend (target, ...extensions) {
 		switch (type) {
 			case 'Object':
 				for (const [key, val] of Object.entries(extension)) {
-					target[key] = target.hasOwnProperty(key) ? deepExtend(target[key], val) : val;
+					target[key] = target.hasOwnProperty(key)
+						? deepExtend(target[key], val)
+						: val;
 				}
 				break;
 			case 'Array':
@@ -75,7 +77,9 @@ export function deepExtend (target, ...extensions) {
 				break;
 			case 'Map':
 				for (const [key, val] of [...extension]) {
-					target.set(key, target.has(key) ? deepExtend(target.get(key), val) : val);
+					target.set(key, target.has(key)
+						? deepExtend(target.get(key), val)
+						: val);
 				}
 				break;
 			case 'Set':
@@ -196,7 +200,9 @@ export function deepRecurse (target, callback, check = () => true) {
 export function deepFindIndices (target, value) {
 	const result = [];
 	function loop (trgt = target, keys = []) {
-		if (typeOf(value) === 'Function' ? value(trgt, keys) : Deep.compare(trgt, value)) result.push(keys);
+		if (typeOf(value) === 'Function'
+			? value(trgt, keys)
+			: Deep.compare(trgt, value)) result.push(keys);
 		function handle (key, value) {
 			const nextKeys = [...keys, key];
 			const nextLoop = loop(value, nextKeys);
