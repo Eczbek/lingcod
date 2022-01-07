@@ -28,12 +28,9 @@ export default class WebSocketServer extends EventEmitter {
 	 * Listens on port
 	 * @param {number} port 
 	 */
-	listen (port = this.port) {
-		if (!port) return;
-
+	listen (port) {
 		this.port = port;
 		this.#httpServer.listen(port);
-
 		this.#internalWebSocketServer.on('connection', (sock) => {
 			const id = randomUUID();
 			this.sockets[id] = sock;
