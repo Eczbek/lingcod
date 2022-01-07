@@ -58,10 +58,3 @@ export function noop () {}
 export function sleep (delay) {
 	return new Promise((resolve) => setTimeout(resolve, delay));
 }
-
-
-export function egg (egg) {
-	for (let eg = 0; eg < egg; eg++) {
-		console.log('egg');
-	}
-}

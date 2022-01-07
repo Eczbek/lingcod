@@ -104,7 +104,9 @@ export function groupArray (array, getGroup, getValue = (x) => x) {
 export function chunkArray (array, size, overflow = true) {
 	const result = [];
 	while (true) {
-		const s = typeOf(size) === 'Function' ? size(array[result.length], result.length, array) : size;
+		const s = typeOf(size) === 'Function'
+			? size(array[result.length], result.length, array)
+			: size;
 		if (array.length >= s || overflow && array.length > 0) result.push(array.splice(0, s));
 		else return result;
 	}
