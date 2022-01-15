@@ -18,6 +18,15 @@ export function isIterable (value) {
 }
 
 /**
+ * Checks if value is nullish
+ * @param {any} value 
+ * @returns {boolean}
+ */
+export function isNullish (value) {
+	return value == null;
+}
+
+/**
  * Checks if value is primitive
  * @param {any} value 
  * @returns {boolean}
