@@ -1,6 +1,5 @@
 
 import { typeOf } from './misc.js';
-import { NUMBERS, LETTERS } from './char.js';
 
 
 /**
@@ -65,9 +64,8 @@ export function randomString (length, characters) {
  * @returns {string}
  */
 export function randomHexColor (max = '#ffffff', min = '#000000') {
-	const chars = NUMBERS + LETTERS.slice(0, 6);
-	return `#${randomString(6, (idx) => {
-		const minIdx = chars.indexOf(min[idx + 1]);
-		return chars.slice(minIdx, Math.max(chars.indexOf(max[idx + 1]), minIdx) + 1);
+	return `#${randomString(6, (index) => {
+		const minNum = Number(`0x${min.replace('#', '')[index]}`);
+		return randomInteger(Math.max(Number(`0x${max.replace('#', '')[index]}`), minNum), minNum).toString(16);
 	})}`;
 }
