@@ -1,5 +1,5 @@
 
-export default class EventEmitter extends EventTarget {
+export class EventEmitter extends EventTarget {
 	/**
 	 * @param {string} id 
 	 * @param  {...any} data 
