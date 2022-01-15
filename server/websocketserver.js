@@ -1,16 +1,16 @@
 import { EventEmitter } from 'events';
-import { createServer as createHTTPServer } from 'http';
+import { createServer } from 'http';
 import { randomUUID } from 'crypto';
 
 import express from 'express';
-import { WebSocketServer as InternalWebSocketServer } from 'ws';
+import { WebSocketServer as _WebSocketServer } from 'ws';
 
 
 
 export default class WebSocketServer extends EventEmitter {
 	#expressApp = express();
-	#httpServer = createHTTPServer(this.#expressApp);
-	#internalWebSocketServer = new InternalWebSocketServer({ server: this.#httpServer });
+	#httpServer = createServer(this.#expressApp);
+	#webSocketServer = new _WebSocketServer({ server: this.#httpServer });
 	port;
 	sockets = {};
 
@@ -31,7 +31,7 @@ export default class WebSocketServer extends EventEmitter {
 	listen (port) {
 		this.port = port;
 		this.#httpServer.listen(port);
-		this.#internalWebSocketServer.on('connection', (sock) => {
+		this.#webSocketServer.on('connection', (sock) => {
 			const id = randomUUID();
 			this.sockets[id] = sock;
 			this.emit('open', id);

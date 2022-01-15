@@ -56,10 +56,12 @@ export function getDimensions (matrix) {
  * @returns {any[][]}
  */
 export function rotateMatrix (matrix, count) {
-	for (let i = 0; i < count % 4; i++) {
-		matrix = matrix[0].map((_, index) => matrix.map((item) => item[index]).reverse());
-	}
-	return matrix;
+	const [x, y] = [[1, 0], [1, 1], [0, 1]][(count % 4 + 4) % 4];
+	const a = matrix[0].map((_, index) => {
+		const b = matrix.map((item) => item[index]);
+		return y ? b.reverse() : b;
+	});
+	return x ? a.reverse() : a;
 }
 
 
