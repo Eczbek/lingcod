@@ -1,6 +1,6 @@
+
 import { typeOf } from './misc.js';
 import { NUMBERS, LETTERS } from './char.js';
-
 
 
 /**
@@ -13,7 +13,6 @@ export function randomFloat (max = 1, min = 0) {
 	return Math.random() * (max - min) + min;
 }
 
-
 /**
  * Generates an integer between max and min, or MAX_SAFE_INTEGER and 0
  * @param {number} max optional
@@ -24,7 +23,6 @@ export function randomInteger (max = Number.MAX_SAFE_INTEGER, min) {
 	return Math.floor(randomFloat(max, min));
 }
 
-
 /**
  * Takes a random item from an array
  * @param {any[]} array 
@@ -33,7 +31,6 @@ export function randomInteger (max = Number.MAX_SAFE_INTEGER, min) {
 export function randomItem (array) {
 	return array[randomInteger(array.length)];
 }
-
 
 /**
  * Creates an assortment of items from array
@@ -51,7 +48,6 @@ export function randomAssortment (length, array) {
 	return result;
 }
 
-
 /**
  * Same as assortment, but stringified
  * @param {number} length 
@@ -61,7 +57,6 @@ export function randomAssortment (length, array) {
 export function randomString (length, characters) {
 	return randomAssortment(length, characters).join('');
 }
-
 
 /**
  * Generates a hex color between max and min, or #ffffff and #000000

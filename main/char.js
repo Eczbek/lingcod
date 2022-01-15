@@ -1,3 +1,4 @@
+
 export const NUMBERS = '0123456789';
 export const LETTERS = 'abcdefghijklmnopqrstuvwxyz';
 export const SPECIALS = ' !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';

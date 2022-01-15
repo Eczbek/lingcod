@@ -1,5 +1,5 @@
-import { formatTime } from './time.js';
 
+import { formatTime } from './time.js';
 
 
 export default class Logger {

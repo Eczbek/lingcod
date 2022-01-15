@@ -1,3 +1,4 @@
+
 /**
  * Gets the class/type of a value
  * @param {any} value 
@@ -6,7 +7,6 @@
 export function typeOf (value) {
 	return String(value?.constructor?.name);
 }
-
 
 /**
  * Checks if value is iterable
@@ -17,7 +17,6 @@ export function isIterable (value) {
 	return typeOf(value?.[Symbol.iterator]) === 'Function';
 }
 
-
 /**
  * Checks if value is primitive
  * @param {any} value 
@@ -26,7 +25,6 @@ export function isIterable (value) {
 export function isPrimitive  (value) {
 	return Object(value) !== value;
 }
-
 
 /**
  * Attempts to run function
@@ -43,12 +41,10 @@ export function attempt (callback, other, ...args) {
 	}
 }
 
-
 /**
  * No-operation
  */
 export function noop () {}
-
 
 /**
  * Returns promise with delay

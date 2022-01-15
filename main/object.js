@@ -1,3 +1,4 @@
+
 /**
  * Checks if object is empty
  * @param {object} object 

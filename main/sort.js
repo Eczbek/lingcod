@@ -1,3 +1,4 @@
+
 /**
  * Sorts array by insertion method, better for small arrays
  * @param {any[]} array 
@@ -12,7 +13,6 @@ export function insertionSort (array, check = (x, y) => x < y) {
 	}
 	return array;
 }
-
 
 /**
  * Sorts array by merge method, better for large arrays
