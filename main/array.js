@@ -189,7 +189,7 @@ export function findDifferences (array1, array2) {
  * @returns {number[]}
  */
 export function findMissingIndices (array) {
-	return filterIndices(array, (_, index) => !array.hasOwnProperty(index));
+	return filterIndices(array, (_, index) => !Object.hasOwn(array, index));
 }
 
 
