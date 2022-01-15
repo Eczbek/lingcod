@@ -1,9 +1,8 @@
+
 export const WEEK_DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 export const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-export const MILLIS_FROM_ORIGIN = 62168428800000; // Time before January 1, 1970
-
-
+export const MILLIS_FROM_ORIGIN = 62168428800000; // Time before January 1, 1970 (including leap)
 
 export function formatTime (format, words = false, date = new Date(), prefix = '\\$') {
 	function getVal (val, pad = 2, add = 0, arr) {

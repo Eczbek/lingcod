@@ -1,5 +1,5 @@
-import { typeOf, isPrimitive } from './misc.js';
 
+import { typeOf, isPrimitive } from './misc.js';
 
 
 /**
@@ -30,7 +30,6 @@ export function deepCopy (target) {
 	return result;
 }
 
-
 /**
  * Compares objects in depth
  * @param  {...any} values 
@@ -53,7 +52,6 @@ export function deepCompare (target, ...values) {
 		return target === value;
 	}
 }
-
 
 /**
  * Extends an object in depth
@@ -92,7 +90,6 @@ export function deepExtend (target, ...extensions) {
 	return target;
 }
 
-
 /**
  * Extracts data from within an object
  * @param {any} target 
@@ -118,7 +115,6 @@ export function deepExtract (target, ...paths) {
 	}
 	return paths.length === 1 ? result[0] : result;
 }
-
 
 /**
  * Removes data from object, returns removed data
@@ -150,7 +146,6 @@ export function deepRemove (target, ...paths) {
 	}
 	return removed;
 }
-
 
 /**
  * Finds indices of all matches of value
