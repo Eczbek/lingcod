@@ -1,5 +1,5 @@
-import { typeOf } from './misc.js';
 
+import { typeOf } from './misc.js';
 
 
 /**
@@ -25,7 +25,6 @@ export function createMatrix (dimensions, fill) {
 	return loop();
 }
 
-
 /**
  * Wraps an array into dimensions
  * @param {any[]} array 
@@ -35,7 +34,6 @@ export function createMatrix (dimensions, fill) {
 export function wrapMatrix (array, sizes, overflow = true) {
 	// TO-DO
 }
-
 
 /**
  * Finds dimensions of a matrix
@@ -48,7 +46,6 @@ export function getDimensions (matrix) {
 	return dimensions;
 }
 
-
 /**
  * Rotates a 2D matrix clockwise
  * @param {any[][]} matrix 
@@ -56,15 +53,13 @@ export function getDimensions (matrix) {
  * @returns {any[][]}
  */
 export function rotateMatrix (matrix, count) {
-	const [x, y] = [[1, 0], [1, 1], [0, 1]][(count % 4 + 4) % 4];
-	const a = matrix[0].map((_, index) => {
-		const b = matrix.map((item) => item[index]);
-		return y ? b.reverse() : b;
-	});
-	return x ? a.reverse() : a;
+	for (let i = 0; i < count % 4; i++) {
+		matrix = matrix[0].map((_, index) => matrix.map((item) => item[index]).reverse());
+	}
+	return matrix;
 }
 
 
-export function chunkMatrix (matrix, ) {
-
+export function chunkMatrix (matrix, ...sizes) {
+	// TO-DO
 }

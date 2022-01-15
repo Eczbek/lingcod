@@ -1,6 +1,6 @@
+
 import { typeOf } from './misc.js';
 import { deepCompare } from './deep.js';
-
 
 
 /**
@@ -15,7 +15,6 @@ export function createDenseArray (length) {
 	}
 	return array;
 }
-
 
 /**
  * Creates dense array with items
@@ -43,7 +42,6 @@ export function denseArrayFrom (...items) {
 	}
 }
 
-
 /**
  * Finds index of the first matched sequence
  * @param {any[]} array 
@@ -53,7 +51,6 @@ export function denseArrayFrom (...items) {
 export function findIndexOfSequence (array, sequence) {
 	return array.findIndex((_, index1) => sequence.every((item, index2) => deepCompare(item, array[index1 + index2])));
 }
-
 
 /**
  * Checks if array includes all values
@@ -65,7 +62,6 @@ export function includesAll (array, ...items) {
 	return items.every((item) => array.includes(item));
 }
 
-
 /**
  * Filters items in array by occurence
  * @param {any[]} array 
@@ -75,7 +71,6 @@ export function includesAll (array, ...items) {
 export function filterByOccurences (array, count) {
 	return array.filter((item1, index1) => array.filter((item2, index2) => index1 === index2 || deepCompare(item1, item2)).length === count);
 }
-
 
 /**
  * Groups values
@@ -92,7 +87,6 @@ export function groupArray (array, getGroup, getValue = (x) => x) {
 		return map;
 	}, new Map());
 }
-
 
 /**
  * Chunks array into smaller arrays
@@ -112,7 +106,6 @@ export function chunkArray (array, size, overflow = true) {
 	}
 }
 
-
 /**
  * Checks if all items in array are equal to value
  * @param {any[]} array 
@@ -122,7 +115,6 @@ export function chunkArray (array, size, overflow = true) {
 export function contentsAreEqual (array, value = array[0]) {
 	return array.every((item) => deepCompare(item, value));
 }
-
 
 /**
  * Filters indices by callback
@@ -138,7 +130,6 @@ export function filterIndices (array, callback) {
 	return result;
 }
 
-
 /**
  * Finds indices of matches between two arrays
  * @param {any[]} array1 
@@ -148,7 +139,6 @@ export function filterIndices (array, callback) {
 export function findMatchingIndices (array1, array2) {
 	return filterIndices(array1, (item, index) => deepCompare(item, array2[index]));
 }
-
 
 /**
  * Finds matches between two arrays
@@ -160,7 +150,6 @@ export function findMatches (array1, array2) {
 	return array1.filter((item, index) => deepCompare(item, array2[index]));
 }
 
-
 /**
  * Finds differing indices between two arrays
  * @param {any[]} array1 
@@ -170,7 +159,6 @@ export function findMatches (array1, array2) {
 export function findDifferingIndices (array1, array2) {
 	return filterIndices(array1, (item, index) => !deepCompare(item, array2[index]));
 }
-
 
 /**
  * Finds differing items between two arrays
@@ -182,7 +170,6 @@ export function findDifferences (array1, array2) {
 	return array1.filter((item, index) => !deepCompare(item, array2[index]));
 }
 
-
 /**
  * Finds missing indices in array
  * @param {any[]} array 
@@ -192,7 +179,6 @@ export function findMissingIndices (array) {
 	return filterIndices(array, (_, index) => !Object.hasOwn(array, index));
 }
 
-
 /**
  * Checks if array has missing indices, or is sparse
  * @param {any[]} array 
@@ -201,7 +187,6 @@ export function findMissingIndices (array) {
 export function isSparse (array) {
 	return findMissingIndices(array).length > 0;
 }
-
 
 /**
  * Swaps items by indices
@@ -218,7 +203,6 @@ export function swapIndices (array, ...indices) {
 	}
 	return array;
 }
-
 
 /**
  * Moves items around

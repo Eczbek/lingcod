@@ -1,3 +1,4 @@
+
 export default class EventEmitter extends EventTarget {
 	/**
 	 * @param {string} id 
@@ -6,7 +7,6 @@ export default class EventEmitter extends EventTarget {
 	emit (id, ...data) {
 		this.dispatchEvent(new CustomEvent(id, { detail: data }));
 	}
-
 
 	/**
 	 * @param {string} id 
