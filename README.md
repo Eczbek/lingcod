@@ -18,21 +18,6 @@ Javascript utility functions
 		- swap
 		- shuffle
 		- multiple
-	- char.js
-		- NUMBERS
-		- LETTERS
-		- SPECIALS
-		- VOWELS
-		- SEMIVOWELS
-		- CONSONANTS
-	- deep.js
-		- deepClone
-		- deepCompare
-		- deepExtend
-		- extract
-		- deepRemove
-		- findPath
-		- recurse
 	- logger.js
 		- Logger
 			- constructor
@@ -65,6 +50,13 @@ Javascript utility functions
 	- object.js
 		- isEmptyObject
 		- filterObjectsByProps
+		- deepClone
+		- deepCompare
+		- deepExtend
+		- extract
+		- deepRemove
+		- findPath
+		- recurse
 	- random.js
 		- randomFloat
 		- randomInteger
