@@ -1,5 +1,5 @@
 
-import { randomInteger } from './random.js';
+import { randInt } from './random.js';
 import { deepClone } from './deep.js';
 
 
@@ -63,7 +63,7 @@ export const swap = (array, indices) => {
 
 export const shuffle = (array) => {
 	for (let i = array.length - 1; i > 0; --i) {
-		swap(array, [i, randomInteger(i)]);
+		swap(array, [i, randInt(i)]);
 	}
 	return array;
 }
