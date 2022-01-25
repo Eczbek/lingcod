@@ -2,27 +2,27 @@
 import { clamp } from './math.js';
 
 
-export const randomFloat = (max = 1, min = 0) => clamp(Math.random(), max, min);
+export const randFloat = (max = 1, min = 0) => clamp(Math.random(), max, min);
 
-export const randomInteger = (max = Number.MAX_SAFE_INTEGER, min) => Math.floor(randomFloat(max, min));
+export const randInt = (max = Number.MAX_SAFE_INTEGER, min) => Math.floor(randFloat(max, min));
 
-export const randomItem = (array) => array[randomInteger(array.length)];
+export const randItem = (array) => array[randInt(array.length)];
 
-export const randomArray = (length, getValues) => {
+export const randArray = (length, getValues) => {
 	const arr = [];
 	for (let i = 0; i < length; ++i) {
-		arr.push(randomItem(getValues(i)));
+		arr.push(randItem(getValues(i)));
 	}
 	return arr;
 }
 
-export const randomString = (length, getChars) => randomArray(length, getChars).join('');
+export const randString = (length, getChars) => randArray(length, getChars).join('');
 
-export const randomHexColor = (max = '#ffffff', min = '#000000') => {
+export const randHexColor = (max = '#ffffff', min = '#000000') => {
 	max = max.replace('#', '');
 	min = min.replace('#', '');
-	return `#${randomString(6, (index) => {
+	return `#${randString(6, (index) => {
 		const minNum = Number(`0x${min[index]}`);
-		return randomInteger(Math.max(Number(`0x${max[index]}`), minNum), minNum).toString(16);
+		return randInt(Math.max(Number(`0x${max[index]}`), minNum), minNum).toString(16);
 	})}`
 }
