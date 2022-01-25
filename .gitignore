@@ -1,5 +1,4 @@
-# testing
-test.*
-
-# temporary
-math3.js
+node_modules
+test*
+*.json
+*.yaml
