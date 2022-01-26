@@ -1,5 +1,5 @@
 
-export const throttle = (callback, wait = 1000) => {
+export const throttle = (callback, wait) => {
 	let last = 0;
 	return (...args) => {
 		if (Date.now() - last < wait) return;
@@ -8,7 +8,7 @@ export const throttle = (callback, wait = 1000) => {
 	}
 };
 
-export function debounce (callback, millis = 1000) {
+export function debounce (callback, millis) {
 	let timer;
 	return (...args) => {
 		clearTimeout(timer);

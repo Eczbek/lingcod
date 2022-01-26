@@ -17,9 +17,14 @@ Javascript utility functions
 		- isSparse
 		- swap
 		- shuffle
-		- multiple
+		- multiply
 	- logger.js
 		- Logger
+			- constructor
+			- getId
+			- log
+			- addTimer
+			- endTimer
 	- math.js
 		- norm
 		- lerp
