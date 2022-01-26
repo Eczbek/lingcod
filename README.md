@@ -4,6 +4,7 @@ Javascript utility functions
 
 - general/
 	- array.js
+		- compact
 		- range
 		- includesAll
 		- filterByOccurences
