@@ -20,19 +20,42 @@ Javascript utility functions
 		- multiple
 	- logger.js
 		- Logger
-			- constructor
-			- getId
-			- log
-			- addTimer
-			- endTimer
 	- math.js
 		- norm
 		- lerp
 		- clamp
+		- round
 		- wrap
 		- isPrime
 		- isApproxEqual
 		- pi
+		- Point
+			- compare
+			- constructor
+		- Line
+			- compare
+			- getIntersectPoints
+			- areIntersecting
+			- constructor
+			- getLength
+			- containsPoint
+		- Angle
+			- compare
+			- radiansToDegrees
+			- degreesToRadians
+			- constructor
+			- getRadians
+			- getDegrees
+		- Polygon
+			- getOverlapPoints
+			- areOverlapping
+			- constructor
+			- getArea
+			- containsPoint
+		- Ellipse
+			- constructor
+			- getArea
+			- containsPoint
 	- matrix.js
 		- createMatrix
 		- isRegular
@@ -58,12 +81,12 @@ Javascript utility functions
 		- findPath
 		- recurse
 	- random.js
-		- randomFloat
-		- randomInteger
-		- randomItem
-		- randomArray
-		- randomString
-		- randomHexColor
+		- randFloat
+		- randInt
+		- randItem
+		- randArray
+		- randString
+		- randHexColor
 	- sort.js
 		- insertSort
 		- mergeSort
@@ -79,6 +102,7 @@ Javascript utility functions
 		- WEEK_DAYS
 		- MONTHS
 		- MILLIS_BEFORE_1970
+		- destructDate
 		- createTimeFormat
 - browser/
 	- client.js
