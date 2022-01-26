@@ -3,6 +3,8 @@ import { randInt } from './random.js';
 import { deepClone } from './deep.js';
 
 
+export const compact = (array) => array.filter(() => true);
+
 export const range = (max, min = 0, step = 1) => {
 	const arr = [];
 	for (let i = min; i < max; i += step) {
@@ -68,7 +70,7 @@ export const shuffle = (array) => {
 	return array;
 }
 
-export const multiple = (item, count) => {
+export const multiply = (item, count) => {
 	const result = [];
 	for (let i = 0; i < count; ++i) {
 		result.push(deepClone(item));
