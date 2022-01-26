@@ -18,13 +18,12 @@ export default class Logger {
 
 	addTimer = (id) => {
 		this.#timers.set(id, Date.now());
-		this.log(`Added ${id}`, 'timer');
 	}
 
 	endTimer = (id) => {
 		if (!this.#timers.has(id)) return;
 		const diff = Date.now() - this.#timers.get(id);
-		this.log(`Ended ${id}: ${diff}`, 'timer');
+		this.log(`${id}: ${diff} ms`, 'timer');
 		this.#timers.delete(id);
 		return diff;
 	}
