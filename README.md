@@ -2,6 +2,9 @@
 Javascript utility functions
 
 
+I most definitely contradict my general code formatting several times here
+
+
 - general/
 	- array.js
 		- range
@@ -122,3 +125,6 @@ Javascript utility functions
 			- on
 			- off
 			- once
+- node/
+	- file.js
+		- readJSONConfigDir

@@ -41,20 +41,15 @@ export const pi = (digits = 5) => {
 // 2D GEOMETRY IS UNFINISHED
 
 export class Point {
+	static compare = (...points) => points.every(({ x, y }) => x === points[0].x && y === points[0].y);
+
 	constructor (x, y) {
 		this.x = x;
 		this.y = y;
 	}
-		
-	static compare = (...points) => points.every(({ x, y }) => x === points[0].x && y === points[0].y);
 }
 
 export class Line {
-	constructor (start, end) {
-		this.start = start;
-		this.end = end;
-	}
-
 	static compare = (...lines) => lines.every(({ start, end }) => Point.compare(start, lines[0].start) && Point.compare(end, lines[0].end));
 
 	static getIntersectPoints = (...lines) => {
@@ -70,25 +65,30 @@ export class Line {
 		return points;
 	};
 
+	constructor (start, end) {
+		this.start = start;
+		this.end = end;
+	}
+
 	static areIntersecting = (...lines) => Line.getIntersectPoints(...lines).length > 0;
 
 	getLength = () => Math.hypot(Math.abs(this.start.x - this.end.x), Math.abs(this.start.y - this.end.y));
 
-	containsPoint = (point) => {};
+	containsPoint = (point) => {}; // todo
 }
 
 export class Angle {
-	constructor (start, middle, end) {
-		this.start = start;
-		this.middle = middle;
-		this.end = end;
-	}
-
 	static compare = (...angles) => contentsAreEqual(angles.map((angle) => angle.getRadians()));
 
 	static radiansToDegrees = (radians) => radians * 180 / Math.PI;
 	
 	static degreesToRadians = (degrees) => degrees * Math.PI / 180;
+
+	constructor (start, middle, end) {
+		this.start = start;
+		this.middle = middle;
+		this.end = end;
+	}
 
 	getRadians = () => {
 		const { x: sx, y: sy } = this.start;
@@ -103,20 +103,24 @@ export class Angle {
 }
 
 export class Polygon {
+	static compare = (...polygons) => {}; // todo
+
+	static getOverlapPoints = (...polygons) => {}; // todo
+
+	static areOverlapping = (...polygons) => Polygon.getOverlapPoints(...polygons).length > 0;
+
 	constructor (...points) {
 		this.points = points;
 	}
 
-	static getOverlapPoints = (...polygons) => {};
-
-	static areOverlapping = (...polygons) => Polygon.getOverlapPoints(...polygons).length > 0;
-
 	getArea = () => Math.abs(this.points.reduce((area, point, idx) => area + point.x * this.points.at(idx - 1).y / 2 - this.points.at(idx - 1).x * point.y / 2, 0));
 
-	containsPoint = (point) => {};
+	containsPoint = (point) => {}; // todo
 }
 
 export class Ellipse {
+	static compare = (...ellipses) => {}; // todo
+
 	constructor (center, width, height) {
 		this.center = center;
 		this.width = width;
@@ -125,5 +129,5 @@ export class Ellipse {
 
 	getArea = () => this.width * this.height * Math.PI;
 
-	containsPoint = (point) => {};
+	containsPoint = (point) => {}; // todo
 }

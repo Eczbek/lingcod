@@ -7,6 +7,8 @@ export const isNullish = (value) => value == null;
 
 export const isPrimitive = (value) => Object(value) !== value;
 
+export const egg = (egg) => 'egg'; // egg
+
 export const attempt = (callback, other, args) => {
 	try {
 		return callback(...args);
