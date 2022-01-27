@@ -1,6 +1,6 @@
 
 import { randInt } from './random.js';
-import { deepClone } from './deep.js';
+import { deepClone } from './object.js';
 
 
 export const compact = (array) => array.filter(() => true);

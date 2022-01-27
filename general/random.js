@@ -1,8 +1,8 @@
 
-import { clamp } from './math.js';
+import { lerp } from './math.js';
 
 
-export const randFloat = (max = 1, min = 0) => clamp(Math.random(), max, min);
+export const randFloat = (max = 1, min = 0) => lerp(Math.random(), max, min);
 
 export const randInt = (max = Number.MAX_SAFE_INTEGER, min) => Math.floor(randFloat(max, min));
 
