@@ -22,6 +22,9 @@ I most definitely contradict my general code formatting several times here
 		- swap
 		- shuffle
 		- multiply
+	- func.js
+		- throttle
+		- debounce
 	- logger.js
 		- Logger
 			- constructor
@@ -129,3 +132,15 @@ I most definitely contradict my general code formatting several times here
 - node/
 	- file.js
 		- readJSONConfigDir
+	- server.js
+		- ExpressWebSocketServer
+			- use
+			- listen
+			- getPort
+			- send
+			- close
+			- addClient
+			- removeClient
+			- message
+			- broadcast
+			- kick
