@@ -1,30 +1,50 @@
-
-import { createTimeFormat } from './time.js';
-
-
 export default class Logger {
 	#id;
-	#timers = new Map();
-	#format;
+	#timers = {};
 
-	constructor (id, timeFormat = createTimeFormat('%Y-%M-%D %H:%m:%S:%s')) {
+	/**
+	 * Creates logger with ID
+	 * @param {string} id 
+	 */
+	constructor (id) {
 		this.#id = id;
-		this.#format = timeFormat;
 	}
 
-	getId = () => this.#id;
+	/**
+	 * Gets logger ID
+	 * @returns {string}
+	 */
+	getId () {
+		return this.#id;
+	}
 
-	log = (data, tag = 'log') => console.log(`[${this.#format(new Date(), true)}] ${this.#id} (${tag.toUpperCase()}) `, data);
+	/**
+	 * Logs data to console, with current ISO time, logger ID, and tag
+	 * @param {any} data 
+	 * @param {string} tag optional parameter
+	 */
+	log (data, tag = 'log') {
+		console.log(`[${new Date().toISOString()}] ${this.#id} (${tag.toUpperCase()}) `, data);
+	}
 
-	addTimer = (id) => {
+	/**
+	 * Adds a timer
+	 * @param {string} id 
+	 */
+	addTimer (id) {
 		this.#timers.set(id, Date.now());
 	}
 
-	endTimer = (id) => {
-		if (!this.#timers.has(id)) return;
-		const diff = Date.now() - this.#timers.get(id);
+	/**
+	 * Ends timer, logs and returns difference
+	 * @param {string} id 
+	 * @returns {number}
+	 */
+	endTimer (id) {
+		if (!this.#timers[id]) return;
+		const diff = Date.now() - this.#timers[id];
+		delete this.#timers[id];
 		this.log(`${id}: ${diff} ms`, 'timer');
-		this.#timers.delete(id);
 		return diff;
 	}
 }

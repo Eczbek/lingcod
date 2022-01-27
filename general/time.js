@@ -12,10 +12,15 @@ const timeFormatConfig = {
 	H: { func: 'Hours' },
 	m: { func: 'Minutes' },
 	S: { func: 'Seconds' },
-	s: { func: 'Milliseconds', pad: 4 },
+	s: { func: 'Milliseconds', pad: 3 },
 	T: { func: 'Time', pad: 0, now: true }
 };
 
+/**
+ * Destructs date object into time values
+ * @param {Date} date optional parameter
+ * @returns {Object}
+ */
 export const destructDate = (date = new Date()) => ({
 	year: date.getFullYear(),
 	month: date.getMonth(),
@@ -36,6 +41,13 @@ export const destructDate = (date = new Date()) => ({
 	time: date.getTime()
 });
 
+/**
+ * Creates a custom time formatter
+ * @param {string} format 
+ * @param {string} prefix optional parameter
+ * @param {Object} options optional parameter
+ * @returns {Function}
+ */
 export const createTimeFormat = (format, prefix = '%', options = {}) => {
 	const prefix = (check) => check ? 'UTC' : '';
 	return (date = new Date(), utc = false, names = false) => prefix(utc) + format.replace(new RegExp(Object.keys(config).map((key) => prefix + key).join('|'), 'g'), (key) => {

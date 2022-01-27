@@ -1,4 +1,10 @@
 
+/**
+ * Sorts array via insertion method (better for small arrays)
+ * @param {Array<any>} array 
+ * @param {Function} check optional parameter
+ * @returns {Array<any>}
+ */
 export const insertSort = (array, check = (a, b) => a < b) => {
 	array.forEach((item, i) => {
 		for (let j = 0; j < i; ++j) {
@@ -8,6 +14,12 @@ export const insertSort = (array, check = (a, b) => a < b) => {
 	return array;
 }
 
+/**
+ * Sorts array via merge method (better for large arrays)
+ * @param {Array<any>} array 
+ * @param {Function} check optional parameter
+ * @returns {Array<any>}
+ */
 export const mergeSort = (array, check = (a, b) => a < b) => {
 	return (function div (arr = array) {
 		if (array.length < 2) return array;
