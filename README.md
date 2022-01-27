@@ -7,6 +7,7 @@ I most definitely contradict my general code formatting several times here
 
 - general/
 	- array.js
+		- compact
 		- range
 		- includesAll
 		- filterByOccurences
