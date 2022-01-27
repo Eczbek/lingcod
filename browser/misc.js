@@ -2,20 +2,43 @@
 class EventEmitter extends EventTarget {
 	#funcs = {};
 
-	emit = (id, ...data) => this.dispatchEvent(new CustomEvent(id, { detail: data }));
+	/**
+	 * Emits event with data
+	 * @param {string} id 
+	 * @param  {...any} data 
+	 */
+	emit (id, ...data) {
+		this.dispatchEvent(new CustomEvent(id, { detail: data }));
+	}
 
-	on = (id, callback) => {
+	/**
+	 * Creates event listener, executes callback when event is emitted
+	 * @param {string} id 
+	 * @param {Function} callback 
+	 */
+	on (id, callback) {
 		this.#funcs[id] = ({ detail }) => callback(...detail);
 		this.addEventListener(id, this.#funcs[id]);
 	}
 
-	off = (id) => {
+	/**
+	 * Removes event listener
+	 * @param {string} id 
+	 */
+	off (id) {
 		this.removeEventListener(id, this.#funcs[id]);
 		delete this.#funcs[id];
 	}
 
-	once = (id, callback) => this.on(id, (...args) => {
-		this.off(id);
-		callback(...args);
-	});
+	/**
+	 * Executes callback when event is emitted, then removes event listener
+	 * @param {string} id 
+	 * @param {Function} callback 
+	 */
+	once (id, callback) {
+		this.on(id, (...args) => {
+			this.off(id);
+			callback(...args);
+		});
+	}
 }

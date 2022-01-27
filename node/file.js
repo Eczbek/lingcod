@@ -2,4 +2,9 @@
 import fsPromises from 'fs/promises';
 
 
-export const readJSONConfigDir = async (dir) => Object.fromEntries(Promise.all((await fsPromises.readdir(dir)).map(async (file) => [file.split('.')[0], JSON.parse(await fsPromises.readFile(`${dir}/${file}`))])));
+/**
+ * Creates an object of file names and file data from config directory
+ * @param {string} path 
+ * @returns {Object}
+ */
+export const readJSONConfigDir = async (path) => Object.fromEntries(Promise.all((await fsPromises.readdir(path)).map(async (file) => [file.split('.')[0], JSON.parse(await fsPromises.readFile(`${path}/${file}`))])));
