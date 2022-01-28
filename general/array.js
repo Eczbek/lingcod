@@ -75,7 +75,7 @@ export const chunk = (array, getSize, overflow = false) => {
  * @param {any} value optional parameter
  * @returns {boolean}
  */
-export const contentsAreEqual = (array, value = array[0]) => array.every((item) => item === value);
+export const contentsAreEqual = (array, value = array[0]) => array.slice(1).every((item) => item === value);
 
 /**
  * Filters indices
@@ -92,20 +92,28 @@ export const filterIndices = (array, callback) => {
 }
 
 /**
- * Finds index of start of first found sequence match
+ * Finds index of start of first sequence match
  * @param {Array<any>} array 
  * @param {Array<any>} sequence 
+ * @param {boolean} loop optional parameter
  * @returns {number}
  */
-export const findIndexOfSequence = (array, sequence) => array.findIndex((_, index1) => sequence.every((item, index2) => item === array[index1 + index2]));
+export const findIndexOfSequence = (array, sequence, loop = false) => array.findIndex((_, index1) => sequence.every((item, index2) => {
+	const index = index1 + index2;
+	return item === array[loop ? index % array.length : index];
+}));
 
 /**
- * Finds indices of starts of all found sequence matches
+ * Finds indices of starts of all sequence matches
  * @param {Array<any>} array 
  * @param {Array<any>} sequence 
+ * @param {boolean} loop optional parameter
  * @returns {Array<number>}
  */
-export const findIndicesOfSequence = (array, sequence) => filterIndices(array, (_, index1) => sequence.every((item, index2) => item === array[index1 + index2]));
+export const findIndicesOfSequence = (array, sequence, loop = false) => filterIndices(array, (_, index1) => sequence.every((item, index2) => {
+	const index = index1 + index2;
+	return item === array[loop ? index % array.length : index];
+}));
 
 /**
  * Finds empty indices, or "holes"
