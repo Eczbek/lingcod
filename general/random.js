@@ -19,6 +19,12 @@ export const randFloat = (max = 1, min = 0) => lerp(Math.random(), max, min);
 export const randInt = (max = Number.MAX_SAFE_INTEGER, min) => Math.floor(randFloat(max, min));
 
 /**
+ * Generates random boolean
+ * @returns {boolean}
+ */
+export const randBool = () => !!randInt(2);
+
+/**
  * Gets random item from array
  * @param {Array<any>} array 
  * @returns {any}

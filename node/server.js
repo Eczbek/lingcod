@@ -34,10 +34,10 @@ export default class ExpressWebSocketServer extends EventEmitter {
 
 	/**
 	 * Allows directory to be accessed by client
-	 * @param {string} path 
+	 * @param {Array<string> | string} dirs 
 	 */
-	use (path) {
-		this.#expressApp.use(express.static(path));
+	use (dirs) {
+		(dirs?.constructor?.name === 'Array' ? dirs : [dirs]).forEach((dir) => this.#expressApp.use(express.static(dir)));
 	}
 
 	/**

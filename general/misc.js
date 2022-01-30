@@ -28,13 +28,6 @@ export const isNullish = (value) => value == null;
 export const isPrimitive = (value) => Object(value) !== value;
 
 /**
- * egg
- * @param {egg} egg 
- * @returns {egg}
- */
-export const egg = (egg) => 'egg'; // egg
-
-/**
  * Tries to execute and return function results, otherwise returns specified other value
  * @param {Function} callback 
  * @param {any} other 
@@ -63,7 +56,7 @@ export const noop = () => {};
 
 /**
  * Echo
- * @param {any} x 
+ * @param {...any} args 
  * @returns {any}
  */
-export const echo = (x) => x;
+export const echo = (...args) => args.length < 2 ? args[0] : args;
