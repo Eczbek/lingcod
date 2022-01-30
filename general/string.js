@@ -17,11 +17,20 @@ export const decapitalize = (string) => string.replace(/[a-z]/i, (letter) => let
  * Array.prototype.splice but for strings
  * @param {string} string 
  * @param {number} index 
- * @param {number} remove 
- * @param {string} insert 
+ * @param {number} remove optional parameter
+ * @param {string} insert optional parameter
  * @returns {string}
  */
-export const spliceString = (string, index, remove, insert) => string.split('').splice(index, remove, insert).join('');
+export const spliceString = (string, index, remove = 0, insert = '') => string.slice(0, index) + insert + string.slice(index + remove);
+
+/**
+ * Truncates string if it is longer than specified
+ * @param {string} string 
+ * @param {number} length 
+ * @param {string} replace optional parameter
+ * @returns {string}
+ */
+export const truncateString = (string, length, replace = '...') => string.length > length ? string.slice(0, length - replace.length) + replace : string;
 
 /**
  * Formats string to Pascal case (PascalCase)
