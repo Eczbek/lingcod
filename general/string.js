@@ -4,14 +4,14 @@
  * @param {string} string 
  * @returns {string}
  */
-export const capitalize = (string) => string.replace(/[a-z]/i, (letter) => letter.toUpperCase());
+export const capitalize = (string) => string[0].toUpperCase() + string.slice(1);
 
 /**
  * Decapitalizes first letter
  * @param {string} string 
  * @returns {string}
  */
-export const decapitalize = (string) => string.replace(/[a-z]/i, (letter) => letter.toLowerCase());
+export const decapitalize = (string) => string[0].toLowerCase() + string.slice(1);
 
 /**
  * Array.prototype.splice but for strings
