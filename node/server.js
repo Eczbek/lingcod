@@ -9,7 +9,6 @@ import { WebSocketServer } from 'ws';
 
 export default class ExpressWebSocketServer extends EventEmitter {
 	sockets = {};
-	clients = {};
 
 	#expressApp = express();
 	#httpServer = createServer(this.#expressApp);
@@ -26,7 +25,6 @@ export default class ExpressWebSocketServer extends EventEmitter {
 					} catch {}
 				})
 				.on('close', () => {
-					delete this.clients[this.sockets[id].username];
 					delete this.sockets[id];
 					this.emit('close', id);
 				});
@@ -71,49 +69,5 @@ export default class ExpressWebSocketServer extends EventEmitter {
 	 */
 	close (id) {
 		this.sockets[id].close();
-	}
-
-	/**
-	 * Adds client to ID by username
-	 * @param {string} id 
-	 * @param {string} username 
-	 */
-	addClient (id, username) {
-		this.clients[username] = id;
-		this.sockets[id].username = username;
-	};
-
-	/**
-	 * Removes client by username
-	 * @param {string} username 
-	 */
-	removeClient (username) {
-		delete this.clients[username];
-		delete this.sockets[id].username;
-	}
-
-	/**
-	 * Sends data to client by username
-	 * @param {string} username 
-	 * @param {any} data 
-	 */
-	message (username, data) {
-		this.send(this.clients[username], data);
-	}
-
-	/**
-	 * Sends data to all clients
-	 * @param {any} data 
-	 */
-	broadcast (data) {
-		Object.values(this.clients).forEach((id) => this.send(id, data));
-	}
-
-	/**
-	 * Kicks client by username
-	 * @param {string} username 
-	 */
-	kick (username) {
-		this.close(this.clients[username]);
 	}
 }
