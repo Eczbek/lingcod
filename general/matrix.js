@@ -3,9 +3,16 @@ import { typeOf } from './misc.js';
 
 
 /**
+ * Matrix creation callback
+ * @callback matrixCreationCallback
+ * @param {Array<number>} indices 
+ * @returns {any}
+ */
+
+/**
  * Creates a multidimensional matrix
  * @param {Array<number>} dimensions 
- * @param {Function} callback optional parameter
+ * @param {matrixCreationCallback} callback optional parameter
  * @returns {Array<any>}
  */
 export const createMatrix = (dimensions, callback = () => 0) => {
@@ -20,8 +27,15 @@ export const createMatrix = (dimensions, callback = () => 0) => {
 	})();
 }
 
+/**
+ * Wraps array into specified dimensions
+ * @param {Array<any>} array 
+ * @param {Array<number>} dimensions optional parameter
+ * @returns {Array<any>}
+ */
 export const wrapMatrix = (array, dimensions = [array.length]) => {
-	// todo
+	let i = 0;
+	return createMatrix(dimensions, () => array[i++]);
 }
 
 /**

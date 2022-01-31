@@ -1,8 +1,16 @@
 
 /**
+ * Sorting callback
+ * @callback sortCallback
+ * @param {any} a 
+ * @param {any} b 
+ * @returns {boolean}
+ */
+
+/**
  * Sorts array via insertion method (better for small arrays)
  * @param {Array<any>} array 
- * @param {Function} check optional parameter
+ * @param {sortCallback} check optional parameter
  * @returns {Array<any>}
  */
 export const insertSort = (array, check = (a, b) => a < b) => {
@@ -17,7 +25,7 @@ export const insertSort = (array, check = (a, b) => a < b) => {
 /**
  * Sorts array via merge method (better for large arrays)
  * @param {Array<any>} array 
- * @param {Function} check optional parameter
+ * @param {sortCallback} check optional parameter
  * @returns {Array<any>}
  */
 export const mergeSort = (array, check = (a, b) => a < b) => {

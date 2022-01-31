@@ -64,10 +64,6 @@ I most definitely contradict my general code formatting several times here
 			- constructor
 			- getArea
 			- containsPoint
-		- Ellipse
-			- constructor
-			- getArea
-			- containsPoint
 	- matrix.js
 		- createMatrix
 		- isRegular
@@ -106,6 +102,7 @@ I most definitely contradict my general code formatting several times here
 		- capitalize
 		- decapitalize
 		- spliceString
+		- truncateString
 		- toPascalCase
 		- toCamelCase
 		- toSnakeCase
@@ -139,8 +136,3 @@ I most definitely contradict my general code formatting several times here
 			- getPort
 			- send
 			- close
-			- addClient
-			- removeClient
-			- message
-			- broadcast
-			- kick
