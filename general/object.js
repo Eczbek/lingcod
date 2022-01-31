@@ -3,6 +3,21 @@ import { typeOf, isPrimitive } from './misc.js';
 
 
 /**
+ * Find paths callback
+ * @callback findPathsTo
+ * @param {any} value 
+ * @param {Array<any>} keys 
+ * @returns {boolean}
+ */
+
+/**
+ * Recurse callback
+ * @callback recurseCallback
+ * @param {any} value 
+ * @param {Array<any>} keys 
+ */
+
+/**
  * Checks if object is empty
  * @param {Object} object 
  * @returns {boolean}
@@ -151,13 +166,13 @@ export function deepRemove (target, path) {
 }
 
 /**
- * Finds path to value within object
+ * Finds paths to value within object
  * @param {any} target 
- * @param {Function} callback 
+ * @param {findPathsTo} callback 
  * @param {number} depth optional parameter
  * @returns {Array<any>}
  */
-export function findPath (target, callback, depth = Infinity) {
+export function findPaths (target, callback, depth = Infinity) {
 	const indices = [];
 	(function loop (object = target, keys = []) {
 		if (keys.length > depth) return;
@@ -186,7 +201,7 @@ export function findPath (target, callback, depth = Infinity) {
 /**
  * Recurses through an object, does not explore cyclic references
  * @param {any} target 
- * @param {Function} callback 
+ * @param {recurseCallback} callback 
  * @param {number} depth optional parameter
  */
 export function recurse (target, callback, depth = Infinity) {

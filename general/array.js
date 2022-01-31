@@ -3,6 +3,14 @@ import { randInt } from './random.js';
 
 
 /**
+ * Index filter callback
+ * @callback indexFilterCallback
+ * @param {any} value 
+ * @param {number} index 
+ * @returns {boolean}
+ */
+
+/**
  * Removes holes from array, does not remove nullish values
  * @param {Array<any>} array 
  * @returns {Array<any>}
@@ -80,7 +88,7 @@ export const contentsAreEqual = (array, value = array[0]) => array.slice(1).ever
 /**
  * Filters indices
  * @param {Array<any>} array 
- * @param {Function} callback 
+ * @param {indexFilterCallback} callback 
  * @returns {Array<number>}
  */
 export const filterIndices = (array, callback) => {

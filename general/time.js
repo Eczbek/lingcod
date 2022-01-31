@@ -17,6 +17,15 @@ const timeFormatConfig = {
 };
 
 /**
+ * Time format
+ * @callback timeFormat
+ * @param {Date} date optional parameter
+ * @param {boolean} utc optional parameter
+ * @param {boolean} names optional parameter
+ * @returns {string}
+ */
+
+/**
  * Destructs date object into time values
  * @param {Date} date optional parameter
  * @returns {Object}
@@ -46,7 +55,7 @@ export const destructDate = (date = new Date()) => ({
  * @param {string} format 
  * @param {string} prefix optional parameter
  * @param {Object} options optional parameter
- * @returns {Function}
+ * @returns {timeFormat}
  */
 export const createTimeFormat = (format, prefix = '%', options = {}) => {
 	const prefix = (check) => check ? 'UTC' : '';

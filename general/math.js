@@ -88,5 +88,3 @@ export const pi = (digits = 5) => {
 	}
 	return spliceString(result, 1, 0, '.');
 }
-
-// 2D geometry moved to test file
