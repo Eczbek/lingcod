@@ -2,7 +2,7 @@
 Javascript utility functions
 
 
-I most definitely contradict my general code formatting several times here
+Working on 2D geometry...
 
 
 - general/

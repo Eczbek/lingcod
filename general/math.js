@@ -131,7 +131,7 @@ export class Line {
 
 	static compare (...lines) {
 		const [first, ...rest] = lines;
-		return rest.every(({ slope, offset }) => first.slope === slope && first.offset === offset); // need better slope comparison
+		return rest.every(({ slope, offset }) => first.slope === slope && first.offset === offset);
 	}
 
 	constructor (slope, offset = 0) {
