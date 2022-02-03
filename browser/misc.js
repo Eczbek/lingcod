@@ -9,6 +9,7 @@ class EventEmitter extends EventTarget {
 	 */
 	emit (id, ...data) {
 		this.dispatchEvent(new CustomEvent(id, { detail: data }));
+		return this;
 	}
 
 	/**
@@ -19,6 +20,7 @@ class EventEmitter extends EventTarget {
 	on (id, callback) {
 		this.#funcs[id] = ({ detail }) => callback(...detail);
 		this.addEventListener(id, this.#funcs[id]);
+		return this;
 	}
 
 	/**
@@ -28,6 +30,7 @@ class EventEmitter extends EventTarget {
 	off (id) {
 		this.removeEventListener(id, this.#funcs[id]);
 		delete this.#funcs[id];
+		return this;
 	}
 
 	/**
@@ -36,7 +39,7 @@ class EventEmitter extends EventTarget {
 	 * @param {Function} callback 
 	 */
 	once (id, callback) {
-		this.on(id, (...args) => {
+		return this.on(id, (...args) => {
 			this.off(id);
 			callback(...args);
 		});
