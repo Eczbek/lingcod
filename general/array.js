@@ -3,14 +3,6 @@ import { randInt } from './random.js';
 
 
 /**
- * Index filter callback
- * @callback indexFilterCallback
- * @param {any} value 
- * @param {number} index 
- * @returns {boolean}
- */
-
-/**
  * Removes holes from array, does not remove nullish values
  * @param {Array<any>} array 
  * @returns {Array<any>}
@@ -28,6 +20,14 @@ export const range = (max, min = 0, step = 1) => {
 	const arr = [];
 	for (let i = min; i < max; i += step) {
 		arr.push(i);
+	}
+	return arr;
+}
+
+export const createDenseArray = (length, fillCallback) => {
+	const arr = [];
+	for (let i = 0; i < length; ++i) {
+		arr.push(fillCallback(i));
 	}
 	return arr;
 }
@@ -84,6 +84,14 @@ export const chunk = (array, getSize, overflow = false) => {
  * @returns {boolean}
  */
 export const contentsAreEqual = (array, value = array[0]) => array.slice(1).every((item) => item === value);
+
+/**
+ * Index filter callback
+ * @callback indexFilterCallback
+ * @param {any} value 
+ * @param {number} index 
+ * @returns {boolean}
+ */
 
 /**
  * Filters indices

@@ -3,20 +3,6 @@ import { lerp } from './math.js';
 
 
 /**
- * Random array callback
- * @callback randArrayCallback
- * @param {number} index 
- * @returns {Array<any>}
- */
-
-/**
- * Random string callback
- * @callback randStringCallback
- * @param {number} index 
- * @returns {string}
- */
-
-/**
  * Generates random float between min and max
  * @param {number} max optional parameter
  * @param {number} min optional parameter
@@ -46,6 +32,13 @@ export const randBool = () => !!randInt(2);
 export const randItem = (array) => array[randInt(array.length)];
 
 /**
+ * Random array callback
+ * @callback randArrayCallback
+ * @param {number} index 
+ * @returns {Array<any>}
+ */
+
+/**
  * Creates an array of length with randomly assorted items
  * @param {number} length 
  * @param {randArrayCallback | Array<any>} getValues 
@@ -58,6 +51,13 @@ export const randArray = (length, getValues) => {
 	}
 	return arr;
 }
+
+/**
+ * Random string callback
+ * @callback randStringCallback
+ * @param {number} index 
+ * @returns {string}
+ */
 
 /**
  * Creates a string of length with randomly assorted characters

@@ -1,5 +1,6 @@
 
 import { typeOf } from './misc.js';
+import { createDenseArray } from './array.js';
 
 
 /**
@@ -70,4 +71,16 @@ export const rotateMatrix = (matrix, rotations = 1) => {
 		matrix = matrix[0].map((_, index) => matrix.map((item) => item[index]).reverse());
 	}
 	return matrix;
+}
+
+// experimental flat matrix?
+export class FlatMatrix {
+	constructor (dimensions, fillCallback) {
+		this.dimensions = dimensions;
+		this.array = createDenseArray(dimensions.reduce((length, dimension) => length * dimension), fillCallback);
+	}
+
+	getIndex (indices) {
+		return indices.reduce((total, index, key) => total * this.dimensions[key] + index);
+	}
 }
