@@ -2,49 +2,23 @@
 import { lerp } from './math.js';
 
 
-/**
- * Generates random float between min and max
- * @param {number} max optional parameter
- * @param {number} min optional parameter
- * @returns {number}
- */
-export const randFloat = (max = 1, min = 0) => lerp(Math.random(), max, min);
+export function randFloat (max = 1, min = 0) {
+	return lerp(Math.random(), max, min);
+}
 
-/**
- * Generates random integer between min and max
- * @param {number} max optional parameter
- * @param {number} min optional parameter
- * @returns {number}
- */
-export const randInt = (max = Number.MAX_SAFE_INTEGER, min) => Math.floor(randFloat(max, min));
+export function randInt (max = Number.MAX_SAFE_INTEGER, min) {
+	return Math.floor(randFloat(max, min));
+}
 
-/**
- * Generates random boolean
- * @returns {boolean}
- */
-export const randBool = () => !!randInt(2);
+export function randBool () {
+	return !!randInt(2);
+}
 
-/**
- * Gets random item from array
- * @param {Array<any>} array 
- * @returns {any}
- */
-export const randItem = (array) => array[randInt(array.length)];
+export function randItem (array) {
+	return array[randInt(array.length)];
+}
 
-/**
- * Random array callback
- * @callback randArrayCallback
- * @param {number} index 
- * @returns {Array<any>}
- */
-
-/**
- * Creates an array of length with randomly assorted items
- * @param {number} length 
- * @param {randArrayCallback | Array<any>} getValues 
- * @returns {Array<any>}
- */
-export const randArray = (length, getValues) => {
+export function randArray (length, getValues) {
 	const arr = [];
 	for (let i = 0; i < length; ++i) {
 		arr.push(randItem(typeOf(getValues) === 'Function' ? getValues(i) : getValues));
@@ -52,28 +26,11 @@ export const randArray = (length, getValues) => {
 	return arr;
 }
 
-/**
- * Random string callback
- * @callback randStringCallback
- * @param {number} index 
- * @returns {string}
- */
+export function randString (length, getChars) {
+	return randArray(length, getChars).join('');
+}
 
-/**
- * Creates a string of length with randomly assorted characters
- * @param {number} length 
- * @param {randStringCallback | string} getChars 
- * @returns {string}
- */
-export const randString = (length, getChars) => randArray(length, getChars).join('');
-
-/**
- * Generates a random hex color between min and max
- * @param {string} max optional parameter
- * @param {string} min optional parameter
- * @returns {string}
- */
-export const randHexColor = (max = '#ffffff', min = '#000000') => {
+export function randHexColor (max = '#ffffff', min = '#000000') {
 	max = max.replace('#', '');
 	min = min.replace('#', '');
 	return `#${randString(6, (index) => {

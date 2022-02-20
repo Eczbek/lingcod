@@ -2,43 +2,15 @@
 import { typeOf, isPrimitive } from './misc.js';
 
 
-/**
- * Find paths callback
- * @callback findPathsTo
- * @param {any} value 
- * @param {Array<any>} keys 
- * @returns {boolean}
- */
+export function isEmpty (object) {
+	return !Object.keys(object).length;
+}
 
-/**
- * Recurse callback
- * @callback recurseCallback
- * @param {any} value 
- * @param {Array<any>} keys 
- */
+export function ilterByProps (objects, props) {
+	return objects.filter((object) => Object.entries(props).every(([key, value]) => object[key] === value));
+}
 
-/**
- * Checks if object is empty
- * @param {Object} object 
- * @returns {boolean}
- */
-export const isEmpty = (object) => !Object.keys(object).length;
-
-/**
- * Filters objects by properties
- * @param {Array<Object>} objects 
- * @param {Object} props 
- * @returns {Array<Object>}
- */
-export const filterByProps = (objects, props) => objects.filter((object) => Object.entries(props).every(([key, value]) => object[key] === value));
-
-/**
- * Clones an object in depth, removes references
- * @param {any} target 
- * @param {number} depth optional parameter
- * @returns {any}
- */
-export const deepClone = (target, depth = Infinity) => {
+export function deepClone (target, depth = Infinity) {
 	const hash = new Map();
 	const result = (function copy (object = target, currDepth = depth) {
 		if (--currDepth < 0 || isPrimitive(object)) return object;
@@ -63,13 +35,6 @@ export const deepClone = (target, depth = Infinity) => {
 	return result;
 }
 
-/**
- * Compares objects in depth
- * @param {any} target 
- * @param {any} value 
- * @param {number} depth optional parameter
- * @returns {boolean}
- */
 export function deepCompare (target, value, depth = Infinity) {
 	if (--depth < 0) return true;
 	const type = typeOf(target);
@@ -86,14 +51,6 @@ export function deepCompare (target, value, depth = Infinity) {
 	return target === value;
 }
 
-/**
- * Combines objects in depth
- * @param {any} target 
- * @param {any} extension 
- * @param {boolean} arrayReplace optional parameter, whether to replace or push items to array
- * @param {number} depth optional parameter
- * @returns {any}
- */
 export function deepExtend (target, extension, arrayReplace = false, depth = Infinity) {
 	const type = typeOf(target);
 	if (--depth < 0 || type !== typeOf(extension)) return target;
@@ -114,12 +71,6 @@ export function deepExtend (target, extension, arrayReplace = false, depth = Inf
 	return target;
 }
 
-/**
- * Extracts data from object by path
- * @param {any} target 
- * @param {Array<any>} path 
- * @returns {any}
- */
 export function extract (target, path) {
 	if (!path.length) return target;
 	const [key, ...keys] = path;
@@ -135,12 +86,6 @@ export function extract (target, path) {
 	return target;
 }
 
-/**
- * Removes and returns data from object by path
- * @param {any} target 
- * @param {Array<any>} path 
- * @returns {any}
- */
 export function deepRemove (target, path) {
 	const key = path.at(-1);
 	const value = deepExtract(target, path.slice(0, -1));
@@ -165,13 +110,6 @@ export function deepRemove (target, path) {
 	return removed;
 }
 
-/**
- * Finds paths to value within object
- * @param {any} target 
- * @param {findPathsTo} callback 
- * @param {number} depth optional parameter
- * @returns {Array<any>}
- */
 export function findPaths (target, callback, depth = Infinity) {
 	const indices = [];
 	(function loop (object = target, keys = []) {
@@ -198,12 +136,6 @@ export function findPaths (target, callback, depth = Infinity) {
 	return indices;
 }
 
-/**
- * Recurses through an object, does not explore cyclic references
- * @param {any} target 
- * @param {recurseCallback} callback 
- * @param {number} depth optional parameter
- */
 export function recurse (target, callback, depth = Infinity) {
 	(function loop (object = target, keys = [], values = [target]) {
 		if (keys.length > depth) return;
