@@ -2,8 +2,6 @@
 Javascript utility functions
 
 
-Working on 2D geometry...
-
 
 - general/
 	- array.js
