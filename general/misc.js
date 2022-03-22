@@ -15,20 +15,12 @@ export function isPrimitive (value) {
 	return Object(value) !== value;
 }
 
-export function attempt (callback, other, args) {
+export function attempt (callback, ...args) {
 	try {
 		return callback(...args);
-	} catch {
-		return other;
-	}
+	} catch {}
 }
 
 export function sleep (millis) {
 	return new Promise((resolve) => setTimeout(resolve, millis));
-}
-
-export function noop () {}
-
-export function echo (...args) {
-	return args.length < 2 ? args[0] : args;
 }
