@@ -1,5 +1,5 @@
 
-class EventEmitter extends EventTarget {
+class MinimalEventEmitter extends EventTarget {
 	#callbacks = {};
 
 	emit (id, ...data) {
@@ -25,4 +25,23 @@ class EventEmitter extends EventTarget {
 			callback(...args);
 		});
 	}
+}
+
+function download (filename, data, type = 'text') {
+	const link = document.createElement('a');
+	link.download = filename;
+	link.href = URL.createObjectURL(new Blob([data], { type }));
+	link.click();
+}
+
+function animate (callback) {
+	function step () {
+		callback();
+		requestAnimationFrame(step);
+	}
+	requestAnimationFrame(step);
+}
+
+function cookieToObject () {
+	return Object.fromEntries(document.cookie.split(';').map((entry) => entry.split('=')));
 }
