@@ -1,8 +1,6 @@
 # js-utils
 Javascript utility functions
 
-
-
 - general/
 	- array.js
 		- compact
@@ -23,13 +21,6 @@ Javascript utility functions
 	- func.js
 		- throttle
 		- debounce
-	- logger.js
-		- Logger
-			- constructor
-			- getId
-			- log
-			- addTimer
-			- endTimer
 	- math.js
 		- norm
 		- lerp
@@ -40,13 +31,12 @@ Javascript utility functions
 		- isApproxEqual
 		- pi
 		- getDenominators
+	- geom.js
 		- Point
 			- compare
-			- constructor
 		- Line
 			- compare
 			- getIntersectPoints
-			- constructor
 			- containsPoint
 	- matrix.js
 		- createMatrix
@@ -54,6 +44,9 @@ Javascript utility functions
 		- isRegular
 		- getDimensions
 		- rotateMatrix
+		- FlatMatrix
+			- get
+			- set
 	- misc.js
 		- typeOf
 		- isIterable
@@ -61,8 +54,6 @@ Javascript utility functions
 		- isPrimitive
 		- attempt
 		- sleep
-		- noop
-		- echo
 	- object.js
 		- isEmptyObject
 		- filterObjectsByProps
@@ -80,9 +71,6 @@ Javascript utility functions
 		- randArray
 		- randString
 		- randHexColor
-	- sort.js
-		- insertSort
-		- mergeSort
 	- string.js
 		- capitalize
 		- decapitalize
