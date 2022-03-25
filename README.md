@@ -85,7 +85,7 @@ Javascript utility functions
 		- createTimeFormat
 - browser/
 	- client.js
-		- WebSocketClient
+		- MinimalWebSocketClient
 			- connect
 			- disconnect
 			- send
