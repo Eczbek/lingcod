@@ -1,5 +1,5 @@
 
-class WebSocketClient extends MinimalEventEmitter {
+class MinimalWebSocketClient extends MinimalEventEmitter {
 	constructor (protocol = 'ws') {
 		super();
 		this.protocol = protocol;
