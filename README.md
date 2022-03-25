@@ -5,6 +5,7 @@ Javascript utility functions
 	- array.js
 		- compact
 		- range
+		- createDenseArray
 		- includesAll
 		- filterByOccurences
 		- group
@@ -13,7 +14,7 @@ Javascript utility functions
 		- filterIndices
 		- findIndexOfSequence
 		- findIndicesOfSequence
-		- findMissingIndices
+		- findEmptyIndices
 		- isSparse
 		- swap
 		- shuffle
@@ -30,13 +31,13 @@ Javascript utility functions
 		- isPrime
 		- isApproxEqual
 		- pi
-		- getDenominators
+		- getFactors
 	- geom.js
 		- Point
 			- compare
 		- Line
 			- compare
-			- getIntersectPoints
+			- getIntersections
 			- containsPoint
 	- matrix.js
 		- createMatrix
@@ -44,9 +45,6 @@ Javascript utility functions
 		- isRegular
 		- getDimensions
 		- rotateMatrix
-		- FlatMatrix
-			- get
-			- set
 	- misc.js
 		- typeOf
 		- isIterable
@@ -55,14 +53,14 @@ Javascript utility functions
 		- attempt
 		- sleep
 	- object.js
-		- isEmptyObject
-		- filterObjectsByProps
+		- isEmpty
+		- filterByProps
 		- deepClone
 		- deepCompare
 		- deepExtend
 		- extract
 		- deepRemove
-		- findPath
+		- findPaths
 		- recurse
 	- random.js
 		- randFloat
@@ -84,7 +82,6 @@ Javascript utility functions
 		- WEEK_DAYS
 		- MONTHS
 		- MILLIS_BEFORE_1970
-		- destructDate
 		- createTimeFormat
 - browser/
 	- client.js
@@ -94,8 +91,11 @@ Javascript utility functions
 			- send
 			- getURL
 	- misc.js
-		- EventEmitter
+		- MinimalEventEmitter
 			- emit
 			- on
 			- off
 			- once
+		- download
+		- animate
+		- getCookiesObject
