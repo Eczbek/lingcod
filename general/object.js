@@ -6,7 +6,7 @@ export function isEmpty (object) {
 	return !Object.keys(object).length;
 }
 
-export function ilterByProps (objects, props) {
+export function filterByProps (objects, props) {
 	return objects.filter((object) => Object.entries(props).every(([key, value]) => object[key] === value));
 }
 
