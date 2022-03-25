@@ -4,6 +4,7 @@ export const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', '
 
 export const MILLIS_BEFORE_1970 = 6.212592e13;
 
+
 const timeFormatConfig = {
 	Y: { func: 'FullYear', pad: 4 },
 	M: { func: 'Month', add: 1, arr: MONTHS },
@@ -17,11 +18,11 @@ const timeFormatConfig = {
 };
 
 export function createTimeFormat (format, prefix = '%', options = {}) {
-	const prefix = (check) => check ? 'UTC' : '';
-	return (date = new Date(), utc = false, names = false) => prefix(utc) + format.replace(new RegExp(Object.keys(config).map((key) => prefix + key).join('|'), 'g'), (key) => {
+	const getPrefix = (check) => check ? 'UTC' : '';
+	return (date = new Date(), utc = false, names = false) => getPrefix(utc) + format.replace(new RegExp(Object.keys(config).map((key) => prefix + key).join('|'), 'g'), (key) => {
 		const type = key.replace(new RegExp(prefix), '');
 		const { func, pad = 2, add = 0, arr, now = false } = { ...timeFormatConfig[type], ...options[type] };
-		const num = date[`get${prefix(utc && !now)}${func}`]();
+		const num = date[`get${getPrefix(utc && !now)}${func}`]();
 		return names && arr ? arr[num] : String(num + add).padStart(pad, 0);
 	});
 }

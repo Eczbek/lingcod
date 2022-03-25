@@ -42,6 +42,6 @@ function animate (callback) {
 	requestAnimationFrame(step);
 }
 
-function cookieToObject () {
+function getCookiesObject () {
 	return Object.fromEntries(document.cookie.split(';').map((entry) => entry.split('=')));
 }

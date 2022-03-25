@@ -44,7 +44,7 @@ export function pi (digits = 5) {
 	return result.slice(0, 1) + '.' + result.slice(1);
 }
 
-export function getDenominators (number) {
+export function getFactors (number) {
 	const denominators = [];
 	for (let i = 2; i <= Math.sqrt(number); ++i) {
 		const j = number / i;
