@@ -47,12 +47,21 @@ JavaScript utility functions
 	- PI
 	- getFactors
 - geometry.js
+	- radiansToDegrees
+	- degreesToRadians
 	- Point
-		- compare
+		- areEqual
+		- constructor
+		- copy
 	- Line
-		- compare
+		- areParallel
+		- areEqual
 		- getIntersections
+		- constructor
+		- copy
 		- containsPoint
+		- getRadians
+		- getDegrees
 - matrix.js
 	- createMatrix
 	- wrapMatrix

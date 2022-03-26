@@ -1,6 +1,17 @@
 
+import { approxEqual } from './math.js';
+
+
+export function radiansToDegrees (radians) {
+	return radians * 180 / Math.PI;
+}
+
+export function degreesToRadians (degrees) {
+	return degrees * Math.PI / 180;
+}
+
 export class Point {
-	static compare (...points) {
+	static areEqual (...points) {
 		const [first, ...rest] = points;
 		return rest.every(({ x, y }) => first.x === x && first.y === y);
 	}
@@ -9,39 +20,70 @@ export class Point {
 		this.x = x;
 		this.y = y;
 	}
+
+	copy () {
+		return new Point(this.x, this.y);
+	}
 }
 
 export class Line {
-	static getIntersections (...lines) {
-		const intersections = [];
-		lines.forEach(({ slope: slope1, offset: offset1 }, index1) => lines.forEach(({ slope: slope2, offset: offset2 }, index2) => {
-			if (index1 === index2) return;
-			const { x: s1x, y: s1y } = new Point(0, offset1);
-			const { x: e1x, y: e1y } = new Point(1, offset1 + slope1);
-			const { x: s2x, y: s2y } = new Point(0, offset2);
-			const { x: e2x, y: e2y } = new Point(1, offset2 + slope2);
-			const a = (s1x - e1x) * (s2y - e2y) - (s1y - e1y) * (s2x - e2x);
-			if (!a) return;
-			const b = (s1x * e1y - s1y * e1x);
-			const c = (s2x * e2y - s2y * e2x);
-			const p1 = new Point((b * (s2x - e2x) - c * (s1x - e1x)) / a, (b * (s2y - e2y) - c * (s1y - e1y)) / a);
-			if (!intersections.some((p2) => Point.compare(p1, p2))) intersections.push(p1);
-		}));
-		return intersections;
-	}
-
-	static compare (...lines) {
+	static areParallel (...lines) {
 		const [first, ...rest] = lines;
-		return rest.every(({ slope, offset }) => first.slope === slope && first.offset === offset);
+		const firstSlope = first.slope.x / first.slope.y;
+		return rest.every(({ slope }) => approxEqual(firstSlope, slope.x / slope.y));
 	}
 
-	constructor (slope, offset = 0) {
-		this.slope = slope;
-		this.offset = offset;
+	static areEqual (...lines) {
+		const [first, ...rest] = lines;
+		return Line.areParallel(...lines) && rest.every(({ origin }) => first.containsPoint(origin));
+	}
+
+	static getIntersections (...lines) {
+		const points = [];
+		lines.forEach(({ origin, slope }, index1) => {
+			const x1 = origin.x;
+			const y1 = origin.y;
+			const x2 = x1 + slope.x;
+			const y2 = y1 + slope.y;
+			lines.forEach(({ origin, slope }, index2) => {
+				if (index1 === index2) return;
+				const x3 = origin.x;
+				const y3 = origin.y;
+				const x4 = x3 + slope.x;
+				const y4 = y3 + slope.y;
+				const a = x3 - x4;
+				const b = x1 - x2;
+				const c = y3 - y4;
+				const d = y1 - y2;
+				const e = b * c - d * a;
+				if (!e) return;
+				const f = x1 * y2 - y1 * x2;
+				const g = x3 * y4 - y3 * x4;
+				points.push(new Point((f * a - b * g) / e, (f * c - d * g) / e));
+			});
+		});
+		return points;
+	}
+
+	constructor (slope, origin = new Point(0, 0)) {
+		this.slope = slope.copy();
+		this.origin = origin.copy();
+	}
+
+	copy () {
+		return new Line(this.slope, this.origin);
 	}
 
 	containsPoint ({ x, y }) {
-		return approxEqual(y, x * this.slope + this.offset);
+		return approxEqual(y, x * this.slope.x / this.slope.y + this.origin.y);
+	}
+
+	getRadians () {
+		return Math.atan2(this.slope.y, this.slope.x);
+	}
+
+	getDegrees () {
+		return radiansToDegrees(this.getRadians());
 	}
 }
 
