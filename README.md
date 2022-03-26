@@ -1,10 +1,12 @@
 # js-utils
 JavaScript utility functions
 
+- algorithm.js
+	- binarySearch
 - array.js
 	- compact
 	- range
-	- createDenseArray
+	- fill
 	- includesAll
 	- filterByOccurences
 	- group
