@@ -31,7 +31,7 @@ JavaScript utility functions
 		- wrap
 		- isPrime
 		- isApproxEqual
-		- pi
+		- PI
 		- getFactors
 	- geom.js
 		- Point
