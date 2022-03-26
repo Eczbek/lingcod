@@ -14,7 +14,7 @@ export function range (max, min = 0, step = 1) {
 	return arr;
 }
 
-export function createDenseArray (length, fillCallback) {
+export function fill (length, fillCallback) {
 	const arr = [];
 	for (let i = 0; i < length; ++i) {
 		arr.push(fillCallback(i));
