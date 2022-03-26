@@ -46,10 +46,10 @@ Javascript utility functions
 		- getDimensions
 		- rotateMatrix
 	- misc.js
-		- typeOf
 		- isIterable
 		- isNullish
 		- isPrimitive
+		- typeOf
 		- attempt
 		- sleep
 	- object.js
@@ -72,12 +72,13 @@ Javascript utility functions
 	- string.js
 		- capitalize
 		- decapitalize
-		- spliceString
-		- truncateString
 		- toPascalCase
 		- toCamelCase
 		- toSnakeCase
 		- toKebabCase
+		- spliceString
+		- truncateString
+		- isEmail
 	- time.js
 		- WEEK_DAYS
 		- MONTHS
