@@ -99,11 +99,3 @@ export function shuffle (array) {
 	}
 	return array;
 }
-
-export function multiply (value, count) {
-	const result = [];
-	for (let i = 0; i < count; ++i) {
-		result.push(value);
-	}
-	return result;
-}

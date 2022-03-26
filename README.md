@@ -1,5 +1,7 @@
 # js-utils
-Javascript utility functions
+JavaScript utility functions
+
+
 
 - general/
 	- array.js
@@ -18,7 +20,6 @@ Javascript utility functions
 		- isSparse
 		- swap
 		- shuffle
-		- multiply
 	- func.js
 		- throttle
 		- debounce
