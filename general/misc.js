@@ -1,8 +1,4 @@
 
-export function typeOf (value) {
-	return String(value?.constructor?.name);
-}
-
 export function isIterable (value) {
 	return typeOf(value?.[Symbol.iterator]) === 'Function';
 }
@@ -13,6 +9,10 @@ export function isNullish (value) {
 
 export function isPrimitive (value) {
 	return Object(value) !== value;
+}
+
+export function typeOf (value) {
+	return isNullish(value) ? String(value) : value?.constructor?.name ?? 'Object';
 }
 
 export function attempt (callback, ...args) {
