@@ -31,24 +31,22 @@ export function approxEqual (number1, number2, absEpsilon = 1e-12, relEpsilon = 
 	return Math.abs(number1 - number2) <= Math.min(absEpsilon, Math.max(Math.abs(number1), Math.abs(number2)) * relEpsilon);
 }
 
-export function pi (digits = 5) {
-	let result = '';
+export function* PI (digits = Infinity) {
 	for (let a = 180n, b = 1n, c = 60n, d = 2n, i = 0; i <= digits; ++i, d += 1n) {
 		const x = ((d * 27n - 12n) * b + a * 5n) / (c * 5n);
 		const y = (d * 3n + 1n) * (d * 3n + 2n) * 3n;
 		a = ((d * 5n - 2n) * b - x * c + a) * y * 10n;
 		b *= (d * 2n - 1n) * d * 10n;
 		c *= y;
-		result += x;
+		yield Number(x);
 	}
-	return result.slice(0, 1) + '.' + result.slice(1);
 }
 
 export function getFactors (number) {
-	const denominators = [];
+	const factors = [];
 	for (let i = 2; i <= Math.sqrt(number); ++i) {
 		const j = number / i;
-		if (j % 1 === 0) denominators.push(i, j);
+		if (j % 1 === 0) factors.push(i, j);
 	}
-	return denominators;
+	return factors;
 }
