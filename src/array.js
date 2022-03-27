@@ -26,8 +26,8 @@ export function includesAll (array, values) {
 	return values.every((item) => array.includes(item));
 }
 
-export function filterByOccurences (array, occurences) {
-	return array.filter((item1) => array.filter((item2) => item1 === item2).length === occurences);
+export function filterByOccurences (array, occurences, compareCallback = (a, b) => a === b) {
+	return array.filter((item1) => array.filter((item2) => compareCallback(item1, item2)).length === occurences);
 }
 
 export function group (array, getGroup, getValue = (x) => x) {
@@ -48,8 +48,8 @@ export function chunk (array, getSize, overflow = false) {
 	}
 }
 
-export function contentsAreEqual (array, value = array[0]) {
-	return array.slice(1).every((item) => item === value);
+export function contentsAreEqual (array, value = array[0], compareCallback = (a, b) => a === b) {
+	return array.every((item) => compareCallback(value, item));
 }
 
 export function filterIndices (array, callback) {
@@ -60,17 +60,17 @@ export function filterIndices (array, callback) {
 	return result;
 }
 
-export function findIndexOfSequence (array, sequence, loop = false) {
+export function findIndexOfSequence (array, sequence, compareCallback = (a, b) => a === b, wrap = false) {
 	return array.findIndex((_, index1) => sequence.every((item, index2) => {
 		const index = index1 + index2;
-		return item === array[loop ? index % array.length : index];
+		return compareCallback(item, array[wrap ? index % array.length : index]);
 	}));
 }
 
-export function findIndicesOfSequence (array, sequence, loop = false) {
+export function findIndicesOfSequence (array, sequence, compareCallback = (a, b) => a === b, wrap = false) {
 	return filterIndices(array, (_, index1) => sequence.every((item, index2) => {
 		const index = index1 + index2;
-		return item === array[loop ? index % array.length : index];
+		return compareCallback(item, array[wrap ? index % array.length : index]);
 	}));
 }
 
@@ -86,8 +86,8 @@ export function isSparse (array) {
 }
 
 export function swap (array, indices) {
-	for (let i = 0; i < indices.length - 1; ++i) {
-		const prev = indices.at(i - 1);
+	for (let i = 1; i < indices.length; ++i) {
+		const prev = indices[i - 1];
 		[array[indices[i]], array[prev]] = [array[prev], array[indices[i]]];
 	}
 	return array;
