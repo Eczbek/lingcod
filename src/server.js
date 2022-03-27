@@ -4,10 +4,14 @@ import { createReadStream } from 'fs';
 import { join } from 'path';
 
 
-export function createHTTPServer (servePath, port) {
+export function getURLPath (url) {
+	return new URL(url, 'http://0.0.0.0').pathname;
+}
+
+export function createHTTPServer (servePath, port, echo = false) {
 	return createServer((request, response) => {
-		if (request.url === '/') return request.pipe(response);
-		const readStream = createReadStream(join(servePath, new URL(request.url, 'http://127.0.0.1').pathname))
+		if (echo && request.method === 'POST') return request.pipe(response);
+		const readStream = createReadStream(join(servePath, getURLPath(request.url)))
 			.on('error', () => response.end('404'))
 			.on('open', () => readStream.pipe(response));
 	}).listen(port);
