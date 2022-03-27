@@ -1,4 +1,4 @@
 # js-utils
-## JavaScript utility functions
+### JavaScript utility library
 
 (geometry is unfinished)
