@@ -6,8 +6,8 @@ export function isEmpty (object) {
 	return !Object.keys(object).length;
 }
 
-export function filterByProps (objects, props) {
-	return objects.filter((object) => Object.entries(props).every(([key, value]) => object[key] === value));
+export function filterByProps (objects, props, compareCallback = (a, b) => a === b) {
+	return objects.filter((object) => Object.entries(props).every(([key, value]) => compareCallback(object[key], value)));
 }
 
 export function deepClone (target, depth = Infinity) {
@@ -77,37 +77,31 @@ export function extract (target, path) {
 	switch (typeOf(target)) {
 		case 'Object':
 		case 'Array':
-			return deepExtract(target[key], keys);
+			return extract(target[key], keys);
 		case 'Map':
-			return deepExtract(target.get(key), keys);
+			return extract(target.get(key), keys);
 		case 'Set':
-			return deepExtract(key, keys);
+			return extract(key, keys);
 	}
 	return target;
 }
 
 export function deepRemove (target, path) {
 	const key = path.at(-1);
-	const value = deepExtract(target, path.slice(0, -1));
-	const removed = [[...path]];
+	const value = extract(target, path.slice(0, -1));
 	switch (typeOf(value)) {
 		case 'Object':
-			removed.push(value[key]);
 			delete value[key];
 			break;
 		case 'Array':
-			removed.push(value.splice(key, 1)[0]);
+			value.splice(key, 1)[0];
 			break;
 		case 'Map':
-			removed.push(value.get(key));
-			value.delete(key);
-			break;
 		case 'Set':
-			removed.push(key);
 			value.delete(key);
 			break;
 	}
-	return removed;
+	return path;
 }
 
 export function recurse (target, callback, depth = Infinity) {
