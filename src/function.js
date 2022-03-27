@@ -5,7 +5,7 @@ export function throttle (callback, millis) {
 		if (Date.now() - last < millis) return;
 		last = Date.now();
 		callback(...args);
-	}
+	};
 };
 
 export function debounce (callback, millis) {
@@ -13,5 +13,5 @@ export function debounce (callback, millis) {
 	return (...args) => {
 		clearTimeout(timer);
 		timer = setTimeout(() => callback(...args), millis);
-	}
+	};
 }
