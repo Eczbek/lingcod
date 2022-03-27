@@ -1,3 +1,7 @@
 {
+	"name": "js-utils",
+	"description": "JavaScript utility library",
+	"author": "Eczbek",
+
 	"type": "module"
 }
