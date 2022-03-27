@@ -110,32 +110,6 @@ export function deepRemove (target, path) {
 	return removed;
 }
 
-export function findPaths (target, callback, depth = Infinity) {
-	const indices = [];
-	(function loop (object = target, keys = []) {
-		if (keys.length > depth) return;
-		if (callback(object, keys)) indices.push(keys);
-		function handle (key, value) {
-			const currKeys = [...keys, key];
-			const nextLoop = loop(value, currKeys);
-			if (nextLoop) return nextLoop;
-		}
-		switch (typeOf(object)) {
-			case 'Object':
-			case 'Array':
-				Object.entries(object).forEach(([key, value]) => handle(key, value));
-				break;
-			case 'Map':
-				[...object].forEach(([key, value]) => handle(key, value));
-				break;
-			case 'Set':
-				object.forEach((item) => handle(item, item));
-				break;
-		}
-	})();
-	return indices;
-}
-
 export function recurse (target, callback, depth = Infinity) {
 	(function loop (object = target, keys = [], values = [target]) {
 		if (keys.length > depth) return;
@@ -159,4 +133,12 @@ export function recurse (target, callback, depth = Infinity) {
 				break;
 		}
 	})();
+}
+
+export function findPaths (target, value, compareCallback = (a, b) => a === b, depth) {
+	const paths = [];
+	recurse(target, (item, path) => {
+		if (compareCallback(value, item)) paths.push(path);
+	}, depth);
+	return paths;
 }
