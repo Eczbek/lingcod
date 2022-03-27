@@ -36,3 +36,7 @@ export function truncateString (string, length, replace = '...') {
 export function isEmail (string) {
 	return /^(([a-z\d!#$%&'*+\/=?^_`{|}~-]+(\.[a-z\d!#$%&'*+\/=?^_`{|}~-]+)*)|(".+"))@([a-z\d-]+(\.[a-z\d]+)+|\[\d{1,3}(\.\d{1,3}){3}])$/i.test(string);
 }
+
+export function findNumber (string) {
+	return Number(string.match(/[-]?(\d+(\.\d+)?|\.\d+)(e[+-]?\d+)?/i)[0]);
+}
