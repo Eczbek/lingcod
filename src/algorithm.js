@@ -26,3 +26,25 @@ export function mergeSort (array, sortCallback = (a, b) => a - b) {
 		return [...array, ...left, ...right];
 	})(mergeSort(array.slice(0, half)), mergeSort(array.slice(half)));
 }
+
+export function heapSort ([...array], sortCallback = (a, b) => a - b) {
+	function heapify (array, size, index) {
+		let min = index;
+		const left = index * 2 + 1;
+		const right = left + 1;
+		if (left < size && sortCallback(array[left], array[min]) > 0) min = left;
+		if (right < size && sortCallback(array[right], array[min]) > 0) min = right;
+		if (min !== index) {
+			swap(array, min, index);
+			heapify(array, size, min);
+		}
+	}
+	for (let i = Math.floor(array.length / 2 - 1); i >= 0; --i) {
+		heapify(array, array.length, i);
+	}
+	for (let i = array.length - 1; i >= 0; --i) {
+		swap(array, i, 0);
+		heapify(array, i, 0);
+	}
+	return array;
+}
