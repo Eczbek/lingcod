@@ -1,16 +1,12 @@
 
-import { typeOf } from './misc.js';
-
-
-export function createMatrix (dimensions, callback = () => 0) {
-	return (function loop (prevDims = [...dimensions], indices = []) {
-		const mat = [];
-		const [dim, ...dims] = prevDims;
-		for (let i = 0; i < dim; ++i) {
-			const currIndices = [...indices, i];
-			mat.push(dims.length ? loop(dims, currIndices) : callback(currIndices));
+export function createMatrix (dimensions, fillCallback = () => 0) {
+	return (function loop ([dimension, ...nextDimensions] = dimensions, indices = []) {
+		const matrix = [];
+		for (let i = 0; i < dimension; ++i) {
+			const currentIndices = [...indices, i];
+			matrix.push(nextDimensions.length ? loop(nextDimensions, currentIndices) : fillCallback(currentIndices));
 		}
-		return mat;
+		return matrix;
 	})();
 }
 
@@ -20,7 +16,7 @@ export function wrapMatrix (array, dimensions = [array.length]) {
 }
 
 export function isRegular (matrix, depth = Infinity) {
-	return typeOf(matrix) !== 'Array' || --depth < 0 || matrix.every((item) => item?.length === matrix[0]?.length && this.isRegular(item, depth));
+	return --depth < 0 || !Array.isArray(matrix) || matrix.every((item) => item?.length === matrix[0]?.length && this.isRegular(item, depth));
 }
 
 export function getDimensions (matrix) {
