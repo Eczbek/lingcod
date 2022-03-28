@@ -166,7 +166,7 @@ export class Rectangle extends Polygon {
 	}
 
 	area () {
-		return Math.abs(this.points[0].x - this.points[1].x) * Math.abs(this.points[0].y - this.points[1].y);
+		return Math.abs((this.points[0].x - this.points[1].x) * (this.points[0].y - this.points[1].y));
 	}
 
 	perimeter () {
