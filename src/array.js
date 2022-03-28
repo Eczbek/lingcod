@@ -85,12 +85,8 @@ export function isSparse (array) {
 	return false;
 }
 
-export function swap (array, indices) {
-	for (let i = 1; i < indices.length; ++i) {
-		const prev = indices[i - 1];
-		[array[indices[i]], array[prev]] = [array[prev], array[indices[i]]];
-	}
-	return array;
+export function swap (array, index1, index2) {
+	[array[index1], array[index2]] = [array[index2], array[index1]];
 }
 
 export function shuffle (array) {
