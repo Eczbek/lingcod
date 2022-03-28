@@ -1,5 +1,6 @@
 
 import { approxEqual } from './math.js';
+import { findIndexOfSequence } from './array.js';
 
 
 export function radiansToDegrees (radians) {
@@ -11,7 +12,7 @@ export function degreesToRadians (degrees) {
 }
 
 export class Point {
-	static areEqual (...points) {
+	static equal (...points) {
 		const [first, ...rest] = points;
 		return rest.every(({ x, y }) => first.x === x && first.y === y);
 	}
@@ -27,78 +28,154 @@ export class Point {
 }
 
 export class Line {
-	static areParallel (...lines) {
-		const [first, ...rest] = lines;
-		const firstSlope = first.slope.x / first.slope.y;
-		return rest.every(({ slope }) => approxEqual(firstSlope, slope.x / slope.y));
-	}
-
-	static areEqual (...lines) {
-		const [first, ...rest] = lines;
-		return Line.areParallel(...lines) && rest.every(({ origin }) => first.containsPoint(origin));
-	}
-
-	static getIntersections (...lines) {
+	static intersections (...lines) {
 		const points = [];
-		lines.forEach(({ origin, slope }, index1) => {
-			const x1 = origin.x;
-			const y1 = origin.y;
-			const x2 = x1 + slope.x;
-			const y2 = y1 + slope.y;
-			lines.forEach(({ origin, slope }, index2) => {
-				if (index1 === index2) return;
-				const x3 = origin.x;
-				const y3 = origin.y;
-				const x4 = x3 + slope.x;
-				const y4 = y3 + slope.y;
-				const a = x3 - x4;
-				const b = x1 - x2;
-				const c = y3 - y4;
-				const d = y1 - y2;
-				const e = b * c - d * a;
-				if (!e) return;
-				const f = x1 * y2 - y1 * x2;
-				const g = x3 * y4 - y3 * x4;
-				points.push(new Point((f * a - b * g) / e, (f * c - d * g) / e));
-			});
-		});
+		lines.forEach(({ start: { x: sx1, y: sy1 }, end: { x: ex1, y: ey1 } }, index1) => lines.forEach(({ start: { x: sx2, y: sy2 }, end: { x: ex2, y: ey2 } }, index2) => {
+			if (index1 === index2) return;
+			const a = sx2 - ex2;
+			const b = sx1 - ex1;
+			const c = sy2 - ey2;
+			const d = sy1 - ey1;
+			const e = b * c - a * d;
+			if (!e) return;
+			const f = sx1 * ey1 - ex1 * sy1;
+			const g = sx2 * ey2 - ex2 * sy2;
+			const p = new Point((a * f - b * g) / e, (c * f - d * g) / e);
+			if (!points.some((point) => Point.equal(p, point)) && lines[index1].containsPoint(p) && lines[index2].containsPoint(p)) points.push(p);
+		}));
 		return points;
 	}
 
-	constructor (slope, origin = new Point(0, 0)) {
-		this.slope = slope.copy();
-		this.origin = origin.copy();
+	static parallel (...lines) {
+		const [first, ...rest] = lines;
+		const firstSlope = first.slope();
+		return rest.every((line) => approxEqual(firstSlope, line.slope()));
+	}
+
+	static equal (...lines) {
+		const [first, ...rest] = lines;
+		return Line.parallel(...lines) && rest.every(({ end }) => first.containsPoint(end));
+	}
+
+	constructor (start, end) {
+		this.start = start.copy();
+		this.end = end.copy();
 	}
 
 	copy () {
-		return new Line(this.slope, this.origin);
+		return new Line(this.start, this.end);
+	}
+
+	slope () {
+		return (this.start.y - this.end.y) / (this.start.x - this.end.x);
+	}
+
+	radians () {
+		return (Math.atan2(this.start.y - this.end.y, this.start.x - this.end.x) + Math.PI) % (Math.PI * 2);
+	}
+
+	degrees () {
+		return radiansToDegrees(this.radians());
 	}
 
 	containsPoint ({ x, y }) {
-		return approxEqual(y, x * this.slope.x / this.slope.y + this.origin.y);
-	}
-
-	getRadians () {
-		return Math.atan2(this.slope.y, this.slope.x);
-	}
-
-	getDegrees () {
-		return radiansToDegrees(this.getRadians());
+		return approxEqual(y, x * this.slope() - this.start.x * this.slope() + this.start.y);
 	}
 }
 
-class Ray {
+export class Ray extends Line {
+	static equal (...rays) {
+		const [first, ...rest] = rays;
+		return rest.every(({ start, end }) => Point.equal(first.start, start) && first.containsPoint(end));
+	}
 
+	constructor (start, end) {
+		super(start, end);
+	}
+
+	copy () {
+		return new Ray(this.start, this.end);
+	}
+
+	containsPoint ({ x, y }) {
+		return approxEqual(y, x * this.slope() - this.start.x * this.slope() + this.start.y) && (this.end.x > this.start.x ? x >= this.start.x : x <= this.start.x) && (this.end.y > this.start.y ? y >= this.start.y : y <= this.start.y);
+	}
 }
 
-class Segment {
+export class Segment extends Line {
+	static equal (...segments) {
+		const [first, ...rest] = segments;
+		return rest.every(({ start, end }) => Point.equal(first.start, start) && Point.equal(first.end, end) || Point.equal(first.start, end) && Point.equal(first.end, start));
+	}
 
+	constructor (start, end) {
+		super(start, end);
+	}
+
+	copy () {
+		return new Segment(this.start, this.end);
+	}
+
+	length () {
+		return Math.hypot(this.start.x - this.end.x, this.start.y - this.end.y);
+	}
+
+	containsPoint ({ x, y }) {
+		return approxEqual(y, x * this.slope() - this.start.x * this.slope() + this.start.y) && (x >= this.start.x && x <= this.end.x || x >= this.end.x && x <= this.start.x) && (y >= this.start.y && y <= this.end.y || y >= this.end.y && y <= this.start.y);
+	}
 }
 
-class Polygon {
+export class Polygon {
+	static equal (...polygons) {
+		const [first, ...rest] = polygons;
+		const check = (points) => findIndexOfSequence(first.points, points, Point.equal, true) >= 0;
+		return rest.every(({ points }) => check(points) || check([...points].reverse()));
+	}
 
+	constructor (...points) {
+		this.points = [...points].map((point) => point.copy());
+	}
+
+	copy () {
+		return new Polygon(...this.points);
+	}
+
+	area () {
+		return Math.abs(this.points.reduce((area, { x, y }, index) => area + x * this.points.at(index - 1).y / 2 - y * this.points.at(index - 1).x / 2, 0));
+	}
+
+	perimeter () {
+		return this.points.reduce((length, point, index) => length + new Segment(point, this.points.at(index - 1)).length(), 0);
+	}
+
+	containsPoint ({ x, y }) {
+		return !!this.points.reduce((odd, { x: ix, y: iy }, index) => {
+			const { x: jx, y: jy } = this.points.at(index - 1);
+			return (iy < y && jy >= y || jy < y && iy >= y) && (ix <= x || jx <= x) ? odd ^ (y - iy) / (jy - iy) * (jx - ix) + ix < x : odd;
+		}, 0);
+	}
 }
 
-class Ellipse {
+export class Rectangle extends Polygon {
+	constructor (start, end) {
+		super(start, end);
+	}
 
+	copy () {
+		return new Rectangle(...this.points);
+	}
+
+	area () {
+		return Math.abs(this.points[0].x - this.points[1].x) * Math.abs(this.points[0].y - this.points[1].y);
+	}
+
+	perimeter () {
+		return Math.abs(this.points[0].x - this.points[1].x) * 2 + Math.abs(this.points[0].y - this.points[1].y) * 2;
+	}
+
+	containsPoint ({ x, y }) {
+		const { x: sx, y: sy } = this.points[0];
+		const { x: ex, y: ey } = this.points[1];
+		return (x >= sx && x <= ex || x <= sx && x >= ex) && (y >= sy && y <= ey || y <= sy && y >= ey);
+	}
 }
