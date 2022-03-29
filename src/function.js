@@ -10,8 +10,10 @@ export function throttle (callback, millis) {
 
 export function debounce (callback, millis) {
 	let timer;
-	return (...args) => {
+	const debounced = (...args) => {
 		clearTimeout(timer);
 		timer = setTimeout(() => callback(...args), millis);
 	};
+	debounced.cancel = () => clearTimeout(timer);
+	return debounced;
 }
