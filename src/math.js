@@ -21,9 +21,7 @@ export function wrap (number, max, min = 0) {
 }
 
 export function isPrime (number) {
-	for (let i = 2; i <= Math.sqrt(number); ++i) {
-		if (number % i === 0) return false;
-	}
+	for (let i = 2; i <= Math.sqrt(number); ++i) if (number % i === 0) return false;
 	return number > 1;
 }
 

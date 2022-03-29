@@ -8,17 +8,13 @@ export function compact (array) {
 
 export function range (max, min = 0, step = 1) {
 	const arr = [];
-	for (let i = min; i < max; i += step) {
-		arr.push(i);
-	}
+	for (let i = min; i < max; i += step) arr.push(i);
 	return arr;
 }
 
 export function fill (length, fillCallback) {
 	const arr = [];
-	for (let i = 0; i < length; ++i) {
-		arr.push(fillCallback(i));
-	}
+	for (let i = 0; i < length; ++i) arr.push(fillCallback(i));
 	return arr;
 }
 
@@ -54,9 +50,7 @@ export function contentsAreEqual (array, value = array[0], compareCallback = (a,
 
 export function filterIndices (array, callback) {
 	const result = [];
-	for (let i = 0; i < array.length; ++i) {
-		if (callback(array[i], i)) result.push(i);
-	}
+	for (let i = 0; i < array.length; ++i) if (callback(array[i], i)) result.push(i);
 	return result;
 }
 
@@ -79,9 +73,7 @@ export function findEmptyIndices (array) {
 }
 
 export function isSparse (array) {
-	for (let i = 0; i < array.length; ++i) {
-		if (!Object.hasOwn(array, i)) return true;
-	}
+	for (let i = 0; i < array.length; ++i) if (!Object.hasOwn(array, i)) return true;
 	return false;
 }
 
@@ -90,8 +82,6 @@ export function swap (array, index1, index2) {
 }
 
 export function shuffle (array) {
-	for (let i = array.length - 1; i > 0; --i) {
-		swap(array, [i, randInt(i)]);
-	}
+	for (let i = array.length - 1; i > 0; --i) swap(array, [i, randInt(i)]);
 	return array;
 }

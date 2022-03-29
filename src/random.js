@@ -20,9 +20,7 @@ export function randItem (array) {
 
 export function randArray (length, getValues) {
 	const arr = [];
-	for (let i = 0; i < length; ++i) {
-		arr.push(randItem(typeOf(getValues) === 'Function' ? getValues(i) : getValues));
-	}
+	for (let i = 0; i < length; ++i) arr.push(randItem(typeOf(getValues) === 'Function' ? getValues(i) : getValues));
 	return arr;
 }
 
