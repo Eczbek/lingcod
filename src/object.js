@@ -128,15 +128,29 @@ export function recurse (target, callback, check = () => true) {
 	})();
 }
 
-export function findPaths (target, value, compareCallback = (a, b) => a === b, depth = Infinity) {
+export function findPaths (target, findCallback, depth = Infinity) {
 	const paths = [];
 	recurse(target, (item, path) => {
-		if (compareCallback(value, item)) paths.push(path);
+		if (findCallback(item)) paths.push(path);
 	}, (_, indices) => indices.length <= depth);
 	return paths;
 }
 
 export function deepFreeze (target, depth = Infinity) {
 	recurse(Object.freeze(target), (item) => Object.freeze(item), (_, indices) => indices.length <= depth);
+	return target;
+}
+
+export function deepRemoveEmpty (target, depth = Infinity) {
+	findPaths(target, (item) => {
+		switch (item?.constructor?.name) {
+			case 'Object':
+			case 'Array':
+				return isEmpty(item);
+			case 'Map':
+			case 'Set':
+				return ![...item].length;
+		}
+	}, depth).forEach((path) => deepRemove(target, path));
 	return target;
 }
