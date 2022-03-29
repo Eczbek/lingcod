@@ -1,4 +1,7 @@
 
+import { wrap } from './math.js';
+
+
 export function createMatrix (dimensions, fillCallback = () => 0) {
 	return (function loop ([dimension, ...nextDimensions] = dimensions, indices = []) {
 		const matrix = [];
@@ -25,7 +28,14 @@ export function getDimensions (matrix) {
 	return dims;
 }
 
-export function rotateMatrix (matrix, rotations = 1) {
-	for (let i = 0; i < rotations % 4; ++i) matrix = matrix[0].map((_, index) => matrix.map((item) => item[index]).reverse());
+export function rotateMatrix (matrix, rotations = 0) {
+	rotations = wrap(Math.abs(rotations), 3, -1);
+	for (let i = 0; i < Math.abs(rotations); ++i) {
+		const result = matrix[0].map((_, index) => {
+			const result = matrix.map((item) => item[index]);
+			return rotations > 0 ? result.reverse() : result
+		});
+		matrix = rotations < 0 ? result.reverse() : result;
+	}
 	return matrix;
 }
