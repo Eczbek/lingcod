@@ -7,10 +7,28 @@ import { randomUUID } from 'crypto';
 import { WebSocketServer } from 'ws';
 
 
+/**
+ * Get path from URL
+ * @param {string} url 
+ * @returns {string}
+ */
 export function getURLPath (url) {
 	return new URL(url, 'http://0.0.0.0').pathname;
 }
 
+/**
+ * Listens and responds to server requests
+ * @callback requestListener
+ * @param {http.IncomingMessage}
+ * @param {http.ServerResponse}
+ */
+
+/**
+ * Creates a request listener
+ * @param {string} servePath 
+ * @param {boolean?} echo 
+ * @returns {requestListener}
+ */
 export function createRequestListener (servePath, echo = false) {
 	const { ext } = parse(servePath);
 	return (request, response) => {
@@ -21,6 +39,24 @@ export function createRequestListener (servePath, echo = false) {
 	};
 }
 
+/**
+ * Sends message to socket by ID
+ * @callback sendTo
+ * @param {string} id 
+ * @param {any} message 
+ */
+
+/**
+ * Sends message to all sockets
+ * @callback sendToAll
+ * @param {any} message 
+ */
+
+/**
+ * Creates a WebSocket server
+ * @param {http.Server | https.Server} server 
+ * @returns {{events: EventEmitter, sendTo, sendToAll}}
+ */
 export function createWebSocketServer (server) {
 	const emitter = new EventEmitter();
 	const sockets = Object.create(null);
