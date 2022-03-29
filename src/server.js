@@ -8,7 +8,7 @@ export function getURLPath (url) {
 }
 
 export function createRequestListener (servePath, echo = false) {
-	return function requestListener (request, response) {
+	return (request, response) => {
 		if (echo && request.method === 'POST') return request.pipe(response);
 		const readStream = createReadStream(join(servePath, getURLPath(request.url)))
 			.on('error', () => response.end('404'))
