@@ -104,13 +104,12 @@ export function deepRemove (target, path) {
 	return path;
 }
 
-export function recurse (target, callback, depth = Infinity) {
+export function recurse (target, callback, check = () => true) {
 	(function loop (object = target, keys = [], values = [target]) {
-		if (keys.length > depth) return;
 		function handle (key, value) {
 			const currKeys = [...keys, key];
 			callback(value, currKeys);
-			if (isPrimitive(value) || values.includes(value)) return;
+			if (!check(value, currKeys) || isPrimitive(value) || values.includes(value)) return;
 			values.push(value);
 			loop(value, currKeys, values);
 		}
@@ -133,6 +132,6 @@ export function findPaths (target, value, compareCallback = (a, b) => a === b, d
 	const paths = [];
 	recurse(target, (item, path) => {
 		if (compareCallback(value, item)) paths.push(path);
-	}, depth);
+	}, (_, indices) => indices.length <= depth);
 	return paths;
 }
