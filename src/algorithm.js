@@ -3,16 +3,9 @@ import { swap } from './array.js';
 
 
 /**
- * Checks if looked-for value should appear before or after
- * @callback searchCallback
- * @param {any} value 
- * @returns {number} between -1 and 1, inclusive
- */
-
-/**
  * Looks for index of value via binary-search method
  * @param {any[]} sortedArray 
- * @param {searchCallback} searchCallback 
+ * @param {(value: any) => number} searchCallback 
  * @returns {number}
  */
 export function binarySearch (sortedArray, searchCallback) {
@@ -29,16 +22,9 @@ export function binarySearch (sortedArray, searchCallback) {
 }
 
 /**
- * Checks if value should be moved left or right
- * @callback sortCallback
- * @param {any} value 
- * @returns {number} between -1 and 1, inclusive
- */
-
-/**
  * Sorts array via merge-sort method
  * @param {any[]} array 
- * @param {sortCallback} sortCallback 
+ * @param {(value: any) => number} sortCallback 
  * @returns {any[]} sorted array
  */
 export function mergeSort (array, sortCallback = (a, b) => a - b) {
@@ -54,7 +40,7 @@ export function mergeSort (array, sortCallback = (a, b) => a - b) {
 /**
  * Sorts array via heap-sort method
  * @param {any[]} array 
- * @param {sortCallback} sortCallback 
+ * @param {(value: any) => number} sortCallback 
  * @returns {any[]} sorted array
  */
 export function heapSort ([...array], sortCallback = (a, b) => a - b) {

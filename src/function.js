@@ -1,15 +1,8 @@
 
 /**
- * Returns unthrottled function
- * @callback unthrottleThrottled
- * @returns {Function}
- */
-
-/**
- * Throttled function
  * @typedef throttled
  * @type {Function}
- * @property {unthrottleThrottled} unthrottle
+ * @property {() => Function} unthrottle
  */
 
 /**
@@ -30,15 +23,10 @@ export function throttle (callback, millis) {
 };
 
 /**
- * Cancels debounced function
- * @callback cancelDebounced
- */
-
-/**
  * Debounced function
  * @typedef debounced
  * @type {Function}
- * @property {cancelDebounced} cancel 
+ * @property {() => void} cancel 
  */
 
 /**

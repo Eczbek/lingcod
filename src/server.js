@@ -17,17 +17,10 @@ export function getURLPath (url) {
 }
 
 /**
- * Listens and responds to server requests
- * @callback requestListener
- * @param {http.IncomingMessage}
- * @param {http.ServerResponse}
- */
-
-/**
  * Creates a request listener
  * @param {string} servePath 
- * @param {boolean?} echo 
- * @returns {requestListener}
+ * @param {boolean} echo 
+ * @returns {(request: http.IncomingMessage, response: http.ServerResponse) => void}
  */
 export function createRequestListener (servePath, echo = false) {
 	const { ext } = parse(servePath);
@@ -40,22 +33,9 @@ export function createRequestListener (servePath, echo = false) {
 }
 
 /**
- * Sends message to socket by ID
- * @callback sendTo
- * @param {string} id 
- * @param {any} message 
- */
-
-/**
- * Sends message to all sockets
- * @callback sendToAll
- * @param {any} message 
- */
-
-/**
  * Creates a WebSocket server
  * @param {http.Server | https.Server} server 
- * @returns {{events: EventEmitter, sendTo, sendToAll}}
+ * @returns {{events: EventEmitter, sendTo: (id: string, message: any) => void, sendToAll: (message: any) => void}}
  */
 export function createWebSocketServer (server) {
 	const emitter = new EventEmitter();

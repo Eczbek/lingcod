@@ -12,18 +12,10 @@ export function isEmpty (object) {
 }
 
 /**
- * Checks if two values are equal
- * @callback compareCallback
- * @param {any} a 
- * @param {any} b 
- * @returns {boolean}
- */
-
-/**
  * Filters objects with matching properties
  * @param {Object[]} objects 
  * @param {Object} props 
- * @param {compareCallback?} compareCallback 
+ * @param {(a: any, b: any) => boolean} compareCallback 
  * @returns {Object[]}
  */
 export function filterByProps (objects, props, compareCallback = (a, b) => a === b) {
@@ -33,7 +25,7 @@ export function filterByProps (objects, props, compareCallback = (a, b) => a ===
 /**
  * Clones object, removing references
  * @param {any} target 
- * @param {number?} depth 
+ * @param {number} depth 
  * @returns {any}
  */
 export function deepClone (target, depth = Infinity) {
@@ -65,7 +57,7 @@ export function deepClone (target, depth = Infinity) {
  * Compares objects in depth
  * @param {any} target 
  * @param {any} value 
- * @param {number?} depth 
+ * @param {number} depth 
  * @returns {boolean}
  */
 export function deepCompare (target, value, depth = Infinity) {
@@ -88,8 +80,8 @@ export function deepCompare (target, value, depth = Infinity) {
  * Extends an object in depth
  * @param {any} target 
  * @param {any} extension 
- * @param {boolean?} arrayReplace 
- * @param {number?} depth 
+ * @param {boolean} arrayReplace 
+ * @param {number} depth 
  * @returns {any}
  */
 export function deepExtend (target, extension, arrayReplace = false, depth = Infinity) {
@@ -158,18 +150,10 @@ export function deepRemove (target, path) {
 }
 
 /**
- * Checks whether to continue recursing this
- * @callback recurseCheckCallback
- * @param {any} value 
- * @param {any[]} keys 
- * @returns {boolean}
- */
-
-/**
  * Recurses through an object's properties
  * @param {any} target 
  * @param {Function} callback 
- * @param {recurseCheckCallback} check 
+ * @param {(value: any, keys: any[]) => boolean} check 
  */
 export function recurse (target, callback, check = () => true) {
 	(function loop (object = target, keys = [], values = [target]) {
@@ -196,23 +180,16 @@ export function recurse (target, callback, check = () => true) {
 }
 
 /**
- * Checks whether to add this value's path
- * @callback findPathCallback
- * @param {any} value 
- * @returns {boolean}
- */
-
-/**
  * Finds paths to values in object
  * @param {any} target 
- * @param {findPathCallback} findCallback 
- * @param {number?} depth 
+ * @param {(value: any, keys: any[]) => boolean} findCallback 
+ * @param {number} depth 
  * @returns {any[][]}
  */
 export function findPaths (target, findCallback, depth = Infinity) {
 	const paths = [];
 	recurse(target, (item, path) => {
-		if (findCallback(item)) paths.push(path);
+		if (findCallback(item, path)) paths.push(path);
 	}, (_, indices) => indices.length <= depth);
 	return paths;
 }
@@ -220,7 +197,7 @@ export function findPaths (target, findCallback, depth = Infinity) {
 /**
  * Freezes an object in depth
  * @param {any} target 
- * @param {number?} depth 
+ * @param {number} depth 
  * @returns {any}
  */
 export function deepFreeze (target, depth = Infinity) {
@@ -231,7 +208,7 @@ export function deepFreeze (target, depth = Infinity) {
 /**
  * Removes empty containers from object in depth
  * @param {any} target 
- * @param {number?} depth 
+ * @param {number} depth 
  * @returns {any}
  */
 export function deepRemoveEmpty (target, depth = Infinity) {

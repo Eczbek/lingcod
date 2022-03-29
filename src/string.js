@@ -57,8 +57,8 @@ export function toKebabCase (string) {
  * Array.prototype.splice but for strings
  * @param {string} string 
  * @param {number} index 
- * @param {number?} remove 
- * @param {string?} insert 
+ * @param {number} remove 
+ * @param {string} insert 
  * @returns {string}
  */
 export function spliceString (string, index, remove = 0, insert = '') {
@@ -69,7 +69,7 @@ export function spliceString (string, index, remove = 0, insert = '') {
  * Truncates the end of a string
  * @param {string} string 
  * @param {number} length 
- * @param {string?} replace 
+ * @param {string} replace 
  * @returns {string}
  */
 export function truncateString (string, length, replace = '...') {
