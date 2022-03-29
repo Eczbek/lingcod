@@ -33,6 +33,12 @@ export function truncateString (string, length, replace = '...') {
 		: string;
 }
 
+export function reverseString (string) {
+	let result = '';
+	for (const char of string) result = char + result;
+	return result;
+}
+
 export function isEmail (string) {
 	return /^(([a-z\d!#$%&'*+\/=?^_`{|}~-]+(\.[a-z\d!#$%&'*+\/=?^_`{|}~-]+)*)|(".+"))@([a-z\d-]+(\.[a-z\d]+)+|\[\d{1,3}(\.\d{1,3}){3}])$/i.test(string);
 }
