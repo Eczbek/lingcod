@@ -3,31 +3,60 @@ import { approxEqual } from './math.js';
 import { findIndexOfSequence } from './array.js';
 
 
+/**
+ * Converts radians to degrees
+ * @param {number} radians 
+ * @returns {number}
+ */
 export function radiansToDegrees (radians) {
 	return radians * 180 / Math.PI;
 }
 
+/**
+ * Converts degrees to radians
+ * @param {number} degrees 
+ * @returns {number}
+ */
 export function degreesToRadians (degrees) {
 	return degrees * Math.PI / 180;
 }
 
 export class Point {
+	/**
+	 * Checks if points are equal
+	 * @param  {...Point} points 
+	 * @returns {boolean}
+	 */
 	static equal (...points) {
 		const [first, ...rest] = points;
 		return rest.every(({ x, y }) => first.x === x && first.y === y);
 	}
 
+	/**
+	 * Create a point at these coordinates
+	 * @param {number} x 
+	 * @param {number} y 
+	 */
 	constructor (x, y) {
 		this.x = x;
 		this.y = y;
 	}
 
+	/**
+	 * Creates copy of this point
+	 * @returns {Point}
+	 */
 	copy () {
 		return new Point(this.x, this.y);
 	}
 }
 
 export class Line {
+	/**
+	 * Calculates points where lines/rays/segments intersect
+	 * @param  {...(Line | Ray | Segment)} lines 
+	 * @returns {Point[]}
+	 */
 	static intersections (...lines) {
 		const points = [];
 		lines.forEach(({ start: { x: sx1, y: sy1 }, end: { x: ex1, y: ey1 } }, index1) => lines.forEach(({ start: { x: sx2, y: sy2 }, end: { x: ex2, y: ey2 } }, index2) => {
@@ -46,133 +75,261 @@ export class Line {
 		return points;
 	}
 
+	/**
+	 * Checks if lines/rays/segments are parallel
+	 * @param  {...(Line | Ray | Segment)} lines 
+	 * @returns {boolean}
+	 */
 	static parallel (...lines) {
 		const [first, ...rest] = lines;
 		const firstSlope = first.slope();
 		return rest.every((line) => approxEqual(firstSlope, line.slope()));
 	}
 
+	/**
+	 * Checks if lines are equal
+	 * @param  {...Line} lines 
+	 * @returns {boolean}
+	 */
 	static equal (...lines) {
 		const [first, ...rest] = lines;
 		return Line.parallel(...lines) && rest.every(({ end }) => first.containsPoint(end));
 	}
 
+	/**
+	 * Creates a line that passes through these points
+	 * @param {Point} start 
+	 * @param {Point} end 
+	 */
 	constructor (start, end) {
 		this.start = start.copy();
 		this.end = end.copy();
 	}
 
+	/**
+	 * Creates copy of this line
+	 * @returns {Line}
+	 */
 	copy () {
 		return new Line(this.start, this.end);
 	}
 
+	/**
+	 * Calculates this line's slope
+	 * @returns {number}
+	 */
 	slope () {
 		return (this.start.y - this.end.y) / (this.start.x - this.end.x);
 	}
 
+	/**
+	 * Calculates this line's angle in radians
+	 * @returns {number}
+	 */
 	radians () {
 		return (Math.atan2(this.start.y - this.end.y, this.start.x - this.end.x) + Math.PI) % (Math.PI * 2);
 	}
 
+	/**
+	 * Calculates this line's angle in degrees
+	 * @returns {number}
+	 */
 	degrees () {
 		return radiansToDegrees(this.radians());
 	}
 
+	/**
+	 * Checks if this line passes through a point
+	 * @param {Point} point 
+	 * @returns {boolean}
+	 */
 	containsPoint ({ x, y }) {
 		return approxEqual(y, x * this.slope() - this.start.x * this.slope() + this.start.y);
 	}
 }
 
 export class Ray extends Line {
+	/**
+	 * Checks if rays are equal
+	 * @param  {...Ray} rays 
+	 * @returns {boolean}
+	 */
 	static equal (...rays) {
 		const [first, ...rest] = rays;
 		return rest.every(({ start, end }) => Point.equal(first.start, start) && first.containsPoint(end));
 	}
 
+	/**
+	 * Create a ray with a start point and a point to intersect
+	 * @param {Point} start 
+	 * @param {Point} end 
+	 */
 	constructor (start, end) {
 		super(start, end);
 	}
 
+	/**
+	 * Creates a copy of this ray
+	 * @returns {Ray}
+	 */
 	copy () {
 		return new Ray(this.start, this.end);
 	}
 
+	/**
+	 * Checks if this ray passes through a point
+	 * @param {Point} point 
+	 * @returns {boolean}
+	 */
 	containsPoint ({ x, y }) {
 		return approxEqual(y, x * this.slope() - this.start.x * this.slope() + this.start.y) && (this.end.x > this.start.x ? x >= this.start.x : x <= this.start.x) && (this.end.y > this.start.y ? y >= this.start.y : y <= this.start.y);
 	}
 }
 
 export class Segment extends Line {
+	/**
+	 * Checks if segments are equal
+	 * @param  {...Segment} segments 
+	 * @returns {boolean}
+	 */
 	static equal (...segments) {
 		const [first, ...rest] = segments;
 		return rest.every(({ start, end }) => Point.equal(first.start, start) && Point.equal(first.end, end) || Point.equal(first.start, end) && Point.equal(first.end, start));
 	}
 
+	/**
+	 * Creates a line segment
+	 * @param {Point} start 
+	 * @param {Point} end 
+	 */
 	constructor (start, end) {
 		super(start, end);
 	}
 
+	/**
+	 * Creates a copy of this segment
+	 * @returns {Segment}
+	 */
 	copy () {
 		return new Segment(this.start, this.end);
 	}
 
+	/**
+	 * Calculates this segment's length
+	 * @returns {number}
+	 */
 	length () {
 		return Math.hypot(this.start.x - this.end.x, this.start.y - this.end.y);
 	}
 
+	/**
+	 * Checks if this segment passes through a point
+	 * @param {Point} point 
+	 * @returns {boolean}
+	 */
 	containsPoint ({ x, y }) {
 		return approxEqual(y, x * this.slope() - this.start.x * this.slope() + this.start.y) && (x >= this.start.x && x <= this.end.x || x >= this.end.x && x <= this.start.x) && (y >= this.start.y && y <= this.end.y || y >= this.end.y && y <= this.start.y);
 	}
 }
 
 export class Polygon {
+	/**
+	 * Checks if polygons are equal
+	 * @param {...Polygon} polygons 
+	 * @returns {boolean}
+	 */
 	static equal (...polygons) {
 		const [first, ...rest] = polygons;
 		const check = (points) => findIndexOfSequence(first.points, points, Point.equal, true) >= 0;
 		return rest.every(({ points }) => check(points) || check([...points].reverse()));
 	}
 
+	/**
+	 * Creates polygon between points
+	 * @param  {...Point} points 
+	 */
 	constructor (...points) {
 		this.points = [...points].map((point) => point.copy());
 	}
 
+	/**
+	 * Creates a copy of this polygon
+	 * @returns {Polygon}
+	 */
 	copy () {
 		return new Polygon(...this.points);
 	}
 
+	/**
+	 * Calculates this polygon's area
+	 * @returns {number}
+	 */
 	area () {
 		return Math.abs(this.points.reduce((area, { x, y }, index) => area + x * this.points.at(index - 1).y / 2 - y * this.points.at(index - 1).x / 2, 0));
 	}
 
+	/**
+	 * Calculates this polygon's perimeter
+	 * @returns {number}
+	 */
 	perimeter () {
 		return this.points.reduce((length, point, index) => length + new Segment(point, this.points.at(index - 1)).length(), 0);
 	}
 
+	/**
+	 * Checks if this polygon contains a point
+	 * @param {Point} point 
+	 * @returns {boolean}
+	 */
 	containsPoint ({ x, y }) {
 		return !!this.points.reduce((odd, { x: ix, y: iy }, index) => {
 			const { x: jx, y: jy } = this.points.at(index - 1);
 			return (iy < y && jy >= y || jy < y && iy >= y) && (ix <= x || jx <= x) ? odd ^ (y - iy) / (jy - iy) * (jx - ix) + ix < x : odd;
-		}, 0);
+		}, 0) || this.points.some((point, index) => new Segment(point, this.points.at(index - 1)).containsPoint(new Point(x, y)));
 	}
 }
 
 export class Rectangle extends Polygon {
+	/**
+	 * Create a rectangle between two points
+	 * @param {Point} start 
+	 * @param {Point} end 
+	 */
 	constructor (start, end) {
 		super(start, end);
+		this.width = Math.abs(this.points[0].x - this.points[1].x);
+		this.height =  Math.abs(this.points[0].y - this.points[1].y);
 	}
 
+	/**
+	 * Creates a copy of this rectangle
+	 * @returns {Rectangle}
+	 */
 	copy () {
 		return new Rectangle(...this.points);
 	}
 
+	/**
+	 * Calculates this rectangle's area
+	 * @returns {number}
+	 */
 	area () {
-		return Math.abs((this.points[0].x - this.points[1].x) * (this.points[0].y - this.points[1].y));
+		return this.width * this.height;
 	}
 
+	/**
+	 * Calculates this rectangle's perimeter
+	 * @returns {number}
+	 */
 	perimeter () {
-		return Math.abs(this.points[0].x - this.points[1].x) * 2 + Math.abs(this.points[0].y - this.points[1].y) * 2;
+		return this.width * 2 + this.height * 2;
 	}
 
+	/**
+	 * Checks if this rectangle contains a point
+	 * @param {Point} point 
+	 * @returns {boolean}
+	 */
 	containsPoint ({ x, y }) {
 		const { x: sx, y: sy } = this.points[0];
 		const { x: ex, y: ey } = this.points[1];
