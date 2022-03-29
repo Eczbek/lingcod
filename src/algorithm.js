@@ -18,13 +18,13 @@ export function binarySearch (sortedArray, searchCallback) {
 export function mergeSort (array, sortCallback = (a, b) => a - b) {
 	if (array.length < 2) return array;
 	const half = array.length / 2;
-	return (function merge (left, right) {
-		const array = [];
-		while (left.length && right.length) {
-			array.push((sortCallback(left[0], right[0]) < 0 ? left : right).shift());
-		}
-		return [...array, ...left, ...right];
-	})(mergeSort(array.slice(0, half)), mergeSort(array.slice(half)));
+	const left = mergeSort(array.slice(0, half));
+	const right = mergeSort(array.slice(half));
+	const sorted = [];
+	while (left.length && right.length) {
+		sorted.push((sortCallback(left[0], right[0]) < 0 ? left : right).shift());
+	}
+	return [...sorted, ...left, ...right];
 }
 
 export function heapSort ([...array], sortCallback = (a, b) => a - b) {
