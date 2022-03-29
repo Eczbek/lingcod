@@ -2,6 +2,8 @@
 	"name": "js-utils",
 	"description": "JavaScript utility library",
 	"author": "Eczbek",
-
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"ws": "^8.5.0"
+	}
 }
