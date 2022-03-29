@@ -38,11 +38,11 @@ export function filterByProps (objects, props, compareCallback = (a, b) => a ===
  */
 export function deepClone (target, depth = Infinity) {
 	const hash = new Map();
-	const result = (function copy (object = target, currDepth = depth) {
+	const result = (function clone (object = target, currDepth = depth) {
 		if (--currDepth < 0 || isPrimitive(object)) return object;
 		if (hash.has(object)) return hash.get(object);
-		const copy = (function clone () {
-			switch (typeOf(object)) {
+		const copy = (() => {
+			switch (object?.constructor?.name) {
 				case 'Map':
 					return new Map([...object]);
 				case 'Set':
