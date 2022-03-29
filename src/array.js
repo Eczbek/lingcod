@@ -44,10 +44,6 @@ export function chunk ([...array], getSize, overflow = false) {
 	}
 }
 
-export function contentsAreEqual (array, value = array[0], compareCallback = (a, b) => a === b) {
-	return array.every((item) => compareCallback(value, item));
-}
-
 export function filterIndices (array, callback) {
 	const result = [];
 	for (let i = 0; i < array.length; ++i) if (callback(array[i], i)) result.push(i);
