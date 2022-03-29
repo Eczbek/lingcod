@@ -4,9 +4,9 @@ import { lerp } from './math.js';
 
 /**
  * Generates a random float
- * @param {number?} max 
- * @param {number?} min 
- * @param {boolean?} inclusive 
+ * @param {number} max 
+ * @param {number} min 
+ * @param {boolean} inclusive 
  * @returns {number}
  */
 export function randFloat (max = 1, min = 0, inclusive = false) {
@@ -15,9 +15,9 @@ export function randFloat (max = 1, min = 0, inclusive = false) {
 
 /**
  * Generates a random integer
- * @param {number?} max 
- * @param {number?} min 
- * @param {boolean?} inclusive 
+ * @param {number} max 
+ * @param {number} min 
+ * @param {boolean} inclusive 
  * @returns {number}
  */
 export function randInt (max = Number.MAX_SAFE_INTEGER, min, inclusive) {
@@ -42,16 +42,9 @@ export function randItem (array) {
 }
 
 /**
- * Gets the array values for this index
- * @callback getArrayValuesCallback
- * @param {number} index 
- * @returns {any[]}
- */
-
-/**
  * Creates an array from randomly picked values
  * @param {number} length 
- * @param {getValuesCallback} getValues 
+ * @param {(index: number) => any[]} getValues 
  * @returns {any[]}
  */
 export function randArray (length, getValues) {
@@ -61,16 +54,9 @@ export function randArray (length, getValues) {
 }
 
 /**
- * Gets the chars for this index
- * @callback getCharsCallback
- * @param {number} index 
- * @returns {string}
- */
-
-/**
  * Creates a string from randomly picked characters
  * @param {number} length 
- * @param {getCharsCallback} getChars 
+ * @param {(index: number) => string} getChars 
  * @returns {string}
  */
 export function randString (length, getChars) {

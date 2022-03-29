@@ -1,17 +1,11 @@
 
 import { wrap } from './math.js';
 
-/**
- * Fills current indices
- * @callback multidimensionalFillCallback
- * @param {number[]} indices
- * @returns {any}
- */
 
 /**
  * Creates a multidimensional array
  * @param {number[]} dimensions 
- * @param {multidimensionalFillCallback} fillCallback 
+ * @param {(number[]) => any} fillCallback 
  * @returns {any[]}
  */
 export function createMatrix (dimensions, fillCallback = () => 0) {
@@ -39,7 +33,7 @@ export function wrapMatrix (array, dimensions) {
 /**
  * Checks if matrix is "regular", or all elements are of same length
  * @param {any[]} matrix 
- * @param {number?} depth 
+ * @param {number} depth 
  * @returns 
  */
 export function isRegular (matrix, depth = Infinity) {
@@ -60,7 +54,7 @@ export function getDimensions (matrix) {
 /**
  * Rotates matrix by 90 degrees
  * @param {any[][]} matrix 
- * @param {number?} rotations 
+ * @param {number} rotations 
  * @returns {any[][]}
  */
 export function rotateMatrix (matrix, rotations = 0) {

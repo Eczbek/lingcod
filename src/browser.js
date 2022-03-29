@@ -53,7 +53,7 @@ class MinimalEventEmitter extends EventTarget {
 class MinimalWebSocketClient extends MinimalEventEmitter {
 	/**
 	 * Create new minimal WebSocket client
-	 * @param {string?} protocol 
+	 * @param {string} protocol 
 	 */
 	constructor (protocol = 'ws') {
 		super();
@@ -89,8 +89,8 @@ class MinimalWebSocketClient extends MinimalEventEmitter {
 
 	/**
 	 * Disconnects from WebSocket server
-	 * @param {number?} code 
-	 * @param {string?} reason 
+	 * @param {number} code 
+	 * @param {string} reason 
 	 * @returns {this}
 	 */
 	disconnect (code, reason) {
@@ -121,7 +121,7 @@ class MinimalWebSocketClient extends MinimalEventEmitter {
  * Download data to file
  * @param {any} data 
  * @param {string} filename 
- * @param {string?} type 
+ * @param {string} type 
  */
 function download (data, filename, type = 'text') {
 	const link = document.createElement('a');

@@ -14,8 +14,8 @@ export function compact (array) {
 /**
  * Creates array with numbers from min to max
  * @param {number} max 
- * @param {number?} min 
- * @param {number?} step 
+ * @param {number} min 
+ * @param {number} step 
  * @returns {number[]}
  */
 export function range (max, min = 0, step = 1) {
@@ -25,16 +25,9 @@ export function range (max, min = 0, step = 1) {
 }
 
 /**
- * Returns what to fill current index with
- * @callback fillCallback
- * @param {number} index 
- * @returns {any}
- */
-
-/**
  * Creates an array and fills it
  * @param {number} length 
- * @param {fillCallback} fillCallback 
+ * @param {(index: number) => number} fillCallback 
  * @returns {any[]}
  */
 export function fill (length, fillCallback) {
@@ -54,18 +47,10 @@ export function includesAll (array, values) {
 }
 
 /**
- * Checks if two values are equal
- * @callback compareCallback
- * @param {any} a 
- * @param {any} b 
- * @returns {boolean}
- */
-
-/**
  * Filters values by how many times they appear in the array
  * @param {any[]} array 
  * @param {number} occurences 
- * @param {compareCallback?} compareCallback 
+ * @param {(a: any, b: any) => boolean} compareCallback 
  * @returns {any[]}
  */
 export function filterByOccurences (array, occurences, compareCallback = (a, b) => a === b) {
@@ -73,26 +58,10 @@ export function filterByOccurences (array, occurences, compareCallback = (a, b) 
 }
 
 /**
- * Assigns a group to a value
- * @callback getGroupCallback
- * @param {any} value 
- * @param {number} index 
- * @returns {string}
- */
-
-/**
- * Transforms a value
- * @callback getValueCallback
- * @param {any} value 
- * @param {number} index 
- * @returns {any}
- */
-
-/**
  * Groups array items
  * @param {any[]} array 
- * @param {getGroupCallback} getGroup 
- * @param {getValueCallback?} getValue 
+ * @param {(value: any, index: number) => string} getGroup 
+ * @param {(value: any, index: number) => any} getValue 
  * @returns {Map}
  */
 export function group (array, getGroup, getValue = (x) => x) {
@@ -105,18 +74,10 @@ export function group (array, getGroup, getValue = (x) => x) {
 }
 
 /**
- * Appoints a chunk size
- * @callback getChunkSizeCallback
- * @param {any} value 
- * @param {number} index 
- * @returns {number}
- */
-
-/**
  * Chunks an array into smaller arrays
  * @param {any[]} array 
- * @param {getChunkSizeCallback} getSize 
- * @param {boolean?} overflow 
+ * @param {(value: any, index: number) => number} getSize 
+ * @param {boolean} overflow 
  * @returns {any[][]}
  */
 export function chunk ([...array], getSize, overflow = false) {
@@ -129,17 +90,9 @@ export function chunk ([...array], getSize, overflow = false) {
 }
 
 /**
- * Checks whether to keep this value in it's array
- * @callback filterCallback
- * @param {any} value 
- * @param {number} index 
- * @returns {boolean}
- */
-
-/**
  * Filters indices
  * @param {any[]} array 
- * @param {filterCallback} filterCallback 
+ * @param {(value: any, index: number) => boolean} filterCallback 
  * @returns {number[]}
  */
 export function filterIndices (array, filterCallback) {
@@ -152,8 +105,8 @@ export function filterIndices (array, filterCallback) {
  * Finds the first index of a matched sequence
  * @param {any[]} array 
  * @param {any[]} sequence 
- * @param {compareCallback?} compareCallback 
- * @param {boolean?} wrap 
+ * @param {(a: any, b: any) => boolean} compareCallback 
+ * @param {boolean} wrap 
  * @returns {number}
  */
 export function findIndexOfSequence (array, sequence, compareCallback = (a, b) => a === b, wrap = false) {
@@ -167,8 +120,8 @@ export function findIndexOfSequence (array, sequence, compareCallback = (a, b) =
  * Finds indices of all matched sequences
  * @param {any[]} array 
  * @param {any[]} sequence 
- * @param {compareCallback?} compareCallback 
- * @param {boolean?} wrap 
+ * @param {(a: any, b: any) => boolean} compareCallback 
+ * @param {boolean} wrap 
  * @returns {number[]}
  */
 export function findIndicesOfSequence (array, sequence, compareCallback = (a, b) => a === b, wrap = false) {
@@ -215,6 +168,6 @@ export function swap (array, index1, index2) {
  * @returns {any[]}
  */
 export function shuffle (array) {
-	for (let i = array.length - 1; i > 0; --i) swap(array, [i, randInt(i)]);
+	for (let i = array.length - 1; i > 0; --i) swap(array, i, randInt(i));
 	return array;
 }
