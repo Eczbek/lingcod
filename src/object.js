@@ -128,10 +128,15 @@ export function recurse (target, callback, check = () => true) {
 	})();
 }
 
-export function findPaths (target, value, compareCallback = (a, b) => a === b, depth) {
+export function findPaths (target, value, compareCallback = (a, b) => a === b, depth = Infinity) {
 	const paths = [];
 	recurse(target, (item, path) => {
 		if (compareCallback(value, item)) paths.push(path);
 	}, (_, indices) => indices.length <= depth);
 	return paths;
+}
+
+export function deepFreeze (target, depth = Infinity) {
+	recurse(Object.freeze(target), (item) => Object.freeze(item), (_, indices) => indices.length <= depth);
+	return target;
 }
