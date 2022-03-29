@@ -32,18 +32,18 @@ export function filterByOccurences (array, occurences, compareCallback = (a, b) 
 
 export function group (array, getGroup, getValue = (x) => x) {
 	return array.reduce((map, item, index) => {	
-		const group = getGroup(item, index, [...array]);
+		const group = getGroup(item, index);
 		if (!map.has(group)) map.set(group, []);
 		map.get(group).push(getValue(item, index));
 		return map;
 	}, new Map());
 }
 
-export function chunk (array, getSize, overflow = false) {
+export function chunk ([...array], getSize, overflow = false) {
 	const result = [];
 	while (true) {
-		const size = getSize(array[result.length], result.length, [...array]);
-		if (array.length < size && !overflow && !array.length) return result;
+		const size = getSize(array[result.length], result.length);
+		if (array.length < size && !overflow || !array.length) return result;
 		result.push(array.splice(0, size));
 	}
 }
