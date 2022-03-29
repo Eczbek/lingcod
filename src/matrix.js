@@ -26,8 +26,6 @@ export function getDimensions (matrix) {
 }
 
 export function rotateMatrix (matrix, rotations = 1) {
-	for (let i = 0; i < rotations % 4; ++i) {
-		matrix = matrix[0].map((_, index) => matrix.map((item) => item[index]).reverse());
-	}
+	for (let i = 0; i < rotations % 4; ++i) matrix = matrix[0].map((_, index) => matrix.map((item) => item[index]).reverse());
 	return matrix;
 }
