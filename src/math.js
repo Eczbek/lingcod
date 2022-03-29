@@ -3,7 +3,7 @@
  * Normalize
  * @param {number} number 
  * @param {number} max 
- * @param {number?} min 
+ * @param {number} min 
  * @returns {number}
  */
 export function norm (number, max, min = 0) {
@@ -14,7 +14,7 @@ export function norm (number, max, min = 0) {
  * Interpolate linearly
  * @param {number} number 
  * @param {number} max 
- * @param {number?} min 
+ * @param {number} min 
  */
 export function lerp (number, max, min = 0) {
 	return number * (max - min) + min;
@@ -24,7 +24,7 @@ export function lerp (number, max, min = 0) {
  * Clamp
  * @param {number} number 
  * @param {number} max 
- * @param {number?} min 
+ * @param {number} min 
  * @returns {number}
  */
 export function clamp (number, max, min = 0) {
@@ -34,7 +34,7 @@ export function clamp (number, max, min = 0) {
 /**
  * Round
  * @param {number} number 
- * @param {number?} step 
+ * @param {number} step 
  * @returns {number}
  */
 export function round (number, step = 1) {
@@ -45,7 +45,7 @@ export function round (number, step = 1) {
  * Wrap number between min and max
  * @param {number} number 
  * @param {number} max 
- * @param {number?} min 
+ * @param {number} min 
  * @returns {number}
  */
 export function wrap (number, max, min = 0) {
@@ -67,8 +67,8 @@ export function isPrime (number) {
  * Checks if two numbers are approximately equal
  * @param {number} number1 
  * @param {number} number2 
- * @param {number?} absEpsilon 
- * @param {number?} relEpsilon 
+ * @param {number} absEpsilon 
+ * @param {number} relEpsilon 
  * @returns {boolean}
  */
 export function approxEqual (number1, number2, absEpsilon = 1e-12, relEpsilon = 1e-8) {
@@ -77,7 +77,7 @@ export function approxEqual (number1, number2, absEpsilon = 1e-12, relEpsilon = 
 
 /**
  * Generates PI
- * @param {number?} digits 
+ * @param {number} digits 
  * @yields {number}
  */
 export function* PI (digits = Infinity) {
