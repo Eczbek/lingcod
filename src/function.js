@@ -44,3 +44,12 @@ export function debounce (callback, millis) {
 	debounced.cancel = () => clearTimeout(timer);
 	return debounced;
 }
+
+/**
+ * Call each callback in order with the previous' result
+ * @param  {...Function} callbacks 
+ * @returns {(...args: any[]) => any}
+ */
+export function chain (...callbacks) {
+	return (...args) => callbacks.slice(1).reduce((value, callback) => callback(value), callbacks[0](...args));
+}
