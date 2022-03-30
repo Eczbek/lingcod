@@ -38,13 +38,15 @@ export function typeOf (value) {
 /**
  * Attempts to run function
  * @param {Function} callback 
- * @param  {...any} args 
+ * @param {any} otherwise  
  * @returns {any}
  */
-export function attempt (callback, ...args) {
+export function attempt (callback, otherwise) {
 	try {
-		return callback(...args);
-	} catch {}
+		return callback();
+	} catch {
+		return otherwise;
+	}
 }
 
 /**
