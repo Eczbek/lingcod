@@ -76,9 +76,9 @@ export function createWebSocketServer (server) {
  * @returns {{isAuthed: (id: string) => boolean, create: (username: string, password: string) => boolean, remove: (username: string, password: string) => boolean, login: (id: string, username: string, password: string) => boolean, logout: (id: string) => boolean}}
  */
 export function createDatabaseAuth (setEntry, deleteEntry, getEntry, checkUser) {
-	const authed = Object.create(null);
+	const authed = {};
 	return {
-		isAuthed: (id) => Object.hasOwn(authed, id),
+		isAuthed: (id) => !!authed[id],
 		create: async ({ username, password }) => {
 			if (await getEntry(username)) return false;
 			await setEntry(username, password);
@@ -90,12 +90,12 @@ export function createDatabaseAuth (setEntry, deleteEntry, getEntry, checkUser) 
 			return true;
 		},
 		login: async ({ id, username, password }) => {
-			if (!await checkUser(username, password)) return false;
+			if (authed[id] || !await checkUser(username, password)) return false;
 			authed[id] = username;
 			return true;
 		},
 		logout: async ({ id }) => {
-			if (!Object.hasOwn(authed, id)) return false;
+			if (!authed[id]) return false;
 			delete authed[id];
 			return true;
 		}
