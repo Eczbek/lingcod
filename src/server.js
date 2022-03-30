@@ -66,3 +66,38 @@ export function createWebSocketServer (server) {
 		}
 	};
 }
+
+/**
+ * Creates database authentication methods
+ * @param {(username: string, password: string) => void} setEntry 
+ * @param {(username: string) => void} deleteEntry 
+ * @param {(username: string) => Object} getEntry 
+ * @param {(username: string, password: string) => boolean} checkUser 
+ * @returns {{isAuthed: (id: string) => boolean, create: (username: string, password: string) => boolean, remove: (username: string, password: string) => boolean, login: (id: string, username: string, password: string) => boolean, logout: (id: string) => boolean}}
+ */
+export function createDatabaseAuth (setEntry, deleteEntry, getEntry, checkUser) {
+	const authed = Object.create(null);
+	return {
+		isAuthed: (id) => Object.hasOwn(authed, id),
+		create: async ({ username, password }) => {
+			if (await getEntry(username)) return false;
+			await setEntry(username, password);
+			return true;
+		},
+		remove: async ({ username, password }) => {
+			if (!await checkUser(username, password)) return false;
+			await deleteEntry(username);
+			return true;
+		},
+		login: async ({ id, username, password }) => {
+			if (!await checkUser(username, password)) return false;
+			authed[id] = username;
+			return true;
+		},
+		logout: async ({ id }) => {
+			if (!Object.hasOwn(authed, id)) return false;
+			delete authed[id];
+			return true;
+		}
+	};
+}
