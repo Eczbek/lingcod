@@ -1,5 +1,5 @@
 
-class MinimalEventEmitter extends EventTarget {
+export class MinimalEventEmitter extends EventTarget {
 	#callbacks = {};
 
 	/**
@@ -50,7 +50,7 @@ class MinimalEventEmitter extends EventTarget {
 	}
 }
 
-class MinimalWebSocketClient extends MinimalEventEmitter {
+export class MinimalWebSocketClient extends MinimalEventEmitter {
 	/**
 	 * Create new minimal WebSocket client
 	 * @param {string} protocol 
@@ -123,7 +123,7 @@ class MinimalWebSocketClient extends MinimalEventEmitter {
  * @param {string} filename 
  * @param {string} type 
  */
-function download (data, filename, type = 'text') {
+export function download (data, filename, type = 'text') {
 	const link = document.createElement('a');
 	link.download = filename;
 	link.href = URL.createObjectURL(new Blob([data], { type }));
@@ -134,6 +134,6 @@ function download (data, filename, type = 'text') {
  * Get this document's cookies
  * @returns {Object}
  */
-function getCookiesObject () {
+export function getCookiesObject () {
 	return Object.fromEntries(document.cookie.split(';').map((entry) => entry.split('=')));
 }
