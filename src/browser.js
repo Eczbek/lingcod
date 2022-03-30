@@ -50,7 +50,7 @@ export class MinimalEventEmitter extends EventTarget {
 	}
 }
 
-export class MinimalWebSocketClient extends MinimalEventEmitter {
+export class WebSocketClient extends MinimalEventEmitter {
 	/**
 	 * Create new minimal WebSocket client
 	 * @param {string} protocol 
