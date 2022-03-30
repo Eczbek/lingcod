@@ -47,6 +47,27 @@ export function includesAll (array, values) {
 }
 
 /**
+ * Finds last value in array
+ * @param {any[]} array 
+ * @param {(value: any, index: number) => boolean} findCallback 
+ * @returns {any}
+ */
+export function findLast (array, findCallback) {
+	for (let i = array.length; i >= 0; --i) if (findCallback(array[i], i)) return array[i];
+}
+
+/**
+ * Finds last index of value
+ * @param {any[]} array 
+ * @param {(value: any, index: number) => boolean} findCallback 
+ * @returns {number}
+ */
+export function findLastIndexOf (array, findCallback) {
+	for (let i = array.length; i >= 0; --i) if (findCallback(array[i], i)) return i;
+	return -1;
+}
+
+/**
  * Filters values by how many times they appear in the array
  * @param {any[]} array 
  * @param {number} occurences 
