@@ -4,8 +4,6 @@ import { join, parse } from 'path';
 import { EventEmitter } from 'events';
 import { randomUUID } from 'crypto';
 
-import { WebSocketServer } from 'ws';
-
 
 /**
  * Get path from URL
@@ -27,20 +25,20 @@ export function createRequestListener (servePath, echo = false) {
 	return (request, response) => {
 		if (echo && request.method === 'POST') return request.pipe(response);
 		const readStream = createReadStream(ext ? servePath : join(servePath, getURLPath(request.url)))
-			.on('error', () => response.end('404'))
+			.on('error', () => response.status(404).end())
 			.on('open', () => readStream.pipe(response));
 	};
 }
 
 /**
- * Create a WebSocket server
- * @param {http.Server | https.Server} server 
+ * Handle WebSocket connections
+ * @param {ws.WebSocketServer} webSocketServer 
  * @returns {{events: EventEmitter, sendTo: (id: string, message: any) => void, sendToAll: (message: any) => void}}
  */
-export function createWebSocketServer (server) {
+export function createWebSocketListener (webSocketServer) {
 	const emitter = new EventEmitter();
 	const sockets = Object.create(null);
-	new WebSocketServer({ server })
+	webSocketServer
 		.on('connection', (socket) => {
 			const id = randomUUID();
 			sockets[id] = socket;
