@@ -47,7 +47,7 @@ export class MinimalEventEmitter extends EventTarget {
 	}
 
 	/**
-	 * Removes event listener with this ID
+	 * Remove the event listener with this ID
 	 * @param {string} id 
 	 * @returns {this}
 	 */
@@ -58,7 +58,7 @@ export class MinimalEventEmitter extends EventTarget {
 	}
 
 	/**
-	 * Only call this once
+	 * Only called once
 	 * @param {string} id 
 	 * @param {Function} callback 
 	 * @returns {this}

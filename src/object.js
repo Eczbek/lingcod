@@ -3,7 +3,7 @@ import { typeOf, isPrimitive } from './misc.js';
 
 
 /**
- * Checks if object is empty
+ * Check if object is empty
  * @param {Object} object 
  * @returns {boolean}
  */
@@ -12,7 +12,7 @@ export function isEmpty (object) {
 }
 
 /**
- * Filters objects with matching properties
+ * Filter objects with matching properties
  * @param {Object[]} objects 
  * @param {Object} props 
  * @param {(a: any, b: any) => boolean} compareCallback 
@@ -23,7 +23,7 @@ export function filterByProps (objects, props, compareCallback = (a, b) => a ===
 }
 
 /**
- * Clones object, removing references
+ * Clone object, remove references
  * @param {any} target 
  * @param {number} depth 
  * @returns {any}
@@ -54,7 +54,7 @@ export function deepClone (target, depth = Infinity) {
 }
 
 /**
- * Compares objects in depth
+ * Compare objects in depth
  * @param {any} target 
  * @param {any} value 
  * @param {number} depth 
@@ -77,7 +77,7 @@ export function deepCompare (target, value, depth = Infinity) {
 }
 
 /**
- * Extends an object in depth
+ * Extend an object in depth
  * @param {any} target 
  * @param {any} extension 
  * @param {boolean} arrayReplace 
@@ -105,7 +105,7 @@ export function deepExtend (target, extension, arrayReplace = false, depth = Inf
 }
 
 /**
- * Extracts value from object by path
+ * Extract value from object by path
  * @param {any} target 
  * @param {any[]} path 
  * @returns {any}
@@ -126,7 +126,7 @@ export function extract (target, path) {
 }
 
 /**
- * Removes value from object by path
+ * Remove value from object by path
  * @param {any} target 
  * @param {any[]} path 
  * @returns {any}
@@ -150,7 +150,7 @@ export function deepRemove (target, path) {
 }
 
 /**
- * Recurses through an object's properties
+ * Recurse through an object's properties
  * @param {any} target 
  * @param {Function} callback 
  * @param {(value: any, keys: any[]) => boolean} check 
@@ -180,7 +180,7 @@ export function recurse (target, callback, check = () => true) {
 }
 
 /**
- * Finds paths to values in object
+ * Find paths to values in object
  * @param {any} target 
  * @param {(value: any, keys: any[]) => boolean} findCallback 
  * @param {number} depth 
@@ -195,7 +195,7 @@ export function findPaths (target, findCallback, depth = Infinity) {
 }
 
 /**
- * Freezes an object in depth
+ * Freeze an object completely
  * @param {any} target 
  * @param {number} depth 
  * @returns {any}
@@ -206,7 +206,7 @@ export function deepFreeze (target, depth = Infinity) {
 }
 
 /**
- * Removes empty containers from object in depth
+ * Remove empty containers from object
  * @param {any} target 
  * @param {number} depth 
  * @returns {any}
