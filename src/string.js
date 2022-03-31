@@ -1,6 +1,6 @@
 
 /**
- * Capitalizes first letter
+ * Capitalize first letter
  * @param {string} string 
  * @returns {string}
  */
@@ -9,7 +9,7 @@ export function capitalize (string) {
 }
 
 /**
- * Decapitalizes first letter
+ * Decapitalize first letter
  * @param {string} string 
  * @returns {string}
  */
@@ -18,7 +18,7 @@ export function decapitalize (string) {
 }
 
 /**
- * Formats string to PascalCase
+ * Format string to PascalCase
  * @param {string} string 
  * @returns {string}
  */
@@ -27,7 +27,7 @@ export function toPascalCase (string) {
 }
 
 /**
- * Formats string to camelCase
+ * Format string to camelCase
  * @param {string} string 
  * @returns {string}
  */
@@ -36,7 +36,7 @@ export function toCamelCase (string) {
 }
 
 /**
- * Formats string to SNAKE_CASE
+ * Format string to SNAKE_CASE
  * @param {string} string 
  * @returns {string}
  */
@@ -45,7 +45,7 @@ export function toSnakeCase (string) {
 }
 
 /**
- * Formats string to kebab-case
+ * Format string to kebab-case
  * @param {string} string 
  * @returns {string}
  */
@@ -66,7 +66,7 @@ export function spliceString (string, index, remove = 0, insert = '') {
 }
 
 /**
- * Truncates the end of a string
+ * Truncate the end of a string
  * @param {string} string 
  * @param {number} length 
  * @param {string} replace 
@@ -79,7 +79,7 @@ export function truncateString (string, length, replace = '...') {
 }
 
 /**
- * Reverses a string efficiently
+ * Reverse a string efficiently
  * @param {string} string 
  * @returns {string}
  */
@@ -90,7 +90,7 @@ export function reverseString (string) {
 }
 
 /**
- * Checks whether string is a basic email
+ * Check whether string is a basic email
  * @param {string} string 
  * @returns {boolean}
  */
@@ -99,7 +99,7 @@ export function isEmail (string) {
 }
 
 /**
- * Finds a basic number in string
+ * Find a basic number in string
  * @param {string} string 
  * @returns {number}
  */

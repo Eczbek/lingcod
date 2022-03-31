@@ -18,7 +18,7 @@ const formatConfig = {
 };
 
 /**
- * Creates a time formatter
+ * Create a time formatter
  * @param {string} format 
  * @param {string} prefix 
  * @param {Object} options 

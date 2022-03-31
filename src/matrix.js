@@ -3,7 +3,7 @@ import { wrap } from './math.js';
 
 
 /**
- * Creates a multidimensional array
+ * Create a multidimensional array
  * @param {number[]} dimensions 
  * @param {(number[]) => any} fillCallback 
  * @returns {any[]}
@@ -20,7 +20,7 @@ export function createMatrix (dimensions, fillCallback = () => 0) {
 }
 
 /**
- * Wraps array into multiple dimensions
+ * Wrap array into multiple dimensions
  * @param {any[]} array 
  * @param {number[]} dimensions 
  * @returns {any[]}
@@ -31,7 +31,7 @@ export function wrapMatrix (array, dimensions) {
 }
 
 /**
- * Checks if matrix is "regular", or all elements are of same length
+ * Check if matrix is "regular", or all elements are of same length
  * @param {any[]} matrix 
  * @param {number} depth 
  * @returns 
@@ -41,7 +41,7 @@ export function isRegular (matrix, depth = Infinity) {
 }
 
 /**
- * Finds the dimensions of a matrix
+ * Find the dimensions of a matrix
  * @param {any[]} matrix 
  * @returns {number[]}
  */
@@ -52,7 +52,7 @@ export function getDimensions (matrix) {
 }
 
 /**
- * Rotates matrix by 90 degrees
+ * Rotate matrix by 90 degrees
  * @param {any[][]} matrix 
  * @param {number} rotations 
  * @returns {any[][]}

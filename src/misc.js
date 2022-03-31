@@ -1,6 +1,6 @@
 
 /**
- * Checks if value is iterable
+ * Check if value is iterable
  * @param {any} value 
  * @returns {boolean}
  */
@@ -9,7 +9,7 @@ export function isIterable (value) {
 }
 
 /**
- * Checks if value is nullish
+ * Check if value is nullish
  * @param {any} value 
  * @returns {boolean}
  */
@@ -18,7 +18,7 @@ export function isNullish (value) {
 }
 
 /**
- * Checks if value is primitive
+ * Check if value is primitive
  * @param {any} value 
  * @returns {boolean}
  */
@@ -27,7 +27,7 @@ export function isPrimitive (value) {
 }
 
 /**
- * Gets the type of value
+ * Get the type of a value
  * @param {any} value 
  * @returns {string}
  */
@@ -36,7 +36,7 @@ export function typeOf (value) {
 }
 
 /**
- * Attempts to run function
+ * Attempt to run function
  * @param {Function} callback 
  * @param {any} otherwise  
  * @returns {any}
