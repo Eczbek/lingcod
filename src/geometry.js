@@ -4,7 +4,7 @@ import { findIndexOfSequence } from './array.js';
 
 
 /**
- * Converts radians to degrees
+ * Convert radians to degrees
  * @param {number} radians 
  * @returns {number}
  */
@@ -13,7 +13,7 @@ export function radiansToDegrees (radians) {
 }
 
 /**
- * Converts degrees to radians
+ * Convert degrees to radians
  * @param {number} degrees 
  * @returns {number}
  */
@@ -23,7 +23,7 @@ export function degreesToRadians (degrees) {
 
 export class Point {
 	/**
-	 * Checks if points are equal
+	 * Check if points are equal
 	 * @param  {...Point} points 
 	 * @returns {boolean}
 	 */
@@ -43,7 +43,7 @@ export class Point {
 	}
 
 	/**
-	 * Creates copy of this point
+	 * Create copy of this point
 	 * @returns {Point}
 	 */
 	copy () {
@@ -53,7 +53,7 @@ export class Point {
 
 export class Line {
 	/**
-	 * Calculates points where lines/rays/segments intersect
+	 * Calculate points where lines/rays/segments intersect
 	 * @param  {...(Line | Ray | Segment)} lines 
 	 * @returns {Point[]}
 	 */
@@ -76,7 +76,7 @@ export class Line {
 	}
 
 	/**
-	 * Checks if lines/rays/segments are parallel
+	 * Check if lines/rays/segments are parallel
 	 * @param  {...(Line | Ray | Segment)} lines 
 	 * @returns {boolean}
 	 */
@@ -87,7 +87,7 @@ export class Line {
 	}
 
 	/**
-	 * Checks if lines are equal
+	 * Check if lines are equal
 	 * @param  {...Line} lines 
 	 * @returns {boolean}
 	 */
@@ -97,7 +97,7 @@ export class Line {
 	}
 
 	/**
-	 * Creates a line that passes through these points
+	 * Create a line that passes through these points
 	 * @param {Point} start 
 	 * @param {Point} end 
 	 */
@@ -107,7 +107,7 @@ export class Line {
 	}
 
 	/**
-	 * Creates copy of this line
+	 * Create copy of this line
 	 * @returns {Line}
 	 */
 	copy () {
@@ -115,7 +115,7 @@ export class Line {
 	}
 
 	/**
-	 * Calculates this line's slope
+	 * Calculate this line's slope
 	 * @returns {number}
 	 */
 	slope () {
@@ -123,7 +123,7 @@ export class Line {
 	}
 
 	/**
-	 * Calculates this line's angle in radians
+	 * Calculate this line's angle in radians
 	 * @returns {number}
 	 */
 	radians () {
@@ -131,7 +131,7 @@ export class Line {
 	}
 
 	/**
-	 * Calculates this line's angle in degrees
+	 * Calculate this line's angle in degrees
 	 * @returns {number}
 	 */
 	degrees () {
@@ -139,7 +139,7 @@ export class Line {
 	}
 
 	/**
-	 * Checks if this line passes through a point
+	 * Check if this line passes through a point
 	 * @param {Point} point 
 	 * @returns {boolean}
 	 */
@@ -150,7 +150,7 @@ export class Line {
 
 export class Ray extends Line {
 	/**
-	 * Checks if rays are equal
+	 * Check if rays are equal
 	 * @param  {...Ray} rays 
 	 * @returns {boolean}
 	 */
@@ -169,7 +169,7 @@ export class Ray extends Line {
 	}
 
 	/**
-	 * Creates a copy of this ray
+	 * Create a copy of this ray
 	 * @returns {Ray}
 	 */
 	copy () {
@@ -177,7 +177,7 @@ export class Ray extends Line {
 	}
 
 	/**
-	 * Checks if this ray passes through a point
+	 * Check if this ray passes through a point
 	 * @param {Point} point 
 	 * @returns {boolean}
 	 */
@@ -188,7 +188,7 @@ export class Ray extends Line {
 
 export class Segment extends Line {
 	/**
-	 * Checks if segments are equal
+	 * Check if segments are equal
 	 * @param  {...Segment} segments 
 	 * @returns {boolean}
 	 */
@@ -198,7 +198,7 @@ export class Segment extends Line {
 	}
 
 	/**
-	 * Creates a line segment
+	 * Create a line segment
 	 * @param {Point} start 
 	 * @param {Point} end 
 	 */
@@ -207,7 +207,7 @@ export class Segment extends Line {
 	}
 
 	/**
-	 * Creates a copy of this segment
+	 * Create a copy of this segment
 	 * @returns {Segment}
 	 */
 	copy () {
@@ -215,7 +215,7 @@ export class Segment extends Line {
 	}
 
 	/**
-	 * Calculates this segment's length
+	 * Calculate this segment's length
 	 * @returns {number}
 	 */
 	length () {
@@ -223,7 +223,7 @@ export class Segment extends Line {
 	}
 
 	/**
-	 * Checks if this segment passes through a point
+	 * Check if this segment passes through a point
 	 * @param {Point} point 
 	 * @returns {boolean}
 	 */
@@ -234,7 +234,7 @@ export class Segment extends Line {
 
 export class Polygon {
 	/**
-	 * Checks if polygons are equal
+	 * Check if polygons are equal
 	 * @param {...Polygon} polygons 
 	 * @returns {boolean}
 	 */
@@ -245,7 +245,7 @@ export class Polygon {
 	}
 
 	/**
-	 * Creates polygon between points
+	 * Create polygon between points
 	 * @param  {...Point} points 
 	 */
 	constructor (...points) {
@@ -253,7 +253,7 @@ export class Polygon {
 	}
 
 	/**
-	 * Creates a copy of this polygon
+	 * Create a copy of this polygon
 	 * @returns {Polygon}
 	 */
 	copy () {
@@ -261,7 +261,7 @@ export class Polygon {
 	}
 
 	/**
-	 * Calculates this polygon's area
+	 * Calculate this polygon's area
 	 * @returns {number}
 	 */
 	area () {
@@ -269,7 +269,7 @@ export class Polygon {
 	}
 
 	/**
-	 * Calculates this polygon's perimeter
+	 * Calculate this polygon's perimeter
 	 * @returns {number}
 	 */
 	perimeter () {
@@ -277,7 +277,7 @@ export class Polygon {
 	}
 
 	/**
-	 * Checks if this polygon contains a point
+	 * Check if this polygon contains a point
 	 * @param {Point} point 
 	 * @returns {boolean}
 	 */
@@ -302,7 +302,7 @@ export class Rectangle extends Polygon {
 	}
 
 	/**
-	 * Creates a copy of this rectangle
+	 * Create a copy of this rectangle
 	 * @returns {Rectangle}
 	 */
 	copy () {
@@ -310,7 +310,7 @@ export class Rectangle extends Polygon {
 	}
 
 	/**
-	 * Calculates this rectangle's area
+	 * Calculate this rectangle's area
 	 * @returns {number}
 	 */
 	area () {
@@ -318,7 +318,7 @@ export class Rectangle extends Polygon {
 	}
 
 	/**
-	 * Calculates this rectangle's perimeter
+	 * Calculate this rectangle's perimeter
 	 * @returns {number}
 	 */
 	perimeter () {
@@ -326,7 +326,7 @@ export class Rectangle extends Polygon {
 	}
 
 	/**
-	 * Checks if this rectangle contains a point
+	 * Check if this rectangle contains a point
 	 * @param {Point} point 
 	 * @returns {boolean}
 	 */

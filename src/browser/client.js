@@ -17,7 +17,7 @@ export class WebSocketClient extends MinimalEventEmitter {
 	reconnectTimeout = 15000;
 
 	/**
-	 * Attempts to connect to a WebSocket server
+	 * Attempt to connect to a WebSocket server
 	 * @param {string} url 
 	 * @returns {this}
 	 */
@@ -40,7 +40,7 @@ export class WebSocketClient extends MinimalEventEmitter {
 	}
 
 	/**
-	 * Disconnects from WebSocket server
+	 * Disconnect from WebSocket server
 	 * @param {number} code 
 	 * @param {string} reason 
 	 * @returns {this}
@@ -51,7 +51,7 @@ export class WebSocketClient extends MinimalEventEmitter {
 	}
 
 	/**
-	 * Sends message to current WebSocket server
+	 * Send a JSON.stringify-able message
 	 * @param {any} message 
 	 * @returns {this}
 	 */

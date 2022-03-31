@@ -3,7 +3,7 @@ import { lerp } from './math.js';
 
 
 /**
- * Generates a random float
+ * Generate a random float
  * @param {number} max 
  * @param {number} min 
  * @param {boolean} inclusive 
@@ -14,7 +14,7 @@ export function randFloat (max = 1, min = 0, inclusive = false) {
 }
 
 /**
- * Generates a random integer
+ * Generate a random integer
  * @param {number} max 
  * @param {number} min 
  * @param {boolean} inclusive 
@@ -25,7 +25,7 @@ export function randInt (max = Number.MAX_SAFE_INTEGER, min, inclusive) {
 }
 
 /**
- * Generates a random boolean
+ * Generate a random boolean
  * @returns {boolean}
  */
 export function randBool () {
@@ -33,7 +33,7 @@ export function randBool () {
 }
 
 /**
- * Picks a random item from an array
+ * Pick a random item from an array
  * @param {any[]} array 
  * @returns {any}
  */
@@ -42,7 +42,7 @@ export function randItem (array) {
 }
 
 /**
- * Creates an array from randomly picked values
+ * Create an array from randomly picked values
  * @param {number} length 
  * @param {(index: number) => any[]} getValues 
  * @returns {any[]}
@@ -54,7 +54,7 @@ export function randArray (length, getValues) {
 }
 
 /**
- * Creates a string from randomly picked characters
+ * Create a string from randomly picked characters
  * @param {number} length 
  * @param {(index: number) => string} getChars 
  * @returns {string}
@@ -64,7 +64,7 @@ export function randString (length, getChars) {
 }
 
 /**
- * Generates a radom hex color, picks each character individually
+ * Generate a radom hex color
  * @param {string} max 
  * @param {string} min 
  * @returns {string}

@@ -3,7 +3,7 @@ import { randInt } from './random.js';
 
 
 /**
- * Compacts array; Removes empty indices
+ * Remove empty indices
  * @param {any[]} array 
  * @returns {any[]}
  */
@@ -12,7 +12,7 @@ export function compact (array) {
 }
 
 /**
- * Creates array with numbers from min to max
+ * Create array with numbers from min to max
  * @param {number} max 
  * @param {number} min 
  * @param {number} step 
@@ -25,7 +25,7 @@ export function range (max, min = 0, step = 1) {
 }
 
 /**
- * Creates an array and fills it
+ * Create an array and fills it
  * @param {number} length 
  * @param {(index: number) => number} fillCallback 
  * @returns {any[]}
@@ -37,7 +37,7 @@ export function fill (length, fillCallback) {
 }
 
 /**
- * Checks if array includes all values
+ * Check if array includes all values
  * @param {any[]} array 
  * @param {any[]} values 
  * @returns {boolean}
@@ -47,7 +47,7 @@ export function includesAll (array, values) {
 }
 
 /**
- * Finds last value in array
+ * Find last value in array
  * @param {any[]} array 
  * @param {(value: any, index: number) => boolean} findCallback 
  * @returns {any}
@@ -57,7 +57,7 @@ export function findLast (array, findCallback) {
 }
 
 /**
- * Finds last index of value
+ * Find last index of value
  * @param {any[]} array 
  * @param {(value: any, index: number) => boolean} findCallback 
  * @returns {number}
@@ -68,7 +68,7 @@ export function findLastIndexOf (array, findCallback) {
 }
 
 /**
- * Filters values by how many times they appear in the array
+ * Filter values by how many times they appear in the array
  * @param {any[]} array 
  * @param {number} occurences 
  * @param {(a: any, b: any) => boolean} compareCallback 
@@ -79,7 +79,7 @@ export function filterByOccurences (array, occurences, compareCallback = (a, b) 
 }
 
 /**
- * Groups array items
+ * Group array items
  * @param {any[]} array 
  * @param {(value: any, index: number) => string} getGroup 
  * @param {(value: any, index: number) => any} getValue 
@@ -95,7 +95,7 @@ export function group (array, getGroup, getValue = (x) => x) {
 }
 
 /**
- * Chunks an array into smaller arrays
+ * Chunk an array into smaller arrays
  * @param {any[]} array 
  * @param {(value: any, index: number) => number} getSize 
  * @param {boolean} overflow 
@@ -111,7 +111,7 @@ export function chunk ([...array], getSize, overflow = false) {
 }
 
 /**
- * Filters indices
+ * Filter indices
  * @param {any[]} array 
  * @param {(value: any, index: number) => boolean} filterCallback 
  * @returns {number[]}
@@ -123,7 +123,7 @@ export function filterIndices (array, filterCallback) {
 }
 
 /**
- * Finds the first index of a matched sequence
+ * Find the first index of a matched sequence
  * @param {any[]} array 
  * @param {any[]} sequence 
  * @param {(a: any, b: any) => boolean} compareCallback 
@@ -138,7 +138,7 @@ export function findIndexOfSequence (array, sequence, compareCallback = (a, b) =
 }
 
 /**
- * Finds indices of all matched sequences
+ * Find indices of all matched sequences
  * @param {any[]} array 
  * @param {any[]} sequence 
  * @param {(a: any, b: any) => boolean} compareCallback 
@@ -153,7 +153,7 @@ export function findIndicesOfSequence (array, sequence, compareCallback = (a, b)
 }
 
 /**
- * Finds indices without a value
+ * Find indices without a value
  * @param {any[]} array 
  * @returns {number[]}
  */
@@ -162,7 +162,7 @@ export function findEmptyIndices (array) {
 }
 
 /**
- * Checks whether array has empty indices
+ * Check whether array has empty indices
  * @param {any[]} array 
  * @returns {boolean}
  */
@@ -172,7 +172,7 @@ export function isSparse (array) {
 }
 
 /**
- * Swaps two indices
+ * Swap two indices
  * @param {any[]} array 
  * @param {number} index1 
  * @param {number} index2 
@@ -184,7 +184,7 @@ export function swap (array, index1, index2) {
 }
 
 /**
- * Shuffles the array randomly
+ * Shuffle the array items randomly
  * @param {any[]} array 
  * @returns {any[]}
  */

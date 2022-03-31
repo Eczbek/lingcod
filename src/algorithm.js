@@ -3,7 +3,7 @@ import { swap } from './array.js';
 
 
 /**
- * Looks for index of value via binary-search method
+ * Look for index of value via binary-search method
  * @param {any[]} sortedArray 
  * @param {(value: any) => number} searchCallback 
  * @returns {number}
@@ -22,7 +22,7 @@ export function binarySearch (sortedArray, searchCallback) {
 }
 
 /**
- * Sorts array via merge-sort method
+ * Sort array via merge-sort method
  * @param {any[]} array 
  * @param {(value: any) => number} sortCallback 
  * @returns {any[]} sorted array
@@ -38,7 +38,7 @@ export function mergeSort (array, sortCallback = (a, b) => a - b) {
 }
 
 /**
- * Sorts array via heap-sort method
+ * Sort array via heap-sort method
  * @param {any[]} array 
  * @param {(value: any) => number} sortCallback 
  * @returns {any[]} sorted array

@@ -17,7 +17,7 @@ export function getURLPath (url) {
 }
 
 /**
- * Creates a request listener
+ * Create a request listener
  * @param {string} servePath 
  * @param {boolean} echo 
  * @returns {(request: http.IncomingMessage, response: http.ServerResponse) => void}
@@ -33,7 +33,7 @@ export function createRequestListener (servePath, echo = false) {
 }
 
 /**
- * Creates a WebSocket server
+ * Create a WebSocket server
  * @param {http.Server | https.Server} server 
  * @returns {{events: EventEmitter, sendTo: (id: string, message: any) => void, sendToAll: (message: any) => void}}
  */
@@ -68,7 +68,7 @@ export function createWebSocketServer (server) {
 }
 
 /**
- * Creates database authentication methods
+ * Create database authentication methods
  * @param {(username: string, password: string) => void} setEntry 
  * @param {(username: string) => void} deleteEntry 
  * @param {(username: string) => Object} getEntry 

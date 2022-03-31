@@ -54,7 +54,7 @@ export function wrap (number, max, min = 0) {
 }
 
 /**
- * Checks if number is prime
+ * Check if number is prime
  * @param {number} number 
  * @returns {boolean}
  */
@@ -64,7 +64,7 @@ export function isPrime (number) {
 }
 
 /**
- * Checks if two numbers are approximately equal
+ * Check if two numbers are approximately equal
  * @param {number} number1 
  * @param {number} number2 
  * @param {number} absEpsilon 
@@ -76,7 +76,7 @@ export function approxEqual (number1, number2, absEpsilon = 1e-12, relEpsilon = 
 }
 
 /**
- * Generates PI
+ * Generate digits of PI
  * @param {number} digits 
  * @yields {number}
  */
@@ -92,7 +92,7 @@ export function* PI (digits = Infinity) {
 }
 
 /**
- * Calculates factors
+ * Calculate factors of a number
  * @param {number} number 
  * @returns {number[]}
  */
