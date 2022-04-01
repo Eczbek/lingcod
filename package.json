@@ -1,24 +1,29 @@
 {
-	"name": "util",
-	"description": "JavaScript utility library",
-	"version": "1.0.0",
-	"exports": {
-		"./algorithm": "./lib/algorithm.js",
-		"./array": "./lib/array.js",
-		"./function": "./lib/function.js",
-		"./geometry": "./lib/geometry.js",
-		"./math": "./lib/math.js",
-		"./matrix": "./lib/matrix.js",
-		"./misc": "./lib/misc.js",
-		"./object": "./lib/object.js",
-		"./random": "./lib/random.js",
-		"./server": "./lib/server.js",
-		"./string": "./lib/string.js",
-		"./time": "./lib/time.js"
-	},
-	"type": "module",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/Eczbek/js-utils.git"
-	}
+  "name": "@eczbek/util",
+  "description": "JavaScript utility library",
+  "version": "1.0.0",
+  "exports": {
+    "./algorithm": "./lib/algorithm.js",
+    "./array": "./lib/array.js",
+    "./function": "./lib/function.js",
+    "./geometry": "./lib/geometry.js",
+    "./math": "./lib/math.js",
+    "./matrix": "./lib/matrix.js",
+    "./misc": "./lib/misc.js",
+    "./object": "./lib/object.js",
+    "./random": "./lib/random.js",
+    "./server": "./lib/server.js",
+    "./string": "./lib/string.js",
+    "./time": "./lib/time.js"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Eczbek/js-utils.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Eczbek/js-utils/issues"
+  },
+  "homepage": "https://github.com/Eczbek/js-utils#readme",
+  "license": "MIT"
 }
