@@ -1,0 +1,11 @@
+export declare function isEmpty(object: Object): boolean;
+export declare function filterByProps(objects: Object[], props: Object, compareCallback?: (value1: any, value2: any) => boolean): Object[];
+export declare function deepClone(value: any, depth?: number): any;
+export declare function deepCompare(value1: any, value2: any, depth?: number): boolean;
+export declare function deepMerge(value1: any, value2: any, arrayReplace?: boolean, depth?: number): any;
+export declare function extract(value: any, path: any[]): any;
+export declare function deepRemove(value: any, path: any[]): any;
+export declare function recurse(value: any, callback: (value: any, path: any[]) => void, check?: (value: any, path: any[]) => boolean): void;
+export declare function findPaths(value: any, findCallback: (value: any, path: any[]) => boolean, depth?: number): any[][];
+export declare function deepFreeze(value: any, depth?: number): any;
+export declare function deepCompact(value: any, depth?: number): any;
