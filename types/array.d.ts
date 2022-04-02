@@ -1,0 +1,14 @@
+export declare function compact(array: any[]): any[];
+export declare function range(max: number, min?: number, step?: number): number[];
+export declare function fill(length: number, fillCallback: (index: number) => any): any[];
+export declare function includesAll(array: any[], values: any[]): boolean;
+export declare function filterByOccurences(array: any[], occurences: number, compareCallback?: (value1: any, value2: any) => boolean): any[];
+export declare function group(array: any[], getGroup: (value: any, index: number) => string, getValue?: (value: any, index: number) => any): Map<string, any[]>;
+export declare function chunk([...array]: Iterable<any>, getChunkSize: (value: any, index: number) => number, overflow?: boolean): any[][];
+export declare function filterIndices(array: any[], filterCallback: (value: any, index: number) => boolean): number[];
+export declare function findIndexOfSubarray(array: any[], subarray: any[], compareCallback?: (value1: any, value2: any) => boolean, wrap?: boolean): number;
+export declare function findIndicesOfSubarray(array: any[], subarray: any[], compareCallback?: (value1: any, value2: any) => boolean, wrap?: boolean): number[];
+export declare function findEmptyIndices(array: any[]): number[];
+export declare function isSparse(array: any[]): boolean;
+export declare function swap(array: any[], index1: number, index2: number): any[];
+export declare function shuffle([...array]: any[]): any[];

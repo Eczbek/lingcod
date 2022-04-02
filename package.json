@@ -1,7 +1,7 @@
 {
-  "name": "@eczbek/util",
-  "description": "JavaScript utility library",
-  "version": "1.0.0",
+  "name": "lingcod",
+  "description": "TypeScript utility library",
+  "version": "0.0.0",
   "exports": {
     "./algorithm": "./lib/algorithm.js",
     "./array": "./lib/array.js",
@@ -19,11 +19,16 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Eczbek/js-utils.git"
+    "url": "git+https://github.com/Eczbek/lingcod.git"
   },
   "bugs": {
-    "url": "https://github.com/Eczbek/js-utils/issues"
+    "url": "https://github.com/Eczbek/lingcod/issues"
   },
-  "homepage": "https://github.com/Eczbek/js-utils#readme",
-  "license": "MIT"
+  "homepage": "https://github.com/Eczbek/lingcod#readme",
+  "license": "MIT",
+  "devDependencies": {
+    "@tsconfig/node17": "^1.0.0",
+    "@types/node": "^17.0.23",
+    "@types/ws": "^8.5.3"
+  }
 }
