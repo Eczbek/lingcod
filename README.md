@@ -1,2 +1,2 @@
-# js-utils
+# lingcod
 ### JavaScript utility library
