@@ -1,0 +1,11 @@
+export declare function capitalize(string: string): string;
+export declare function decapitalize(string: string): string;
+export declare function toPascalCase(string: string): string;
+export declare function toCamelCase(string: string): string;
+export declare function toSnakeCase(string: string): string;
+export declare function toKebabCase(string: string): string;
+export declare function spliceString(string: string, index: number, remove?: number, insert?: string): string;
+export declare function truncateString(string: string, length: number, replace?: string): string;
+export declare function reverseString(string: string): string;
+export declare function isEmail(string: string): boolean;
+export declare function findNumber(string: string): number;
