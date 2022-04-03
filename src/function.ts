@@ -19,5 +19,5 @@ export function debounce (callback: Function, millis: number) {
 }
 
 export function chain (...callbacks: Function[]) {
-	return async (...args: any[]) => callbacks.slice(1).reduce(async (value, callback) => await callback(value), await callbacks[0](...args));
+	return (...args: any[]) => callbacks.slice(1).reduce((value, callback) => callback(value), callbacks[0](...args));
 }
