@@ -21,7 +21,7 @@ export function mergeSort (array: any[], sortCallback = (value1: any, value2: an
 	const left = mergeSort(array.slice(0, half), sortCallback);
 	const right = mergeSort(array.slice(half), sortCallback);
 	const sorted = [];
-	while (left.length && right.length) sorted.push((sortCallback(left[0], right[0]) < 0 ? left : right).shift());
+	while (left.length && right.length) sorted.push((sortCallback(left[0], right[0]) > 0 ? right : left).shift());
 	return [...sorted, ...left, ...right];
 }
 
@@ -30,8 +30,8 @@ export function heapSort ([...array]: any[], sortCallback = (value1: any, value2
 		let min = index;
 		const left = index * 2 + 1;
 		const right = left + 1;
-		if (left < size && sortCallback(chunk[left], chunk[min]) > 0) min = left;
-		if (right < size && sortCallback(chunk[right], chunk[min]) > 0) min = right;
+		if (left < size && sortCallback(chunk[min], chunk[left]) < 0) min = left;
+		if (right < size && sortCallback(chunk[min], chunk[right]) < 0) min = right;
 		if (min !== index) {
 			swap(chunk, min, index);
 			heapify(chunk, size, min);
