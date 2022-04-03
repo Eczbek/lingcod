@@ -2,21 +2,21 @@
 import { typeOf, isPrimitive } from './misc.js';
 
 
-export function isEmpty (object: Object): boolean {
+export function isEmpty (object: Object) {
 	return !Object.keys(object).length;
 }
 
-export function filterByProps (objects: Object[], props: Object, compareCallback = (value1: any, value2: any) => value1 === value2): Object[] {
+export function filterByProps (objects: Object[], props: Object, compareCallback = (value1: any, value2: any) => value1 === value2) {
 	return objects.filter((object: any) => Object.entries(props).every(([key, value]) => compareCallback(object[key], value)));
 }
 
-export function deepClone (value: any, depth = Infinity): any {
+export function deepClone (value: any, depth = Infinity) {
 	const hash = new Map();
 	const result = (function clone (object = value, currDepth = depth): any {
 		if (--currDepth < 0 || isPrimitive(object)) return object;
 		if (hash.has(object)) return hash.get(object);
 		const copy = (() => {
-			switch (object?.constructor?.name) {
+			switch (typeOf(object)) {
 				case 'Map':
 					return new Map([...object]);
 				case 'Set':
@@ -41,17 +41,18 @@ export function deepCompare (value1: any, value2: any, depth = Infinity): boolea
 	if (type !== typeOf(value2)) return false;
 	switch (type) {
 		case 'Object':
-		case 'Array':
 			return Object.entries(value1).every(([key, val]) => deepCompare(val, value2[key], depth));
+		case 'Array':
+			return value1.every((val: any, index: number) => deepCompare(val, value2[index], depth));
 		case 'Map':
 			return [...value1].every(([key, val]) => deepCompare(val, value2.get(key), depth));
 		case 'Set':
-			return [...value1].every(([key, val]) => deepCompare(val, [[...value2][key]], depth));
+			return [...value1].every((val, index) => deepCompare(val, [...value2][index], depth));
 	}
 	return value1 === value2;
 }
 
-export function deepMerge (value1: any, value2: any, arrayReplace = false, depth = Infinity): any {
+export function deepMerge (value1: any, value2: any, arrayReplace = false, depth = Infinity) {
 	const type = typeOf(value1);
 	if (--depth < 0 || type !== typeOf(value2)) return value1;
 	switch (type) {
@@ -86,7 +87,7 @@ export function extract (value: any, path: any[]): any {
 	return value;
 }
 
-export function deepRemove (value: any, path: any[]): any {
+export function deepRemove (value: any, path: any[]) {
 	const key = path.at(-1);
 	const object = extract(value, path.slice(0, -1));
 	switch (typeOf(object)) {
@@ -104,7 +105,7 @@ export function deepRemove (value: any, path: any[]): any {
 	return value;
 }
 
-export function recurse (value: any, callback: (value: any, path: any[]) => void, check = (value: any, path: any[]) => true): void {
+export function recurse (value: any, callback: (value: any, path: any[]) => void, check = (value: any, path: any[]) => true) {
 	(function loop (object = value, keys: any[] = [], values = [value]) {
 		function handle (key: any, value: any) {
 			const path = [...keys, key];
