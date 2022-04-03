@@ -1,7 +1,7 @@
 {
   "name": "lingcod",
   "description": "TypeScript utility library",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "exports": {
     "./algorithm": "./lib/algorithm.js",
     "./array": "./lib/array.js",
@@ -27,7 +27,6 @@
   "homepage": "https://github.com/Eczbek/lingcod#readme",
   "license": "MIT",
   "devDependencies": {
-    "@tsconfig/node17": "^1.0.0",
     "@types/node": "^17.0.23",
     "@types/ws": "^8.5.3"
   }
