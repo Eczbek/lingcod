@@ -5,8 +5,10 @@ import { lerp } from './math.js';
 import { fill } from './array.js';
 
 
+const INT_LIMIT_48 = 2 ** 48 - 1;
+
 export function randFloat (max = 1, min = 0, inclusive = false): number {
-	return lerp(randomInt(281474976710655), max + Number(inclusive), min);
+	return lerp(randomInt(INT_LIMIT_48) / INT_LIMIT_48, max + Number(inclusive), min);
 }
 
 export function randInt (max = Number.MAX_SAFE_INTEGER, min = 0, inclusive = false): number {
