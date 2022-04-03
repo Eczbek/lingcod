@@ -5,6 +5,5 @@
 		"outDir": "./lib/",
 		"declaration": true,
 		"declarationDir": "./types/"
-	},
-	"extends": "@tsconfig/node17/tsconfig.json"
+	}
 }
