@@ -23,7 +23,7 @@ export function createRequestListener(path: string, echo = false): (request: Inc
 	};
 }
 
-export function createWebSocketListener (webSocketServer: WebSocketServer): { events: EventEmitter, sendTo: (id: string, message: any) => void, sendToAll: (message: any) => void } {
+export function createWebSocketListener (webSocketServer: WebSocketServer) {
 	const emitter = new EventEmitter();
 	const sockets = new Map();
 	webSocketServer
@@ -46,34 +46,35 @@ export function createWebSocketListener (webSocketServer: WebSocketServer): { ev
 		});
 	return {
 		events: emitter,
-		sendTo: (id, message) => sockets.get(id)?.send(JSON.stringify(message)),
-		sendToAll: (message) => {
+		sendTo: (id: string, message: any) => sockets.get(id)?.send(JSON.stringify(message)),
+		sendToAll: (message: any) => {
 			const data = JSON.stringify(message);
 			[...sockets].forEach(([_, socket]) => socket.send(data));
-		}
+		},
+		sendAs: (id: string, message: any) => sockets.get(id)?.emit('message', JSON.stringify(message))
 	};
 }
 
-export function createDatabaseAuth (setEntry: (username: string, password: string) => void, deleteEntry: (username: string) => void, getEntry: (username: string) => Object, checkUser: (username: string, password: string) => boolean): { isAuthed: (id: string) => boolean, create: (username: string, password: string) => Promise<boolean>, remove: (username: string, password: string) => Promise<boolean>, login: (id: string, username: string, password: string) => Promise<boolean>, logout: (id: string) => Promise<boolean> } {
+export function createDatabaseAuth (addUser: (username: string, password: string) => void, deleteUser: (username: string) => void, getUser: (username: string) => Object, checkUser: (username: string, password: string) => boolean) {
 	const authed = new Map();
 	return {
-		isAuthed: (id) => authed.has(id),
-		create: async (username, password) => {
-			if (await getEntry(username)) return false;
-			await setEntry(username, password);
+		getAuthed: () => new Map(authed),
+		create: async (username: string, password: string) => {
+			if (await getUser(username)) return false;
+			await addUser(username, password);
 			return true;
 		},
-		remove: async (username, password) => {
+		remove: async (username: string, password: string) => {
 			if (!await checkUser(username, password)) return false;
-			await deleteEntry(username);
+			await deleteUser(username);
 			return true;
 		},
-		login: async (id, username, password) => {
-			if (authed.has(id) || !await checkUser(username, password)) return false;
+		login: async (id: string, username: string, password: string) => {
+			if (!await checkUser(username, password)) return false;
 			authed.set(id, username);
 			return true;
 		},
-		logout: async (id) => {
+		logout: async (id: string) => {
 			if (!authed.has(id)) return false;
 			authed.delete(id);
 			return true;
