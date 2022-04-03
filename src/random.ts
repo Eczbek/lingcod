@@ -37,7 +37,7 @@ export function randHexColor (max = 'ffffff', min = '000000') {
 	let hexColor = '#';
 	for (let i = 0; i < 6; ++i) {
 		const num = Number(`0x${min[i]}`);
-		hexColor += randInt(Math.max(Number(`0x${max[i]}`), num), num).toString(16);
+		hexColor += randInt(Math.max(Number(`0x${max[i]}`), num), num, true).toString(16);
 	}
 	return hexColor;
 }
