@@ -50,14 +50,14 @@ export function filterIndices (array: any[], filterCallback: (value: any, index:
 	return indices;
 }
 
-export function findIndexOfSubarray (array: any[], subarray: any[], compareCallback = (value1: any, value2: any) => value1 === value2, wrap = false) {
+export function findIndexOfSubarray (array: any[], subarray: any[], wrap = false, compareCallback = (value1: any, value2: any) => value1 === value2) {
 	return array.findIndex((_, index1) => subarray.every((value, index2) => {
 		const index = index1 + index2;
 		return compareCallback(value, array[wrap ? index % array.length : index]);
 	}));
 }
 
-export function findIndicesOfSubarray (array: any[], subarray: any[], compareCallback = (value1: any, value2: any) => value1 === value2, wrap = false) {
+export function findIndicesOfSubarray (array: any[], subarray: any[], wrap = false, compareCallback = (value1: any, value2: any) => value1 === value2) {
 	return filterIndices(array, (_, index1) => subarray.every((value, index2) => {
 		const index = index1 + index2;
 		return compareCallback(value, array[wrap ? index % array.length : index]);

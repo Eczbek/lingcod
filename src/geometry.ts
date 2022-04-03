@@ -134,7 +134,7 @@ export class Segment extends Line {
 export class Polygon {
 	static equal (...polygons: Polygon[]) {
 		const [first, ...rest] = polygons;
-		const check = (points: Point[]) => findIndexOfSubarray(first.points, points, Point.equal, true) >= 0;
+		const check = (points: Point[]) => findIndexOfSubarray(first.points, points, true, Point.equal) >= 0;
 		return rest.every(({ points }) => check(points) || check([...points].reverse()));
 	}
 
@@ -152,11 +152,11 @@ export class Polygon {
 		return Math.abs(this.points.reduce((area, { x, y }, index) => area + x * Number(this.points.at(index - 1)?.y) / 2 - y * Number(this.points.at(index - 1)?.x) / 2, 0));
 	}
 
-	perimeter (): number {
+	perimeter () {
 		return this.points.reduce((length, point, index) => length + new Segment(point, this.points.at(index - 1) ?? point).length(), 0);
 	}
 
-	containsPoint ({ x, y }: Point): boolean {
+	containsPoint ({ x, y }: Point) {
 		return !!this.points.reduce((odd, { x: ix, y: iy }, index) => {
 			const { x: jx, y: jy } = this.points.at(index - 1) ?? this.points[index];
 			return (iy < y && y < jy || jy < y && y < iy) && (x > ix || x > jx) ? odd ^ Number((y - iy) / (jy - iy) * (jx - ix) + ix < x) : odd;
@@ -172,15 +172,15 @@ export class Rectangle extends Polygon {
 	width = Math.abs(this.points[0].x - this.points[1].x);
 	height = Math.abs(this.points[0].y - this.points[1].y);
 
-	area (): number {
+	area () {
 		return this.width * this.height;
 	}
 
-	perimeter (): number {
+	perimeter () {
 		return this.width * 2 + this.height * 2;
 	}
 
-	containsPoint ({ x, y }: Point): boolean {
+	containsPoint ({ x, y }: Point) {
 		const { x: sx, y: sy } = this.points[0];
 		const { x: ex, y: ey } = this.points[1];
 		return (x >= sx && x <= ex || x <= sx && x >= ex) && (y >= sy && y <= ey || y <= sy && y >= ey);
