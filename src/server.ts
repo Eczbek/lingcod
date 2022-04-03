@@ -3,6 +3,7 @@ import { createReadStream } from 'fs';
 import { join, parse } from 'path';
 import { EventEmitter } from 'events';
 import { randomUUID } from 'crypto';
+import { readdir, readFile } from 'fs/promises';
 import { IncomingMessage, ServerResponse } from 'http';
 
 import { WebSocketServer, WebSocket } from 'ws';
@@ -78,4 +79,8 @@ export function createDatabaseAuth (setEntry: (username: string, password: strin
 			return true;
 		}
 	};
+}
+
+export async function parseJSONDir (path: string) {
+	return Object.fromEntries(await Promise.all((await readdir(path)).map(async (file) => [file.match(/\w+/)?.[0], JSON.parse(((await readFile(join(path, file))).toString()))])))
 }
