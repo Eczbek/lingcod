@@ -13,11 +13,13 @@ export function getURLPath (url = '/'): string {
 	return new URL(url, 'http://0.0.0.0').pathname;
 }
 
-export function createRequestListener(path: string, echo = false): (request: IncomingMessage, response: ServerResponse) => void {
+export function createRequestListener(path: string, getMIMEType: (file: string) => string, echo = false): (request: IncomingMessage, response: ServerResponse) => void {
 	const { ext } = parse(path);
 	return (request, response) => {
 		if (echo && request.method === 'POST') return request.pipe(response);
-		createReadStream(ext ? path : join(path, getURLPath(request.url)))
+		const file = ext ? path : join(path, getURLPath(request.url));
+		response.setHeader('Content-Type', getMIMEType(file));
+		createReadStream(path)
 			.on('error', () => response.end('404'))
 			.pipe(response);
 	};
