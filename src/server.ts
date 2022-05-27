@@ -1,28 +1,14 @@
 
-import { createReadStream } from 'fs';
-import { join, parse } from 'path';
+import { join } from 'path';
 import { EventEmitter } from 'events';
 import { randomUUID } from 'crypto';
 import { readdir, readFile } from 'fs/promises';
-import { IncomingMessage, ServerResponse } from 'http';
 
 import { WebSocketServer, WebSocket } from 'ws';
 
 
 export function getURLPath (url = '/'): string {
-	return new URL(url, 'http://0.0.0.0').pathname;
-}
-
-export function createRequestListener(path: string, getMIMEType: (file: string) => string, echo = false): (request: IncomingMessage, response: ServerResponse) => void {
-	const { ext } = parse(path);
-	return (request, response) => {
-		if (echo && request.method === 'POST') return request.pipe(response);
-		const file = ext ? path : join(path, getURLPath(request.url));
-		response.setHeader('Content-Type', getMIMEType(file));
-		createReadStream(path)
-			.on('error', () => response.end('404'))
-			.pipe(response);
-	};
+	return new URL(url, 'a://0.0.0.0').pathname;
 }
 
 export function createWebSocketListener (webSocketServer: WebSocketServer) {
