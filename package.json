@@ -1,7 +1,7 @@
 {
   "name": "lingcod",
   "description": "TypeScript utility library",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "exports": {
     "./algorithm": "./lib/algorithm.js",
     "./array": "./lib/array.js",
