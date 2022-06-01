@@ -1,11 +1,10 @@
-
 /**
  * Download data to file
  * @param {any} data 
  * @param {string} filename 
  * @param {string} type 
  */
- export function download (data, filename, type = 'text') {
+ export function download(data, filename, type = 'text') {
 	const link = document.createElement('a');
 	link.download = filename;
 	link.href = URL.createObjectURL(new Blob([data], { type }));
@@ -16,7 +15,7 @@
  * Get this document's cookies
  * @returns {Object}
  */
-export function getCookiesObject () {
+export function getCookiesObject() {
 	return Object.fromEntries(document.cookie.split(';').map((entry) => entry.split('=')));
 }
 
@@ -29,7 +28,7 @@ export class MinimalEventEmitter extends EventTarget {
 	 * @param  {...any} data 
 	 * @returns {this}
 	 */
-	emit (id, ...data) {
+	emit(id, ...data) {
 		this.dispatchEvent(new CustomEvent(id, { detail: data }));
 		return this;
 	}
@@ -40,7 +39,7 @@ export class MinimalEventEmitter extends EventTarget {
 	 * @param {Function} callback 
 	 * @returns {this}
 	 */
-	on (id, callback) {
+	on(id, callback) {
 		this.#callbacks[id] = ({ detail }) => callback(...detail);
 		this.addEventListener(id, this.#callbacks[id]);
 		return this;
@@ -51,7 +50,7 @@ export class MinimalEventEmitter extends EventTarget {
 	 * @param {string} id 
 	 * @returns {this}
 	 */
-	off (id) {
+	off(id) {
 		this.removeEventListener(id, this.#callbacks[id]);
 		delete this.#callbacks[id];
 		return this;
@@ -63,7 +62,7 @@ export class MinimalEventEmitter extends EventTarget {
 	 * @param {Function} callback 
 	 * @returns {this}
 	 */
-	once (id, callback) {
+	once(id, callback) {
 		return this.on(id, (...args) => {
 			this.off(id);
 			callback(...args);
@@ -76,7 +75,7 @@ export class WebSocketClient extends MinimalEventEmitter {
 	 * Create new minimal WebSocket client
 	 * @param {string} protocol 
 	 */
-	constructor (protocol = 'ws') {
+	constructor(protocol = 'ws') {
 		super();
 		this.protocol = protocol;
 	}
@@ -90,11 +89,12 @@ export class WebSocketClient extends MinimalEventEmitter {
 	 * @param {string} url 
 	 * @returns {this}
 	 */
-	connect (url) {
+	connect(url) {
 		this.#socket = new WebSocket(url.replace(/^(.*:\/\/)?/, this.protocol + '://'));
 		this.#socket.addEventListener('open', () => this.emit('open'));
 		this.#socket.addEventListener('close', () => {
-			if (this.reconnectTimeout) setTimeout(() => this.connect(this.getURL()), this.reconnectTimeout);
+			if (this.reconnectTimeout)
+				setTimeout(() => this.connect(this.getURL()), this.reconnectTimeout);
 			this.emit('close');
 		});
 		this.#socket.addEventListener('message', ({ data }) => {
@@ -114,7 +114,7 @@ export class WebSocketClient extends MinimalEventEmitter {
 	 * @param {string} reason 
 	 * @returns {this}
 	 */
-	disconnect (code, reason) {
+	disconnect(code, reason) {
 		this.#socket?.close(code, reason);
 		return this;
 	}
@@ -124,7 +124,7 @@ export class WebSocketClient extends MinimalEventEmitter {
 	 * @param {any} message 
 	 * @returns {this}
 	 */
-	send (message) {
+	send(message) {
 		this.#socket?.send(JSON.stringify(message));
 		return this;
 	}
@@ -133,7 +133,7 @@ export class WebSocketClient extends MinimalEventEmitter {
 	 * Get current URL
 	 * @returns {string}
 	 */
-	getURL () {
+	getURL() {
 		return this.#socket?.url;
 	}
 }

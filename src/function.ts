@@ -1,14 +1,14 @@
-
-export function throttle (callback: Function, millis: number) {
+export function throttle(callback: Function, millis: number): Function {
 	let last = 0;
 	return (...args: any[]): void => {
-		if (Date.now() - last < millis) return;
+		if (Date.now() - last < millis)
+			return;
 		last = Date.now();
 		callback(...args);
 	};
 }
 
-export function debounce (callback: Function, millis: number) {
+export function debounce(callback: Function, millis: number): Function {
 	let timer: any;
 	const debounced = (...args: any[]) => {
 		clearTimeout(timer);
@@ -18,6 +18,6 @@ export function debounce (callback: Function, millis: number) {
 	return debounced;
 }
 
-export function chain (...callbacks: Function[]) {
+export function chain(...callbacks: Function[]): Function {
 	return (...args: any[]) => callbacks.slice(1).reduce((value, callback) => callback(value), callbacks[0](...args));
 }

@@ -8,7 +8,7 @@ interface Dictionary {
 	[index: string]: any
 }
 
-export function destructDate (date = new Date(), addMonth = true) {
+export function destructDate(date = new Date(), addMonth = true): Dictionary {
 	return {
 		year: date.getFullYear(),
 		month: date.getMonth() + Number(addMonth),
@@ -42,7 +42,7 @@ const formatConfig = {
 	T: { prop: 'time', now: true }
 } as Dictionary;
 
-export function createTimeFormat (format: string, prefix = '%', addMonth = true) {
+export function createTimeFormat (format: string, prefix = '%', addMonth = true): (date: Date, utc: boolean, names: boolean) => string {
 	return (date = new Date(), utc = false, names = false) => {
 		const props = destructDate(date, addMonth);
 		return format.replace(new RegExp(Object.keys(formatConfig).map((key) => prefix + key).join('|'), 'g'), (key) => {
