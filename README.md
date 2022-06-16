@@ -31,16 +31,6 @@ console.log(wrap(7, 5, -5)); // -2
 ```
 
 ```js
-import { createServer } from 'http';
-import { createRequestListener } from 'lingcod/server';
-
-const requestListener = createRequestListener('./public/');
-const httpServer = createServer(requestListener);
-
-httpServer.listen(8080);
-```
-
-```js
 import { deepClone } from 'lingcod/object';
 
 const original = { a: 1, b: { c: 2 } };
