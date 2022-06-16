@@ -137,3 +137,13 @@ export class WebSocketClient extends MinimalEventEmitter {
 		return this.#socket?.url;
 	}
 }
+
+/**
+ * Return promise of an event
+ * @param {any} target 
+ * @param {string} event 
+ * @returns {Promise}
+ */
+export function promisifyEvent(target, event) {
+	return new Promise((resolve) => target.addEventListener(event, ({ detail }) => resolve(detail)));
+}
