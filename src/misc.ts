@@ -10,7 +10,7 @@ export function isPrimitive(value: any): boolean {
 	return Object(value) !== value;
 }
 
-export function typeOf(value: any): string {
+export function typeNameOf(value: any): string {
 	return isNullish(value)
 		? String(value)
 		: value?.constructor?.name ?? 'Object';

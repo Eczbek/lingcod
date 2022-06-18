@@ -1,4 +1,4 @@
-import { typeOf, isPrimitive } from './misc.js';
+import { typeNameOf, isPrimitive } from './misc.js';
 
 
 export function isEmpty(object: Object): boolean {
@@ -17,7 +17,7 @@ export function deepClone(value: any, depth = Infinity): any {
 		if (hash.has(object))
 			return hash.get(object);
 		const copy = (() => {
-			switch (typeOf(object)) {
+			switch (typeNameOf(object)) {
 				case 'Map':
 					return new Map([...object]);
 				case 'Set':
@@ -39,8 +39,8 @@ export function deepClone(value: any, depth = Infinity): any {
 export function deepCompare(value1: any, value2: any, depth = Infinity): boolean {
 	if (--depth < 0)
 		return true;
-	const type = typeOf(value1);
-	if (type !== typeOf(value2))
+	const type = typeNameOf(value1);
+	if (type !== typeNameOf(value2))
 		return false;
 	switch (type) {
 		case 'Object':
@@ -56,8 +56,8 @@ export function deepCompare(value1: any, value2: any, depth = Infinity): boolean
 }
 
 export function deepMerge(value1: any, value2: any, arrayReplace = false, depth = Infinity): any {
-	const type = typeOf(value1);
-	if (depth-- > 0 || type === typeOf(value2))
+	const type = typeNameOf(value1);
+	if (depth-- > 0 || type === typeNameOf(value2))
 		switch (type) {
 			case 'Object':
 				Object.entries(value2).forEach(([key, value]) => value1[key] = Object.hasOwn(value1, key) ? deepMerge(value1[key], value, arrayReplace, depth) : value);
@@ -78,7 +78,7 @@ export function deepMerge(value1: any, value2: any, arrayReplace = false, depth 
 export function extract(value: any, path: any[]): any {
 	if (path.length) {
 		const [key, ...keys] = path;
-		switch (typeOf(value)) {
+		switch (typeNameOf(value)) {
 			case 'Object':
 			case 'Array':
 				return extract(value[key], keys);
@@ -94,7 +94,7 @@ export function extract(value: any, path: any[]): any {
 export function deepRemove(value: any, path: any[]): any {
 	const key = path.at(-1);
 	const object = extract(value, path.slice(0, -1));
-	switch (typeOf(object)) {
+	switch (typeNameOf(object)) {
 		case 'Object':
 			delete object[key];
 			break;
@@ -119,7 +119,7 @@ export function recurse(value: any, callback: (value: any, path: any[]) => void,
 			values.push(value);
 			loop(value, path, values);
 		}
-		switch (typeOf(object)) {
+		switch (typeNameOf(object)) {
 			case 'Object':
 			case 'Array':
 				Object.entries(object).forEach(([key, value]) => handle(key, value));
