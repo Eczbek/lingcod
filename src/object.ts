@@ -11,7 +11,7 @@ export function filterByProps(objects: Object[], properties: Object, compareCall
 
 export function deepClone(object: any, depth = Infinity): any {
 	const hash = new Map();
-	const result = (function clone(currentObject = object, currentDepth = depth): any {
+	return (function clone(currentObject = object, currentDepth = depth): any {
 		if (--currentDepth < 0 || isPrimitive(currentObject))
 			return currentObject;
 		if (hash.has(currentObject))
@@ -32,12 +32,11 @@ export function deepClone(object: any, depth = Infinity): any {
 		hash.set(currentObject, copy);
 		return Object.assign(copy, ...Object.entries(currentObject).map(([key, value]) => ({ [key]: clone(value, currentDepth) })));
 	})();
-	return result;
 }
 
 export function deepCompare(object1: any, object2: any, depth = Infinity): boolean {
 	const hash = new Map();
-	const result = (function compare(currentObject1 = object1, currentObject2 = object2, currentDepth = depth) {
+	return (function compare(currentObject1 = object1, currentObject2 = object2, currentDepth = depth) {
 		if (--currentDepth < 0 || hash.get(currentObject1) === currentObject2)
 			return true;
 		if (isPrimitive(currentObject1))
@@ -57,33 +56,39 @@ export function deepCompare(object1: any, object2: any, depth = Infinity): boole
 				return [...currentObject1].every((value, index, array) => compare(value, array[index], currentDepth));
 		}
 	})();
-	return result;
 }
 
-export function deepMerge(value1: any, value2: any, arrayReplace = false, depth = Infinity): any {
-	const type = typeNameOf(value1);
-	if (--depth >= 0 || type === typeNameOf(value2))
-		switch (type) {
-			case 'Object':
-				Object.entries(value2).forEach(([key, value]) => value1[key] = Object.hasOwn(value1, key)
-					? deepMerge(value1[key], value, arrayReplace, depth)
-					: value);
-				break;
-			case 'Array':
-				arrayReplace
-					? value2.forEach((value: any, index: number) => value1[index] = deepMerge(value1[index], value, arrayReplace, depth))
-					: value1.push(...value2);
-				break;
-			case 'Map':
-				[...value2].forEach(([key, value]) => value1.set(key, value1.has(key)
-					? deepMerge(value1.get(key), value)
-					: value));
-				break;
-			case 'Set':
-				[...value2].forEach((value) => value1.add(value));
-				break;
+export function deepMerge(object1: any, object2: any, overrideArrayIndices = false, depth = Infinity): void {
+	const hash = new Map();
+	(function merge(currentObject1 = object1, currentObject2 = object2, currentDepth = depth) {
+		const type = typeNameOf(currentObject1);
+		if (--currentDepth < 0 && hash.get(currentObject1) !== currentObject2 && type === typeNameOf(currentObject2)) {
+			if (!isPrimitive(currentObject1))
+				hash.set(currentObject1, currentObject2);
+			switch (type) {
+				case 'Object':
+					Object.entries(currentObject2).forEach(([key, value]) => currentObject2[key] = Object.hasOwn(currentObject1, key)
+						? merge(currentObject1[key], value, currentDepth)
+						: value);
+					break;
+				case 'Array':
+					if (overrideArrayIndices)
+						currentObject2.forEach((value: any, index: number) => currentObject1[index] = merge(currentObject1[index], value, currentDepth));
+					else
+						currentObject1.push(...currentObject2);
+					break;
+				case 'Map':
+					[...currentObject2].forEach(([key, value]) => currentObject1.set(key, currentObject1.has(key)
+						? merge(currentObject1.get(key), value, currentDepth)
+						: value));
+					break;
+				case 'Set':
+					[...currentObject2].forEach((value) => currentObject1.add(value));
+					break;
+			}
 		}
-	return value1;
+		return currentObject1;
+	})();
 }
 
 export function deepExtract(value: any, path: any[]): any {
