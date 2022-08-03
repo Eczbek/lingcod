@@ -5,68 +5,81 @@ export function isEmpty(object: Object): boolean {
 	return !Object.keys(object).length;
 }
 
-export function filterByProps(objects: Object[], props: Object, compareCallback = (value1: any, value2: any) => value1 === value2): Object[] {
-	return objects.filter((object: any) => Object.entries(props).every(([key, value]) => compareCallback(object[key], value)));
+export function filterByProps(objects: Object[], properties: Object, compareCallback = (value1: any, value2: any) => value1 === value2): Object[] {
+	return objects.filter((object: any) => Object.entries(properties).every(([key, value]) => compareCallback(object[key], value)));
 }
 
-export function deepClone(value: any, depth = Infinity): any {
+export function deepClone(object: any, depth = Infinity): any {
 	const hash = new Map();
-	const result = (function clone (object = value, currDepth = depth): any {
-		if (--currDepth < 0 || isPrimitive(object))
-			return object;
-		if (hash.has(object))
-			return hash.get(object);
+	const result = (function clone(currentObject = object, currentDepth = depth): any {
+		if (--currentDepth < 0 || isPrimitive(currentObject))
+			return currentObject;
+		if (hash.has(currentObject))
+			return hash.get(currentObject);
 		const copy = (() => {
-			switch (typeNameOf(object)) {
+			switch (typeNameOf(currentObject)) {
 				case 'Map':
-					return new Map([...object]);
+					return new Map([...currentObject]);
 				case 'Set':
-					return new Set(object);
+					return new Set(currentObject);
 				case 'Date':
-					return new Date(object);
+					return new Date(currentObject);
 				case 'RegExp':
-					return new RegExp(object.source, object.flags);
+					return new RegExp(currentObject.source, currentObject.flags);
 			}
-			return object.constructor?.() ?? Object.create(null);
+			return currentObject.constructor?.() ?? Object.create(null);
 		})();
-		hash.set(object, copy);
-		return Object.assign(copy, ...Object.entries(object).map(([key, value]) => ({ [key]: clone(value, currDepth) })));
+		hash.set(currentObject, copy);
+		return Object.assign(copy, ...Object.entries(currentObject).map(([key, value]) => ({ [key]: clone(value, currentDepth) })));
 	})();
 	hash.clear();
 	return result;
 }
 
-export function deepCompare(value1: any, value2: any, depth = Infinity): boolean {
-	if (--depth < 0)
-		return true;
-	const type = typeNameOf(value1);
-	if (type !== typeNameOf(value2))
-		return false;
-	switch (type) {
-		case 'Object':
-			return Object.entries(value1).every(([key, val]) => deepCompare(val, value2[key], depth));
-		case 'Array':
-			return value1.every((val: any, index: number) => deepCompare(val, value2[index], depth));
-		case 'Map':
-			return [...value1].every(([key, val]) => deepCompare(val, value2.get(key), depth));
-		case 'Set':
-			return [...value1].every((val, index) => deepCompare(val, [...value2][index], depth));
-	}
-	return value1 === value2;
+export function deepCompare(object1: any, object2: any, depth = Infinity): boolean {
+	const hash = new Map();
+	const result = (function compare(currentObject1 = object1, currentObject2 = object2, currentDepth = depth) {
+		if (--currentDepth < 0 || hash.get(currentObject1) === currentObject2)
+			return true;
+		if (isPrimitive(currentObject1))
+			return currentObject1 === currentObject2;
+		const type = typeNameOf(currentObject1);
+		if (type !== typeNameOf(currentObject2))
+			return false;
+		hash.set(currentObject1, currentObject2);
+		switch (type) {
+			case 'Object':
+				return Object.entries(currentObject1).every(([key, value]) => compare(value, currentObject2[key], currentDepth));
+			case 'Array':
+				return currentObject1.every((value: any, index: number) => compare(value, currentObject2[index], currentDepth));
+			case 'Map':
+				return [...currentObject1].every(([key, value]) => compare(value, currentObject2.get(key), currentDepth));
+			case 'Set':
+				return [...currentObject1].every((value, index, array) => compare(value, array[index], currentDepth));
+		}
+	})();
+	hash.clear();
+	return result;
 }
 
 export function deepMerge(value1: any, value2: any, arrayReplace = false, depth = Infinity): any {
 	const type = typeNameOf(value1);
-	if (depth-- > 0 || type === typeNameOf(value2))
+	if (--depth >= 0 || type === typeNameOf(value2))
 		switch (type) {
 			case 'Object':
-				Object.entries(value2).forEach(([key, value]) => value1[key] = Object.hasOwn(value1, key) ? deepMerge(value1[key], value, arrayReplace, depth) : value);
+				Object.entries(value2).forEach(([key, value]) => value1[key] = Object.hasOwn(value1, key)
+					? deepMerge(value1[key], value, arrayReplace, depth)
+					: value);
 				break;
 			case 'Array':
-				arrayReplace ? value2.forEach((value: any, index: number) => value1[index] = deepMerge(value1[index], value, arrayReplace, depth)) : value1.push(...value2);
+				arrayReplace
+					? value2.forEach((value: any, index: number) => value1[index] = deepMerge(value1[index], value, arrayReplace, depth))
+					: value1.push(...value2);
 				break;
 			case 'Map':
-				[...value2].forEach(([key, value]) => value1.set(key, value1.has(key) ? deepMerge(value1.get(key), value) : value));
+				[...value2].forEach(([key, value]) => value1.set(key, value1.has(key)
+					? deepMerge(value1.get(key), value)
+					: value));
 				break;
 			case 'Set':
 				[...value2].forEach((value) => value1.add(value));
@@ -75,17 +88,17 @@ export function deepMerge(value1: any, value2: any, arrayReplace = false, depth 
 	return value1;
 }
 
-export function extract(value: any, path: any[]): any {
+export function deepExtract(value: any, path: any[]): any {
 	if (path.length) {
 		const [key, ...keys] = path;
 		switch (typeNameOf(value)) {
 			case 'Object':
 			case 'Array':
-				return extract(value[key], keys);
+				return deepExtract(value[key], keys);
 			case 'Map':
-				return extract(value.get(key), keys);
+				return deepExtract(value.get(key), keys);
 			case 'Set':
-				return extract(key, keys);
+				return deepExtract(key, keys);
 		}
 	}
 	return value;
@@ -93,7 +106,7 @@ export function extract(value: any, path: any[]): any {
 
 export function deepRemove(value: any, path: any[]): any {
 	const key = path.at(-1);
-	const object = extract(value, path.slice(0, -1));
+	const object = deepExtract(value, path.slice(0, -1));
 	switch (typeNameOf(object)) {
 		case 'Object':
 			delete object[key];
@@ -109,29 +122,32 @@ export function deepRemove(value: any, path: any[]): any {
 	return value;
 }
 
-export function recurse(value: any, callback: (value: any, path: any[]) => void, check = (value: any, path: any[]) => true): void {
-	(function loop (object = value, keys: any[] = [], values = [value]) {
+export function recurse(object: any, callback: (value: any, path: any[]) => void, check = (value: any, path: any[]) => true, allowRecursion = false): void {
+	const hash = new Set();
+	(function loop(currentObject = object, keys: any[] = [], values = [object]) {
 		function handle (key: any, value: any) {
 			const path = [...keys, key];
 			callback(value, path);
-			if (!check(value, path) || isPrimitive(value) || values.includes(value))
+			if (!allowRecursion && hash.has(value) || !check(value, path) || isPrimitive(value) || values.includes(value))
 				return;
+			hash.add(value);
 			values.push(value);
 			loop(value, path, values);
 		}
-		switch (typeNameOf(object)) {
+		switch (typeNameOf(currentObject)) {
 			case 'Object':
 			case 'Array':
-				Object.entries(object).forEach(([key, value]) => handle(key, value));
+				Object.entries(currentObject).forEach(([key, value]) => handle(key, value));
 				break;
 			case 'Map':
-				[...object].forEach(([key, value]) => handle(key, value));
+				[...currentObject].forEach(([key, value]) => handle(key, value));
 				break;
 			case 'Set':
-				object.forEach((value: any) => handle(value, value));
+				currentObject.forEach((value: any) => handle(value, value));
 				break;
 		}
 	})();
+	hash.clear();
 }
 
 export function findPaths(value: any, findCallback: (value: any, path: any[]) => boolean, depth = Infinity): any[][] {
