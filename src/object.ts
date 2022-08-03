@@ -32,7 +32,6 @@ export function deepClone(object: any, depth = Infinity): any {
 		hash.set(currentObject, copy);
 		return Object.assign(copy, ...Object.entries(currentObject).map(([key, value]) => ({ [key]: clone(value, currentDepth) })));
 	})();
-	hash.clear();
 	return result;
 }
 
@@ -58,7 +57,6 @@ export function deepCompare(object1: any, object2: any, depth = Infinity): boole
 				return [...currentObject1].every((value, index, array) => compare(value, array[index], currentDepth));
 		}
 	})();
-	hash.clear();
 	return result;
 }
 
@@ -147,7 +145,6 @@ export function recurse(object: any, callback: (value: any, path: any[]) => void
 				break;
 		}
 	})();
-	hash.clear();
 }
 
 export function findPaths(value: any, findCallback: (value: any, path: any[]) => boolean, depth = Infinity): any[][] {
