@@ -152,12 +152,12 @@ export function recurse(object: any, callback: (value: any, path: any[]) => void
 	})();
 }
 
-export function findPaths(value: any, findCallback: (value: any, path: any[]) => boolean, depth = Infinity): any[][] {
+export function findPaths(value: any, findCallback: (value: any, path: any[]) => boolean, depth = Infinity, limit = Infinity): any[][] {
 	const paths: any[] = [];
 	recurse(value, (object, path) => {
 		if (findCallback(object, path))
 			paths.push(path);
-	}, (_, path) => path.length <= depth);
+	}, (_, path) => path.length <= depth && paths.length <= limit);
 	return paths;
 }
 
