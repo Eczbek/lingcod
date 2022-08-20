@@ -33,13 +33,3 @@ export function* PI(digits = Infinity): Generator<number> {
 		yield Number(x);
 	}
 }
-
-export function getFactors(number: number): number[] {
-	const factors = [];
-	for (let i = 2; i <= Math.sqrt(number); ++i) {
-		const j = number / i;
-		if (j % 1 === 0)
-			factors.push(i, j);
-	}
-	return factors;
-}
