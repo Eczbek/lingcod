@@ -100,13 +100,13 @@ export function deepRemove(value: any, path: any[]): any {
 	return value;
 }
 
-export function recurse(object: any, callback: (value: any, path: any[]) => void, check = (value: any, path: any[]) => true, allowRecursion = false): void {
+export function recurse(object: any, callback: (value: any, path: any[]) => void, check = (value: any, path: any[]) => true): void {
 	const hash = new Set();
 	(function loop(currentObject = object, keys: any[] = [], values = [object]) {
 		function handle (key: any, value: any) {
 			const path = [...keys, key];
 			callback(value, path);
-			if (!allowRecursion && hash.has(value) || !check(value, path) || isPrimitive(value) || values.includes(value))
+			if (hash.has(value) || !check(value, path) || isPrimitive(value) || values.includes(value))
 				return;
 			hash.add(value);
 			values.push(value);
