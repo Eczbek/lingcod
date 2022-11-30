@@ -19,8 +19,8 @@ export function wrap(number: number, max: number, min = 0): number {
 	return ((number - min) % diff + diff) % diff + min;
 }
 
-export function approxEqual(number1: number, number2: number, absEpsilon = 1e-12, relEpsilon = 1e-8): boolean {
-	return Math.abs(number1 - number2) <= Math.min(absEpsilon, Math.max(Math.abs(number1), Math.abs(number2)) * relEpsilon);
+export function approxEqual(number1: number, number2: number): boolean {
+	return Math.abs(number1 - number2) < Number.EPSILON;
 }
 
 export function* PI(digits = Infinity): Generator<number> {
