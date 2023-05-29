@@ -31,16 +31,6 @@ console.log(wrap(7, 5, -5)); // -2
 ```
 
 ```js
-import { deepClone } from 'lingcod/object';
-
-const original = { a: 1, b: { c: 2 } };
-const copy = deepClone(original);
-
-original.b.c = 3; // { a: 1, b: { c: 3 } }
-console.log(copy); // { a: 1, b: { c: 2 } }
-```
-
-```js
 import { randHexColor } from 'lingcod/random';
 
 console.log(randHexColor('#ff11ff', '#0000ff')); // '#4a01ff'
